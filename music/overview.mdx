@@ -1,5 +1,5 @@
 ---
-title: "Music Player: Playback, Queues, and Audio Filters"
+title: "Music Playback, Queue Management, and Audio Filters"
 sidebarTitle: "Overview"
 description: "Play music from YouTube, Spotify, Apple Music, and SoundCloud — control playback, shape your sound with filters, and sync with friends."
 ---
@@ -81,16 +81,16 @@ Filters shape the tone and texture of your audio in real time. Apply one or comb
 
 | Filter | Effect |
 |--------|--------|
-| `/equalizer` | Manually adjust frequency bands |
-| `/bassboost` | Boost low-end frequencies |
-| `/nightcore` | Speed up and pitch-shift for a nightcore effect |
-| `/8d` | Rotating 8D spatial audio effect |
-| `/lowpass` | Roll off high frequencies for a warmer sound |
+| `/filter equalizer` | Manually adjust individual frequency bands |
+| `/filter bassboost` | Boost low-end frequencies |
+| `/filter nightcore` | Speed up and pitch-shift for a nightcore effect |
+| `/filter 8d` | Rotating 8D spatial audio effect |
+| `/filter lowpass` | Roll off high frequencies for a warmer sound |
 
-Use `/filter` to see which filters are currently active, and `/filter reset` to clear all of them at once.
+Use `/filter` on its own to see which filters are currently active, and `/filter reset` to clear all of them at once.
 
 ```
-/bassboost
+/filter bassboost
 /filter
 /filter reset
 ```

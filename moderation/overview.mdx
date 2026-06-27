@@ -1,5 +1,5 @@
 ---
-title: "Moderation Commands and Tools in Percy"
+title: "Percy Moderation Commands: Ban, Kick, Mute and More"
 sidebarTitle: "Overview"
 description: "A full reference to Percy's moderation commands — ban, kick, mute, purge, and more — with required permissions and usage examples."
 ---
@@ -23,8 +23,6 @@ Percy's moderation suite gives your team the tools to keep your server safe and 
 | `/mute` | Applies the configured mute role to one or more members indefinitely. | Manage Roles |
 | `/unmute` | Removes the mute role from one or more members, cancelling any pending expiry timer. | Manage Roles |
 | `/tempmute` | Temporarily mutes a member for a specified duration; automatically unmutes when time is up. | Manage Roles |
-| `/selfmute` | Lets you voluntarily mute yourself for between 5 minutes and 24 hours. | — (any member) |
-| `/muterole` | Opens the interactive mute-role configuration dashboard. | Manage Roles + Manage Channels |
 | `/slowmode` | Sets the slowmode delay for the current channel, or pass `0s` to disable it. | Manage Channels |
 | `/purge` | Bulk-deletes messages that match the supplied filter flags. | Manage Messages |
 
@@ -57,11 +55,11 @@ Deletes up to 50 messages sent by bots in the current channel. You can combine m
 ### Timed mute
 
 ```
-/mute @User#1234 10m Cooldown
+/tempmute 10m @User#1234 Cooldown
 ```
 
 <Note>
-  Use `/tempmute` for a mute that automatically expires. `/mute` applies the role indefinitely until you manually run `/unmute`.
+  Use `/tempmute` for a mute that automatically expires. `/mute` applies the mute role indefinitely until you manually run `/unmute`.
 </Note>
 
 ## Purge Flags

@@ -21,22 +21,18 @@ Deposit cash into the bank to keep it safe, and withdraw when you need to spend.
 |---------|-------------|
 | `/balance` | Show your cash, bank, and total — or check another member with `/balance @User` |
 | `/balance leaderboard` | See the richest members on the server |
-| `/deposit <amount>` | Move cash into your bank |
+| `/deposit <amount>` | Move cash into your bank (use your full amount to empty your wallet) |
 | `/withdraw <amount>` | Pull coins out of your bank into cash |
 | `/transfer @User <amount>` | Send cash directly to another member |
 | `/daily` | Claim your daily reward and build a streak |
 
 ```
 /balance
-/deposit all
+/deposit 500
 /withdraw 500
 /transfer @User 200
 /daily
 ```
-
-<Note>
-  `/deposit all` accepts the keyword `all` to move your entire cash balance into the bank at once.
-</Note>
 
 ## Daily Streak Bonus
 
@@ -50,12 +46,13 @@ Claiming your daily reward once every 24 hours builds a **streak**. Each consecu
 | Day 4 | 400 coins |
 | Day 5 | 450 coins |
 | Day 6 | 500 coins |
-| Day 7+ | 550 coins (maximum) |
+| Day 7 | 550 coins |
+| Day 8+ | 600 coins (maximum) |
 
-The streak bonus caps at day 7, so the highest possible daily payout is **550 coins**. If you miss a day and more than **48 hours** pass since your last claim, your streak resets to 1.
+The streak bonus caps at 7 bonus steps, reached on day 8, so the highest possible daily payout is **600 coins**. If you miss a day and more than **48 hours** pass since your last claim, your streak resets to 1.
 
 <Tip>
-  Set a reminder to claim `/daily` at the same time each day. As long as you claim within the 24–48 hour window after your last claim, your streak keeps growing.
+  Set a reminder to claim `/daily` at the same time each day. Your streak keeps growing as long as you claim within 48 hours of your previous claim — missing that window resets it to 1.
 </Tip>
 
 ## Earning Activities

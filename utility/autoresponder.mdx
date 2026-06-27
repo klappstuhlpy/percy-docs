@@ -1,7 +1,7 @@
 ---
 title: "Autoresponder: Automatic Replies to Trigger Phrases"
 sidebarTitle: "Autoresponder"
-description: "Configure Percy to automatically reply when a message matches a keyword, exact phrase, or regular expression in your server."
+description: "Configure Percy to automatically reply when a message matches a keyword, exact phrase, or regular expression in your Discord server."
 ---
 
 Autoresponders let you define trigger phrases that Percy watches for in every message sent to your server. When a message matches a trigger, Percy replies instantly with your configured response — no human intervention required. They're great for answering common questions, surfacing important links, or adding a little personality to your community.
@@ -41,7 +41,7 @@ Your response text can include placeholders that Percy fills in when the autores
 | `/autoresponder` or `/ar` | List all autoresponders in this server |
 | `/autoresponder add <trigger> <response> [match_type]` | Add a new autoresponder |
 | `/autoresponder remove <trigger>` | Remove an autoresponder by its trigger |
-| `/autoresponder toggle <trigger> <enabled>` | Enable or disable an autoresponder without deleting it |
+| `/autoresponder toggle <enabled> <trigger>` | Enable or disable an autoresponder without deleting it |
 
 <Note>
   `match_type` defaults to `contains` if you leave it out.
@@ -67,13 +67,13 @@ Replies only when someone sends the message `!rules` and nothing else.
 
 **Temporarily disable without deleting:**
 ```
-/ar toggle "hello bot" false
+/ar toggle false "hello bot"
 ```
 Disables the trigger so it stops firing, preserving it for later.
 
 **Re-enable it:**
 ```
-/ar toggle "hello bot" true
+/ar toggle true "hello bot"
 ```
 
 ## Managing Your Autoresponders

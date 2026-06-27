@@ -1,5 +1,5 @@
 ---
-title: "Polls: Create and Manage Server Votes"
+title: "Polls: Timed Votes with Options, Threads, and History"
 sidebarTitle: "Polls"
 description: "Run structured polls with up to 8 options, a countdown timer, optional discussion threads, and a full vote history — all managed through slash commands."
 ---
@@ -21,7 +21,7 @@ When you create a poll, Percy posts an interactive card in your chosen channel. 
 | `/polls search [flags]` | Browse all polls in the server, with sorting and keyword filters. |
 | `/polls history [member]` | View a member's full voting history for this server's polls. |
 | `/polls debug <poll_id>` | Re-attach the interactive buttons to a poll message if they stop responding. |
-| `/polls config [flags]` | View or update server-wide poll settings (default channel, reason channel, ping role). |
+| `/polls config [flags]` | View or update server-wide poll settings (default channel, reason channel, ping role, or reset all). |
 
 <Note>
   `/polls create`, `/polls end`, `/polls delete`, `/polls edit`, `/polls debug`, and `/polls config` require **Manage Guild** or **Manage Messages**.
@@ -88,7 +88,7 @@ When using the slash command version of `/polls edit`, Percy opens a modal form 
 | `--showextrainfo` | Display extra metadata (requires Manage Messages). |
 
 <Note>
-  Use `/polls config` to set a default channel, a reason channel (for `--with_reason` votes), and a ping role. Without a default channel configured, you must pass `--channel` every time you create a poll.
+  Use `/polls config` to set a default channel, a reason channel (for `--with_reason` votes), and a ping role. Without a default channel configured, you must pass `--channel` every time you create a poll. Pass `--reset` to wipe all poll configuration back to defaults in one step.
 </Note>
 
 <Tip>

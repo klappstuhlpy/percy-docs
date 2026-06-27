@@ -1,5 +1,5 @@
 ---
-title: "Server Leveling: XP, Rank Cards, and Level Roles"
+title: "Server Leveling: XP, Rank Cards, and Level-Up Roles"
 sidebarTitle: "Leveling"
 description: "Reward active members with XP, rank cards, and automatic level roles. Configure multipliers, voice XP, and level-up announcements per server."
 ---
@@ -23,7 +23,7 @@ Both sources respect the same blacklists and multipliers you configure. XP multi
 |---|---|
 | `/level [member]` | Display your rank card, or someone else's if you pass a member. |
 | `/level leaderboard` | Show the top 10 members ranked by XP in the server. |
-| `/level set <member>` | **Admin.** Manually set a member's XP or level with `--xp` / `--level` flags. |
+| `/level set <target>` | **Admin.** Manually set a member's XP or level with `--xp` / `--level` flags. |
 | `/level config` | View the current leveling configuration for your server. |
 
 ### Configuration sub-commands
@@ -45,7 +45,7 @@ All `/level config` sub-commands require **Manage Guild** or **Manage Messages**
 ## Examples
 
 ```
-/level rank
+/level
 /level leaderboard
 /level config toggle true
 /level config channel #level-ups

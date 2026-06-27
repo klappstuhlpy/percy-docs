@@ -1,7 +1,7 @@
 ---
-title: "Discord Permissions Percy Needs to Function"
+title: "Discord Permissions Percy Needs to Function Correctly"
 sidebarTitle: "Permissions"
-description: "A complete breakdown of the Discord permissions Percy needs for each feature, and tips for granting them safely and correctly."
+description: "A full breakdown of every Discord permission Percy needs per feature, and tips for granting them safely without over-permissioning."
 ---
 
 Percy is designed to work right out of the box with the permissions requested during the invite flow. However, different features require different levels of access — and if a required permission is missing, the related commands will either fail silently or return an error. This page explains exactly which permissions each feature area needs so you can grant the right access, whether you're going with a simple Administrator setup or a tighter, minimal-permission configuration.
@@ -50,7 +50,7 @@ These permissions are required for Percy to function at a basic level in any cha
 | **View Audit Log** | Required for audit-log broadcasting and accurate mod-action attribution. |
 
 <Note>
-  Temporary bans, mutes, and lockdowns all run on Percy's internal timer system — they will fire at the correct time even after a bot restart, as long as Percy still has the required permissions when the timer expires.
+  Temporary bans, mutes, and lockdowns are fully persistent — they will fire at the correct time even after a bot restart, as long as Percy still has the required permissions when the action is due.
 </Note>
 
 ---

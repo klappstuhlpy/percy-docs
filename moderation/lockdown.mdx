@@ -6,9 +6,11 @@ description: "Use Percy's lockdown commands to instantly prevent @everyone from 
 
 A lockdown lets you freeze one or more channels at a moment's notice. When you lock a channel, Percy edits the `@everyone` permission overwrite to deny sending messages, adding reactions, using slash commands, and creating threads — effectively silencing the channel for all regular members without affecting moderators or roles with explicit allow overwrites. Lockdowns are reversible at any time, and Percy stores the original overwrites so restoring the channel returns it to exactly the state it was in before.
 
-## Required Bot Permissions
+## Required Permissions
 
 Percy needs the **Manage Roles** permission (either globally or as a channel overwrite) to edit the `@everyone` overwrite on each channel. Make sure Percy has an explicit **allow** for **Send Messages** in the channels you want to be able to lock, or it may lock itself out.
+
+The member running the lockdown command must hold **Ban Members** and **Manage Messages** permissions.
 
 <Note>
   If Percy detects that locking the current channel could prevent it from sending messages there, it will warn you and ask whether you want to resolve the permission issue before proceeding.

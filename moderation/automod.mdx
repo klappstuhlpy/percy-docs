@@ -17,6 +17,24 @@ Running `/moderation` with no sub-command displays a summary of every AutoMod fe
 ## Command Reference
 
 <AccordionGroup>
+  <Accordion title="/moderation auditlog #channel — Set the audit log channel">
+    ```
+    /moderation auditlog #mod-log
+    ```
+
+    Enables Percy's text-based audit log and routes event notifications to the specified channel. Percy creates a private webhook in that channel, so it must have permission to **create webhooks** there. The audit log records events such as member joins, bans, kicks, and message deletions.
+
+    To adjust which events are logged, use:
+    ```
+    /moderation auditlog alter <flag> <true|false>
+    ```
+
+    To disable the audit log entirely, run:
+    ```
+    /moderation disable auditlog
+    ```
+  </Accordion>
+
   <Accordion title="/moderation alerts #channel — Set the alert channel">
     ```
     /moderation alerts #mod-alerts
@@ -91,11 +109,13 @@ Running `/moderation` with no sub-command displays a summary of every AutoMod fe
   <Accordion title="/moderation disable [feature] — Disable a feature">
     ```
     /moderation disable alerts
+    /moderation disable auditlog
     /moderation disable raid
     /moderation disable mentions
+    /moderation disable sentinel
     ```
 
-    Disables a specific AutoMod feature. Supported values are `alerts`, `raid`, and `mentions`. Disabling a feature does not delete its configuration — you can re-enable it at any time.
+    Disables a specific AutoMod feature. Supported values are `alerts`, `auditlog`, `raid`, `mentions`, and `sentinel`. Disabling a feature does not delete its configuration — you can re-enable it at any time.
   </Accordion>
 </AccordionGroup>
 
