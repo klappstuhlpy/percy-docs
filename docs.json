@@ -1,10 +1,11 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "name": "Percy",
-  "theme": "almond",
+  "theme": "mint",
   "colors": {
     "primary": "#dedede",
-    "light": "#eb7d11"
+    "light": "#D97757",
+    "dark": "#D97757"
   },
   "favicon": "https://media.brand.dev/b3ea5921-97d6-4dda-9719-2b759af4eb1f.png",
   "logo": {
