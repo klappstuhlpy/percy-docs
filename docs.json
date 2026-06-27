@@ -4,18 +4,25 @@
   "theme": "almond",
   "colors": {
     "primary": "#dedede",
-    "light": "#fbde58"
+    "light": "#eb7d11"
   },
   "favicon": "https://media.brand.dev/b3ea5921-97d6-4dda-9719-2b759af4eb1f.png",
   "logo": {
-    "light": "https://media.brand.dev/d2aa9377-dc96-447c-87c9-0284e1bca028.png",
-    "dark": "https://media.brand.dev/d2aa9377-dc96-447c-87c9-0284e1bca028.png"
+    "light": "/images/a_63c5bfdd426832fb2fe7378ec34d7e6a.gif",
+    "dark": "/images/a_63c5bfdd426832fb2fe7378ec34d7e6a.gif",
+    "href": "https://percy.klappstuhl.me/"
   },
   "navbar": {
     "primary": {
       "type": "github",
       "href": "https://github.com/klappstuhlpy/Percy"
-    }
+    },
+    "links": [
+      {
+        "href": "https://percy.klappstuhl.me/dashboard",
+        "label": "Dashboard"
+      }
+    ]
   },
   "navigation": {
     "tabs": [
@@ -99,5 +106,6 @@
         ]
       }
     ]
-  }
+  },
+  "description": "The Documentation for  my personal multipurpose Discord Bot Percy."
 }
