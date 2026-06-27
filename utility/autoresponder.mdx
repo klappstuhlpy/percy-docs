@@ -38,7 +38,7 @@ Your response text can include placeholders that Percy fills in when the autores
 
 | Command | Description |
 |---|---|
-| `/autoresponder` or `/ar` | List all autoresponders in this server |
+| `/autoresponder list` or `/ar` | List all autoresponders in this server |
 | `/autoresponder add <trigger> <response> [match_type]` | Add a new autoresponder |
 | `/autoresponder remove <trigger>` | Remove an autoresponder by its trigger |
 | `/autoresponder toggle <enabled> <trigger>` | Enable or disable an autoresponder without deleting it |
@@ -78,7 +78,7 @@ Disables the trigger so it stops firing, preserving it for later.
 
 ## Managing Your Autoresponders
 
-Run `/autoresponder` (or `/ar`) at any time to see the full list of autoresponders configured in your server. Each entry shows the trigger, its match type, how many times it has fired, whether it is currently enabled, and a preview of the response.
+Run `/autoresponder list` (or `/ar`) at any time to see the full list of autoresponders configured in your server. Each entry shows the trigger, its match type, how many times it has fired, whether it is currently enabled, and a preview of the response.
 
 <Tip>
   Reach for `regex` match type when you need fine-grained control — for example, to match several related phrasings with a single rule. Make sure your regex is valid before saving; Percy will warn you if it isn't.

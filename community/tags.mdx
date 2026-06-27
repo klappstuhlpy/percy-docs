@@ -26,7 +26,7 @@ Tags are **per-server**: a tag you create in one server is not visible in anothe
 | `/tag transfer <member> <name>` | Send a transfer request to another member — they accept or decline via DM buttons. |
 | `/tag claim <name>` | Take ownership of a tag whose owner has left the server. |
 | `/tag export [server\|personal]` | Download your tags (or all server tags, if you're the server owner) as a CSV file. |
-| `/tag purge <member>` | **(Manage Messages)** Delete all tags owned by a specific user in this server. |
+| `/tag purge <member>` | **(Ban Members or Manage Messages)** Delete all tags owned by a specific user in this server. |
 
 ## Examples
 
@@ -86,7 +86,7 @@ If a tag owner leaves the server, run `/tag claim <name>` to take ownership. Per
 </Note>
 
 <Note>
-  Members with **Manage Messages** can delete any user's tags using `/tag purge <member>` or `/tag delete <name>`. Regular members can only delete their own tags.
+  Members with **Ban Members** or **Manage Messages** can delete any user's tags using `/tag purge <member>`. Regular members can only delete their own tags with `/tag delete <name>`.
 </Note>
 
 <Tip>

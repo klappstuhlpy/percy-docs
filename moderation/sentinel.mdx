@@ -4,7 +4,7 @@ sidebarTitle: "Sentinel"
 description: "Use Percy's Sentinel system to gate new members behind an image captcha challenge before granting them access to your server's channels."
 ---
 
-Sentinel is Percy's built-in member verification gate. When Sentinel is active, every new account that joins your server is immediately assigned a **lockdown role** that strips their access to all regular channels. They are then directed to a dedicated verification channel where they must solve a text-based captcha before the lockdown role is removed and they can participate. This prevents bots, raider accounts, and automated joins from interacting with your community before a human has confirmed they are real.
+Sentinel is Percy's built-in member verification gate. When Sentinel is active, every new account that joins your server is immediately assigned a **lockdown role** that strips their access to all regular channels. They are then directed to a dedicated verification channel where they must solve an image captcha before the lockdown role is removed and they can participate. This prevents bots, raider accounts, and automated joins from interacting with your community before a human has confirmed they are real.
 
 ## How Sentinel Works
 
@@ -65,7 +65,7 @@ Before setting up Sentinel, make sure Percy has the following permissions:
   </Step>
 
   <Step title="Deploy the verification message">
-    Click **Deploy Message** to post the captcha card into the verification channel. A modal appears so you can customise the title and body text of the card. Once deployed, Percy pins the message ID — if it is deleted, Sentinel deactivates automatically and notifies you.
+    Click **Deploy Message** to post the captcha card into the verification channel. A modal appears so you can customise the title and body text of the card. Once deployed, Percy records the message ID — if the message is deleted, Sentinel deactivates automatically and notifies you.
   </Step>
 
   <Step title="Configure enforcement rules (optional)">

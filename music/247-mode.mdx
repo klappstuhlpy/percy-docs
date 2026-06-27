@@ -18,7 +18,7 @@ Percy supports three distinct always-on sources. Pick the one that best fits how
     Loops one of your personal playlists on repeat. Great for a curated sound that reflects your server's taste.
   </Card>
   <Card title="Autoplay" icon="shuffle">
-    Uses YouTube recommendations seeded from recently played tracks. The queue grows organically based on what your server has been listening to.
+    Uses YouTube recommendations seeded from a track or search query you provide. The queue grows organically from that starting point, following YouTube's suggestion engine.
   </Card>
 </CardGroup>
 
@@ -48,10 +48,11 @@ Percy supports three distinct always-on sources. Pick the one that best fits how
     ```
   </Step>
   <Step title="Activate autoplay mode">
-    No arguments needed — Percy seeds recommendations from the server's recent listening history and keeps the queue topped up.
+    Provide a YouTube URL or a search query as the seed track. Percy plays that track first, then uses YouTube recommendations to keep the queue topped up indefinitely. Only YouTube links are accepted as seed URLs — for other platforms, use a plain search query instead.
 
     ```
-    /music 247 autoplay
+    /music 247 autoplay lofi hip hop beats
+    /music 247 autoplay https://www.youtube.com/watch?v=dQw4w9WgXcQ
     ```
   </Step>
   <Step title="Disable 24/7 mode">
