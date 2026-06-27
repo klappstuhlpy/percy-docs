@@ -1,0 +1,91 @@
+---
+title: "Personal Playlists: Save and Queue Your Favorites"
+sidebarTitle: "Playlists"
+description: "Create up to three personal playlists, save tracks from any source, and queue an entire playlist with one command — on any server Percy is in."
+---
+
+Personal playlists let you save the tracks you love and play them back whenever you want. You can build up to three playlists across any combination of sources — YouTube, Spotify, SoundCloud, or Apple Music — and queue an entire playlist with a single command. Your playlists belong to you, not to a server, so they follow you wherever Percy is.
+
+## Playlist limits
+
+Each account gets up to **three** personal playlists. On top of that, every account includes a built-in **Liked Songs** playlist that's created automatically when you first add a track to it. Liked Songs cannot be deleted.
+
+## Playlist commands
+
+| Command | Description |
+|---------|-------------|
+| `/playlist show` | View all your playlists and their tracks |
+| `/playlist create <name>` | Create a new playlist (max 3) |
+| `/playlist add <playlist> [url]` | Add the currently playing track, or a URL, to a playlist |
+| `/playlist remove <playlist> <track-id>` | Remove a specific track from a playlist |
+| `/playlist clear <playlist>` | Remove all tracks from a playlist |
+| `/playlist play <playlist>` | Add all playlist tracks to the queue and start playing |
+| `/playlist delete <playlist>` | Permanently delete a playlist and all its tracks |
+
+You can refer to a playlist by **name** or by its numeric **ID** — both work in every command that asks for a playlist.
+
+## Workflow: build and play a playlist
+
+<Steps>
+  <Step title="Create a playlist">
+    Give your new playlist a name up to 100 characters.
+
+    ```
+    /playlist create Chill Vibes
+    ```
+  </Step>
+  <Step title="Add the currently playing track">
+    While a song is playing, add it to your playlist without leaving the chat.
+
+    ```
+    /playlist add Chill Vibes
+    ```
+  </Step>
+  <Step title="Add a track by URL">
+    Paste a direct link to a track, album, or playlist from any supported source. Percy resolves it and adds the tracks.
+
+    ```
+    /playlist add Chill Vibes https://youtu.be/dQw4w9WgXcQ
+    /playlist add Chill Vibes https://open.spotify.com/album/...
+    ```
+  </Step>
+  <Step title="Queue it up">
+    Add every track in your playlist to the current queue. If nothing is playing, Percy starts immediately.
+
+    ```
+    /playlist play Chill Vibes
+    ```
+  </Step>
+</Steps>
+
+## Managing tracks
+
+Use `/playlist show` to browse your playlists and find track IDs. Once you have a track ID, you can remove individual tracks without clearing the whole playlist:
+
+```
+/playlist remove Chill Vibes 42
+```
+
+To wipe the slate clean without deleting the playlist itself, use `/playlist clear`:
+
+```
+/playlist clear Chill Vibes
+```
+
+When you're done with a playlist entirely, `/playlist delete` removes it and all its tracks permanently:
+
+```
+/playlist delete Chill Vibes
+```
+
+<Note>
+  Playlists are personal and server-independent. You can create a playlist on one server and play it on any other server that has Percy — your playlists always travel with your account.
+</Note>
+
+<Note>
+  **Liked Songs** is created automatically the first time you add a track to it. It works just like a regular playlist except it can never be deleted.
+</Note>
+
+<Tip>
+  If you're adding a Spotify album or playlist URL, Percy adds all its tracks to your playlist at once. Duplicate tracks are skipped automatically so you won't end up with repeated entries.
+</Tip>

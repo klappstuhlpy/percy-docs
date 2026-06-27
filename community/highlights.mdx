@@ -1,0 +1,74 @@
+---
+title: "Highlights: Get Notified When Your Keywords Are Mentioned"
+sidebarTitle: "Highlights"
+description: "Watch for specific words or phrases across your server and receive a DM with context whenever they come up — without pinging anyone else."
+---
+
+Highlights let you silently watch for words or phrases that matter to you. Whenever a message in the server contains one of your tracked keywords, Percy sends you a direct message with the trigger, a snippet of context from the conversation, and a link to jump straight to the message — no one else gets pinged.
+
+## How Highlights Work
+
+Percy monitors every message in servers where you have highlights configured. When a match is found, it queues a notification rather than sending it immediately. Every 15 seconds, Percy flushes the queue and delivers batched DMs — grouping multiple triggers for the same keyword into a single message to avoid flooding your inbox. Each DM includes the triggering message plus a few lines of conversation history above it for context.
+
+Highlights are **case-insensitive**: watching `Promotion` is identical to watching `promotion`.
+
+## Commands
+
+| Command | Description |
+|---|---|
+| `/highlight add <trigger>` | Watch a new keyword or phrase. |
+| `/highlight remove <trigger>` | Stop watching a keyword or phrase. |
+| `/highlight list` | See all the words and phrases you are currently watching. |
+| `/highlight block <user_or_channel>` | Prevent a specific user or channel from triggering your highlights. |
+| `/highlight unblock <user_or_channel>` | Remove a user or channel from your block list. |
+| `/highlight blocked` | List everything on your highlight block list. |
+| `/highlight import <server>` | Copy your highlights from another server into this one. |
+
+## Examples
+
+```
+/highlight add "your name"
+/highlight add promotion
+/highlight add "looking for staff"
+```
+
+Multi-word phrases work too — just wrap them in quotes so Percy treats them as a single trigger.
+
+## Setting Up Highlights
+
+<Steps>
+  <Step title="Add your first keyword">
+    Run `/highlight add <word>` with any word or phrase you want to track. Percy confirms the addition with an ephemeral message.
+  </Step>
+  <Step title="Block noisy sources">
+    If a particular channel or user generates false positives, run `/highlight block #bot-commands` or `/highlight block @SomeUser` to silence that source without removing the keyword.
+  </Step>
+  <Step title="Check your list">
+    Run `/highlight list` to review everything you are watching. Run `/highlight blocked` to see what you have silenced.
+  </Step>
+  <Step title="Import from another server (optional)">
+    If you track the same keywords across multiple servers, run `/highlight import <server>` to copy your existing highlights from a different server into the current one. Use the autocomplete to select from servers where you already have highlights set up.
+  </Step>
+</Steps>
+
+## What the DM Looks Like
+
+When a highlight fires, Percy sends you an embed in DMs containing:
+
+- The keyword that was triggered (shown in the embed title).
+- The last few messages sent before the trigger, for context.
+- The triggering message itself, highlighted in bold.
+- A **jump link** pointing directly to the message in the server.
+- A footer showing which server the message came from.
+
+<Note>
+  You only receive highlight notifications for servers where Percy is present and where you have highlights configured. Highlights do not carry over between servers automatically — use `/highlight import` to sync them.
+</Note>
+
+<Note>
+  Percy will not notify you of your own messages or messages from users on your block list.
+</Note>
+
+<Tip>
+  Use `/highlight block #general` to mute a high-traffic channel where your keyword appears constantly but rarely relevantly — rather than removing the keyword entirely.
+</Tip>

@@ -1,0 +1,74 @@
+---
+title: "Giveaways: Run Contests and Pick Winners Automatically"
+sidebarTitle: "Giveaways"
+description: "Host timed giveaways with automatic winner selection. Members enter with one click, and Percy announces winners when the timer runs out."
+---
+
+Percy's giveaway feature lets you host transparent, automated contests in your server. You set a prize, a deadline, and how many winners to draw — Percy handles the rest. When the timer ends, winners are chosen at random from everyone who entered and announced in the channel.
+
+## How Giveaways Work
+
+When you create a giveaway, Percy posts an embed in the target channel with an **Enter** button. Members click the button to add themselves to the entry pool. Each member can only enter once. When the giveaway ends — either by timer or manually — Percy randomly selects the configured number of winners from the pool, mentions them in a reply, and updates the embed to show the final results. If eligible entries remain after the draw, a **Reroll** button appears so the creator can pick a fresh set of winners without running a new giveaway.
+
+## Commands
+
+| Command | Description |
+|---|---|
+| `/giveaway create <when> <prize> [flags]` | Create a new giveaway. `when` is a plain-English duration like `24h` or `7d`. |
+| `/giveaway end <giveaway_id>` | End a running giveaway early and draw winners immediately. |
+
+<Note>
+  Both commands require **Manage Guild** or **Manage Messages**.
+</Note>
+
+## Creation Flags
+
+| Flag | Short | Description |
+|---|---|---|
+| `--winners <n>` | `-w` | Number of winners to draw (default: `1`). |
+| `--description <text>` | `-d` | Optional description shown on the giveaway embed. Use this to list entry requirements or prizes details. |
+| `--channel <#channel>` | `-ch` | Post the giveaway in a specific channel. Defaults to the current channel. |
+
+## Examples
+
+```
+/giveaway create 24h "Discord Nitro" --winners 1
+```
+
+```
+/giveaway create 7d "Steam Game Key" --winners 3 --channel #giveaways
+```
+
+## Running a Giveaway Step by Step
+
+<Steps>
+  <Step title="Create the giveaway">
+    Run `/giveaway create` with a duration, a prize name, and any optional flags. Percy posts the giveaway embed immediately with the **Enter** button active.
+  </Step>
+  <Step title="Members enter">
+    Anyone who wants to win clicks the **Enter** button. Percy confirms their entry with an ephemeral message and updates the entry count on the embed.
+  </Step>
+  <Step title="Winners are drawn">
+    When the timer expires, Percy randomly selects winners from the entry pool, mentions them in a reply to the giveaway message, and locks the embed to show the final state.
+  </Step>
+  <Step title="Reroll if needed">
+    If the draw needs to be repeated — for example, if a winner is unavailable — the giveaway creator can click the **Reroll** button that appears after the giveaway ends. Rerolling picks a new random winner from the remaining entries.
+  </Step>
+</Steps>
+
+## After the Giveaway Ends
+
+Once Percy draws winners:
+
+- The original embed updates to show winner names, the final entry count, and the end time.
+- A reply is posted in the same channel mentioning each winner.
+- If entries remain in the pool, a **Reroll** button appears on the winner announcement. Only the creator of the giveaway can use it.
+- Members who have left the server are automatically excluded from the winner pool — their slots roll over to other valid entrants.
+
+<Warning>
+  Percy must have **Send Messages** and **Embed Links** permissions in the target channel. If you use `--channel`, make sure Percy has access to that channel before creating the giveaway.
+</Warning>
+
+<Tip>
+  Use `--description` to communicate entry requirements clearly, such as "Must be a server member for at least 7 days" or "Reaction roles must be set before entering." This text appears directly on the giveaway embed where everyone can see it.
+</Tip>

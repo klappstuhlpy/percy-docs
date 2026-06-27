@@ -1,0 +1,98 @@
+---
+title: "Server Economy: Banking, Daily Rewards, and Activities"
+sidebarTitle: "Overview"
+description: "Learn how Percy's per-server economy works — manage your wallet and bank, claim daily rewards, go fishing or hunting, and climb the leaderboard."
+---
+
+Percy's economy gives every member of your server a wallet they can earn, spend, save, and wager. Coins live on a per-server basis, so your balance in one server is completely separate from any other. There are two places your coins can sit: **cash** (your wallet, spendable anywhere) and the **bank** (safe storage that can't be lost to games or transfers until you withdraw it). Moving money between the two is instant and free.
+
+## Wallet vs. Bank
+
+| Location | What it's for | Can be spent directly? |
+|----------|---------------|------------------------|
+| **Cash** | Everyday spending, games, the shop, transfers | Yes |
+| **Bank** | Safe long-term storage | No — withdraw first |
+
+Deposit cash into the bank to keep it safe, and withdraw when you need to spend. Games and the shop always draw from your **cash** balance, so make sure you've withdrawn before you play.
+
+## Core Commands
+
+| Command | Description |
+|---------|-------------|
+| `/balance` | Show your cash, bank, and total — or check another member with `/balance @User` |
+| `/balance leaderboard` | See the richest members on the server |
+| `/deposit <amount>` | Move cash into your bank |
+| `/withdraw <amount>` | Pull coins out of your bank into cash |
+| `/transfer @User <amount>` | Send cash directly to another member |
+| `/daily` | Claim your daily reward and build a streak |
+
+```
+/balance
+/deposit all
+/withdraw 500
+/transfer @User 200
+/daily
+```
+
+<Note>
+  `/deposit all` accepts the keyword `all` to move your entire cash balance into the bank at once.
+</Note>
+
+## Daily Streak Bonus
+
+Claiming your daily reward once every 24 hours builds a **streak**. Each consecutive day adds a bonus on top of the base payout, rewarding members who show up regularly.
+
+| Streak day | Payout |
+|------------|--------|
+| Day 1 | 250 coins |
+| Day 2 | 300 coins |
+| Day 3 | 350 coins |
+| Day 4 | 400 coins |
+| Day 5 | 450 coins |
+| Day 6 | 500 coins |
+| Day 7+ | 550 coins (maximum) |
+
+The streak bonus caps at day 7, so the highest possible daily payout is **550 coins**. If you miss a day and more than **48 hours** pass since your last claim, your streak resets to 1.
+
+<Tip>
+  Set a reminder to claim `/daily` at the same time each day. As long as you claim within the 24–48 hour window after your last claim, your streak keeps growing.
+</Tip>
+
+## Earning Activities
+
+Beyond the daily reward, you can earn coins by going fishing or hunting. Both commands pay out a random amount based on a weighted loot table — common catches pay a little, rare ones pay a lot.
+
+| Command | Cooldown | Description |
+|---------|----------|-------------|
+| `/fish` | 60 seconds | Cast a line for catches ranging from an old boot to a rare pearl |
+| `/hunt` | 90 seconds | Head out for higher variance payouts — rabbits to trophy stags |
+
+Hunting has a longer cooldown but higher maximum payouts than fishing. Both activities are boosted by **loot\_boost** items from the shop — see the [Shop](/economy/shop) page for details.
+
+## Admin Commands
+
+Server administrators (members with **Administrator** or **Manage Guild** permission) have access to commands that directly modify member balances.
+
+| Command | Description |
+|---------|-------------|
+| `/set-money @User <amount> <cash\|bank>` | Set a specific member's cash or bank balance |
+| `/add-money-role @Role <amount> <cash\|bank>` | Add coins to every member who holds a given role |
+| `/remove-money @User <amount> <cash\|bank>` | Deduct coins from a specific member's balance |
+
+<Note>
+  Economy data is stored per-server. A member's balance in your server is not shared with or affected by any other server.
+</Note>
+
+---
+
+<CardGroup cols={3}>
+  <Card title="Shop" icon="store" href="/economy/shop">
+    Browse, buy, sell, and use items. Admins can build a fully custom shop with cash payouts, lootboxes, roles, and timed boosts.
+  </Card>
+  <Card title="Games" icon="gamepad-2" href="/economy/games">
+    Wager your coins in Blackjack, Poker, Roulette, Slots, and many more casino and mini-games.
+  </Card>
+  <Card title="Lottery" icon="ticket" href="/economy/lottery">
+    Buy tickets for the server lottery and compete for a growing jackpot — more tickets mean better odds.
+  </Card>
+</CardGroup>

@@ -1,0 +1,111 @@
+---
+title: "Server Leveling: XP, Rank Cards, and Level Roles"
+sidebarTitle: "Leveling"
+description: "Reward active members with XP, rank cards, and automatic level roles. Configure multipliers, voice XP, and level-up announcements per server."
+---
+
+Percy's leveling system tracks how active members are in your server and rewards them with XP, a visual rank card, and optional roles when they reach certain levels. Everything is per-server and stays off until you turn it on, so you stay in full control.
+
+## How XP Is Earned
+
+Members earn XP in two ways:
+
+- **Sending messages** — every qualifying message grants XP. Messages shorter than 3 characters or sent by bots are ignored. A per-member cooldown prevents spam from inflating scores.
+- **Voice activity** — members in a voice channel earn XP every minute, as long as at least two humans are present and the member is not AFK, server-deafened, or self-deafened.
+
+Both sources respect the same blacklists and multipliers you configure. XP multipliers from different sources (role multipliers, channel multipliers, active boosts) stack on top of each other.
+
+## Commands
+
+### Core commands
+
+| Command | Description |
+|---|---|
+| `/level [member]` | Display your rank card, or someone else's if you pass a member. |
+| `/level leaderboard` | Show the top 10 members ranked by XP in the server. |
+| `/level set <member>` | **Admin.** Manually set a member's XP or level with `--xp` / `--level` flags. |
+| `/level config` | View the current leveling configuration for your server. |
+
+### Configuration sub-commands
+
+All `/level config` sub-commands require **Manage Guild** or **Manage Messages**.
+
+| Sub-command | Description |
+|---|---|
+| `/level config toggle <true\|false>` | Enable or disable the leveling system for your server. |
+| `/level config delete-after-leave <true\|false>` | Wipe a member's XP data when they leave the server. |
+| `/level config roles` | Open the interactive panel to add or remove level-up roles. |
+| `/level config message <text>` | Set a custom level-up announcement message. |
+| `/level config channel [channel]` | Set where level-up messages are sent — a specific channel, the source channel, DMs, or nowhere. |
+| `/level config ignore <entities…>` | Blacklist roles, channels, or users from earning XP. |
+| `/level config unignore <entities…>` | Remove entities from the XP blacklist. |
+| `/level config multiplier` | Open the interactive panel to assign XP multipliers to roles and channels. |
+| `/level config voice <true\|false> [xp_per_minute]` | Toggle voice XP and optionally set the per-minute rate (1–1 000). |
+
+## Examples
+
+```
+/level rank
+/level leaderboard
+/level config toggle true
+/level config channel #level-ups
+/level config roles
+/level config multiplier
+/level config voice true 10
+```
+
+## Setting Up Leveling
+
+<Steps>
+  <Step title="Enable the system">
+    Run `/level config toggle true`. Percy will create a default configuration for your server.
+  </Step>
+  <Step title="Choose where announcements go">
+    Run `/level config channel #level-ups` to send all level-up messages to a dedicated channel. Pass `dm` to slide them into the member's DMs, or leave the argument empty to disable announcements entirely.
+  </Step>
+  <Step title="Assign level roles">
+    Run `/level config roles` to open the interactive role editor. Add a role and the level required to earn it. Percy assigns the role automatically when a member hits that level.
+  </Step>
+  <Step title="Set XP multipliers (optional)">
+    Run `/level config multiplier` to boost XP gain for certain roles or channels. For example, you can give server boosters a 2× multiplier so their activity counts for double.
+  </Step>
+  <Step title="Enable voice XP (optional)">
+    Run `/level config voice true 10` to grant 10 XP per minute to members active in voice channels.
+  </Step>
+</Steps>
+
+## Voice XP Details
+
+The voice XP loop runs every minute. Percy checks every populated voice channel on your server and awards `voice_xp` points to each qualifying member. A member is **skipped** if:
+
+- They are the only human in the channel (fewer than 2 humans required).
+- They are AFK, server-deafened, or self-deafened.
+- They appear on the leveling blacklist.
+
+The per-minute XP rate defaults to the value you set with `/level config voice`. Active economy boosts and vote multipliers stack on top of it.
+
+## Level-Up Message Template
+
+Customize what Percy says when a member levels up with `/level config message`. Use these placeholders in your message:
+
+| Placeholder | Replaced with |
+|---|---|
+| `{user}` | A mention of the member who leveled up. |
+| `{level}` | The new level they just reached. |
+
+**Example:**
+```
+/level config message "🎉 {user} just reached level {level}! Keep it up!"
+```
+
+<Note>
+  Leveling is **disabled by default**. You must run `/level config toggle true` before any XP is earned in your server.
+</Note>
+
+<Note>
+  XP multipliers from different sources stack multiplicatively. A member with a 2× role multiplier in a 1.5× channel earns 3× the base XP.
+</Note>
+
+<Tip>
+  Use `/level config ignore #bot-spam` to stop members from farming XP in bot command channels.
+</Tip>

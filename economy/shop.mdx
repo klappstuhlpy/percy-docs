@@ -1,0 +1,122 @@
+---
+title: "Shop System: Buying, Selling, and Using Items"
+sidebarTitle: "Shop"
+description: "Browse your server's shop, buy and sell items with your cash balance, trigger item effects like cash payouts and role grants, and check active perks."
+---
+
+Each server can have its own fully custom shop stocked by admins. You browse it, spend your cash on items, and carry those items in your personal inventory until you sell or use them. Items can be plain collectibles, or they can have effects — a cash voucher, a lootbox, a Discord role, or a timed boost to your XP or loot earnings.
+
+## Browsing the Shop
+
+Run `/shop` or `/shop list` to see every item currently for sale. Each listing shows the item's name, price, description, and a short line describing what happens when you use it.
+
+```
+/shop
+```
+
+## Buying Items
+
+```
+/buy <item name> [quantity]
+```
+
+Purchases are paid in **cash**. If you don't have enough on hand, withdraw from your bank first with `/withdraw`. You can buy multiple copies of the same item by specifying a quantity — the total cost is the unit price multiplied by the quantity.
+
+<Tip>
+  Slash command autocomplete suggests matching item names as you type, so you don't need to remember exact spelling.
+</Tip>
+
+## Selling Items
+
+```
+/sell <item name> [quantity]
+```
+
+You can sell any item in your inventory back to the shop at **50% of its original purchase price**. You won't get full value back, so only sell items you're sure you won't use.
+
+## Viewing Your Inventory
+
+```
+/inventory
+/inventory @User
+```
+
+Your inventory lists every item you own, how many you have, their total sell value, and each item's use-effect. You can also check another member's inventory by mentioning them.
+
+## Using Items
+
+```
+/use <item name>
+```
+
+Using an item consumes one copy from your inventory and triggers its effect immediately. What happens depends on how the item was configured.
+
+### Item Effects
+
+| Effect | What happens when you use it |
+|--------|------------------------------|
+| **cash** | Redeems the item for a fixed coin payout deposited directly into your cash balance |
+| **lootbox** | Rolls a random payout around the item's base value — you might get a tiny amount, roughly the expected value, double it, or hit a rare jackpot of up to 6× |
+| **role** | Grants you a Discord role configured by an admin; the role is yours to keep |
+| **xp\_boost** | Activates a timed multiplier on all XP you earn through leveling (e.g. +50% XP for 120 minutes) |
+| **loot\_boost** | Activates a timed multiplier on all coins earned from `/fish` and `/hunt` (e.g. +100% payouts for 60 minutes) |
+
+Items with no effect are plain collectibles — they sit in your inventory as status symbols or server memorabilia but don't do anything mechanically when used.
+
+<Note>
+  If you already have a role that a **role** item would grant, the item is not consumed. Percy checks first so you don't waste it.
+</Note>
+
+## Checking Active Perks
+
+```
+/perks
+/perks @User
+```
+
+Run `/perks` to see all your currently active boosts — the boost type, the multiplier percentage, and when each one expires. You can also check another member's active perks.
+
+<Tip>
+  **xp\_boost** and **loot\_boost** are timed. Stack them strategically before a long fishing or hunting session, or before earning lots of XP, to maximize the benefit before they expire.
+</Tip>
+
+---
+
+## Admin: Managing Shop Items
+
+Members with **Administrator** or **Manage Guild** permission can add and remove items from the server shop.
+
+### Adding an Item
+
+```
+/shop add <name> <price> [effect] [value] [duration] [role] [description]
+```
+
+<Steps>
+  <Step title="Set the name and price">
+    Choose a display name and a purchase price in coins. If the name contains spaces, wrap it in quotes when using the prefix command.
+  </Step>
+  <Step title="Pick an effect">
+    Select one of the six effect types: `none`, `cash`, `lootbox`, `role`, `xp_boost`, or `loot_boost`. Leave this blank for a plain collectible.
+  </Step>
+  <Step title="Supply effect parameters">
+    - **cash / lootbox** — set `value` to the coin amount (the lootbox rolls around this number).
+    - **xp\_boost / loot\_boost** — set `value` to the bonus percentage (1–500) and `duration` to how many minutes the boost lasts (up to 10,080 minutes / 7 days).
+    - **role** — select the `role` parameter with the role you want the item to grant. Percy must have a role above it in the hierarchy.
+  </Step>
+  <Step title="Add a description">
+    Optionally provide a short description shown in the shop listing to tell members what the item is for.
+  </Step>
+</Steps>
+
+### Removing an Item
+
+```
+/shop remove <name>
+```
+
+Removing an item deletes it from the shop and clears it from all member inventories. This action cannot be undone.
+
+<Note>
+  Autocomplete works on `/shop remove` — start typing the item name and Percy will suggest matches from your server's shop.
+</Note>

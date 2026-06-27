@@ -1,0 +1,114 @@
+---
+title: "Discord Permissions Percy Needs to Function"
+sidebarTitle: "Permissions"
+description: "A complete breakdown of the Discord permissions Percy needs for each feature, and tips for granting them safely and correctly."
+---
+
+Percy is designed to work right out of the box with the permissions requested during the invite flow. However, different features require different levels of access — and if a required permission is missing, the related commands will either fail silently or return an error. This page explains exactly which permissions each feature area needs so you can grant the right access, whether you're going with a simple Administrator setup or a tighter, minimal-permission configuration.
+
+## Quick Setup vs. Minimal Permissions
+
+<Tip>
+  The easiest way to get Percy fully working is to grant it the **Administrator** permission during the invite flow. This gives Percy everything it needs for every feature and eliminates permission conflicts in individual channels. This is the recommended approach for most servers.
+</Tip>
+
+If your server has strict permission policies, you can instead grant Percy only the specific permissions it needs for the features you plan to use. Use the tables below as your reference.
+
+<Warning>
+  If Percy is missing a required permission, the affected command will fail. Percy will usually tell you which permission is missing in the error message — but some operations (like applying channel overwrites) may fail silently. When in doubt, check Percy's role permissions and any channel-level overrides.
+</Warning>
+
+## Permissions by Feature
+
+### Core (All Features)
+
+These permissions are required for Percy to function at a basic level in any channel. Without them, most commands will not work at all.
+
+| Permission | Why It's Needed |
+|---|---|
+| **View Channels** | Percy must be able to see a channel to read commands sent in it. |
+| **Send Messages** | Required to respond to any command in text channels. |
+| **Send Messages in Threads** | Required to respond inside threads. |
+| **Embed Links** | Nearly all of Percy's responses use rich embeds for formatting. |
+| **Read Message History** | Needed to reference previous messages (e.g. for the `purge` command). |
+| **Use External Emojis** | Percy uses custom emojis throughout its UI for reactions and status indicators. |
+| **Add Reactions** | Used by interactive menus, polls, and confirmation prompts. |
+| **Attach Files** | Required for features that send rendered images (rank cards, poker charts, captchas). |
+
+---
+
+### Moderation
+
+| Permission | Why It's Needed |
+|---|---|
+| **Ban Members** | Required for `ban`, `multiban`, `softban`, `tempban`, and raid-protection auto-bans. |
+| **Kick Members** | Required for the `kick` command and Sentinel bypass actions. |
+| **Moderate Members** | Required for `mute`, `unmute`, `tempmute`, and `selfmute` (Discord's timeout feature). |
+| **Manage Roles** | Required to assign and remove the mute role and sync permission overwrites. |
+| **Manage Channels** | Required for `lockdown` commands and automatic channel permission syncing. |
+| **Manage Messages** | Required for `purge` (bulk-delete), `slowmode`, and removing messages that trigger automod. |
+| **View Audit Log** | Required for audit-log broadcasting and accurate mod-action attribution. |
+
+<Note>
+  Temporary bans, mutes, and lockdowns all run on Percy's internal timer system — they will fire at the correct time even after a bot restart, as long as Percy still has the required permissions when the timer expires.
+</Note>
+
+---
+
+### Music
+
+| Permission | Why It's Needed |
+|---|---|
+| **Connect** | Required to join a voice channel for playback. |
+| **Speak** | Required to actually stream audio in the voice channel. |
+| **Move Members** | Required for certain queue management actions that move users between voice channels. |
+
+---
+
+### Leveling & Economy
+
+| Permission | Why It's Needed |
+|---|---|
+| **Manage Roles** | Required to award level-up roles and apply role-based XP multipliers. |
+| **Send Messages** | Required to post level-up announcements in the configured channel. |
+
+---
+
+### Sentinel (Captcha Verification)
+
+| Permission | Why It's Needed |
+|---|---|
+| **Manage Roles** | Required to hold back and then grant a verified member role after captcha completion. |
+| **Create Instant Invite** | Required for Sentinel to construct join-flow links used in the verification process. |
+| **Ban Members** / **Kick Members** | Required for the auto-ban or auto-kick bypass action when verification fails. |
+
+---
+
+### Community Features (Polls, Giveaways, Tags)
+
+| Permission | Why It's Needed |
+|---|---|
+| **Send Messages** | Required to post polls, giveaway announcements, and tag responses. |
+| **Embed Links** | Required for formatted poll and giveaway embeds. |
+| **Manage Messages** | Required for Percy to edit or close a poll or giveaway embed after it ends. |
+| **Mention \@everyone / \@here / All Roles** | Optional — only needed if you want Percy to ping a role when a poll or giveaway is created. |
+
+---
+
+## Channel-Level Overrides
+
+Discord allows permissions to be overridden at the channel level. If you grant Percy a permission in its role but then deny that same permission in a specific channel's settings, Percy won't be able to use it there. Make sure no channel-level denies are blocking permissions Percy needs.
+
+<Warning>
+  Channel overwrites take precedence over role permissions. If Percy seems to be missing a permission in one specific channel but works everywhere else, check that channel's **Edit Channel → Permissions** settings for any explicit denies on Percy's role.
+</Warning>
+
+## Checking Percy's Current Permissions
+
+You can review what permissions Percy has at any time:
+
+1. Go to **Server Settings → Roles** and find Percy's role.
+2. Check the **Permissions** tab for server-wide grants.
+3. In any channel, open **Edit Channel → Permissions** and look for Percy's role or the `@everyone` role to see channel-specific overrides.
+
+If you need further help with permissions, join the [Percy Support Server](https://discord.gg/3jSYQ9VNbA) and the community will be happy to assist.

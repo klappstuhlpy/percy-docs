@@ -1,0 +1,116 @@
+---
+title: "Audit Log: Track Moderation and Server Events"
+sidebarTitle: "Audit Log"
+description: "Set up Percy's audit log to post rich embeds whenever moderation actions or server changes happen — ban, kick, role update, and much more."
+---
+
+Percy's audit log watches your server in real time and posts a detailed embed to a channel of your choice whenever a moderation or server event occurs. Every embed includes who performed the action, who or what was targeted, any changes that were made, and the reason provided. This gives your moderation team a single, searchable record of everything that happens on the server.
+
+Audit log setup requires the **Manage Guild** or **Manage Messages** permission.
+
+## Setting Up the Audit Log
+
+<Steps>
+  <Step title="Designate a log channel">
+    Pick — or create — a channel where Percy should post log entries. Restrict it so only moderators can read it, then run:
+
+    ```
+    /moderation auditlog set #audit-logs
+    ```
+
+    Percy creates a webhook in that channel and starts posting events immediately.
+  </Step>
+  <Step title="Choose which events to log">
+    By default all supported event categories are active. Use `/moderation auditlog alter` to turn individual categories on or off:
+
+    ```
+    /moderation auditlog alter <flag> <true|false>
+    ```
+
+    Pass `all` as the flag to enable or disable every category at once:
+
+    ```
+    /moderation auditlog alter all false
+    /moderation auditlog alter "Member Management" true
+    ```
+
+    When you run the command, Percy will autocomplete available flag names so you don't need to memorise them.
+  </Step>
+  <Step title="Set up a separate alerts channel (optional)">
+    Moderation alerts are distinct from the audit log — they surface live AutoMod triggers and raid warnings as they happen. Point Percy at a dedicated channel:
+
+    ```
+    /moderation alerts #mod-alerts
+    ```
+
+    Keeping alerts separate from the audit log makes it easy to triage active incidents without scrolling past historical entries.
+  </Step>
+</Steps>
+
+## Events Logged
+
+Percy groups audit log events into named categories. You can toggle each category independently with `/moderation auditlog alter`.
+
+| Category | Events covered |
+|---|---|
+| **Member Management** | Bans, unbans, kicks |
+| **Member Logs** | Nickname changes, role assignments, voice moves and disconnects, member prunes |
+| **Message Logs** | Message deletes, bulk deletes, message pins and unpins |
+| **Channel Logs** | Channel creates, updates, and deletes |
+| **Overwrite Logs** | Permission overwrite creates, updates, and deletes |
+| **Role Logs** | Role creates, updates, and deletes |
+| **Invite Logs** | Invite creates and deletes |
+| **Webhook Logs** | Webhook creates, updates, and deletes |
+| **Integration Logs** | Integration creates, updates, and deletes |
+| **Thread Logs** | Thread creates, updates, and deletes |
+| **Stage Logs** | Stage instance creates, updates, and deletes |
+| **Emoji Logs** | Emoji creates, updates, and deletes |
+| **Sticker Logs** | Sticker creates, updates, and deletes |
+| **Bot Logs** | Bot additions to the server |
+| **Automod Logs** | AutoMod rule creates, updates, and deletes |
+| **Server Updates** | Guild-level setting changes |
+
+## Moderation Alerts
+
+Moderation alerts run alongside the audit log but serve a different purpose: they notify your team about events that need an immediate response, such as a raid or an AutoMod trigger, rather than logging historical changes.
+
+```
+/moderation alerts #mod-alerts
+```
+
+To disable alerts later, run:
+
+```
+/moderation disable alerts
+```
+
+You can review the current state of both the audit log and the alerts channel at any time by running `/moderation` with no subcommand.
+
+<Note>
+  The audit log channel should be visible only to your moderation team. Set Discord channel permissions to deny **View Channel** for `@everyone` and grant it only to your moderator roles.
+</Note>
+
+<Tip>
+  Use separate channels for the audit log and moderation alerts. The audit log gives you a complete history; the alerts channel surfaces events that need action right now. Mixing them makes both harder to use.
+</Tip>
+
+## Disabling the Audit Log
+
+If you need to stop logging temporarily, run:
+
+```
+/moderation disable auditlog
+```
+
+Cases and historical records are retained in Percy's database — only the channel posting stops. You can re-enable posting at any time with `/moderation auditlog set`.
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Server Setup" icon="gear" href="/configuration/server-setup">
+    Set a custom prefix and run through the full initial setup checklist.
+  </Card>
+  <Card title="Command Permissions" icon="shield-halved" href="/configuration/command-permissions">
+    Control which commands Percy responds to per channel and server-wide.
+  </Card>
+</CardGroup>

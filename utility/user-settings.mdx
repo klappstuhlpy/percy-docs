@@ -1,0 +1,96 @@
+---
+title: "Personal Settings: Timezone, Privacy, and Data Controls"
+sidebarTitle: "User Settings"
+description: "Manage your timezone, toggle presence and history tracking, export a copy of your data, or permanently delete it — all from one place."
+---
+
+Your personal settings control how Percy stores and uses information about you. From here you can set a timezone so that reminders and time displays always reflect your local time, choose whether Percy tracks your presence and name history, and exercise your full data rights — including exporting or permanently deleting everything Percy holds about you.
+
+## Viewing Your Settings
+
+Run `/settings` (or `/settings show`) to open your settings card. It shows your current timezone, the state of each tracking toggle, and buttons to manage them all in one place.
+
+## Timezone
+
+Percy uses your timezone to interpret relative times in reminders (`tomorrow at 9am`, `next friday`) and to display local times across all servers where Percy is active.
+
+### Commands
+
+| Command | Description |
+|---|---|
+| `/settings timezone set <timezone>` | Set your timezone |
+| `/settings timezone show` | See your current timezone and your local time right now |
+| `/settings timezone info <timezone>` | Look up the current time, UTC offset, DST status, and clock format for any timezone |
+| `/settings timezone reset` | Clear your saved timezone (reverts to UTC) |
+
+### Examples
+
+```
+/settings timezone set Europe/Berlin
+/settings timezone set America/New_York
+/settings timezone set Asia/Tokyo
+```
+
+You can also type common names like `Eastern Time`, `Pacific Time`, or abbreviations like `EST` and `PST` — Percy will resolve them automatically.
+
+<Tip>
+  Run `/settings timezone info Europe/Berlin` before setting a timezone to confirm the UTC offset and whether daylight saving time is currently active.
+</Tip>
+
+## Privacy & Tracking
+
+Percy can optionally record your presence activity and track changes to your name, nickname, and avatar. Both features are **on by default** and can be toggled off at any time. Stored history is automatically deleted after **30 days**.
+
+<Accordion title="Presence Tracking">
+  When enabled, Percy logs when you come online and go offline. This data powers presence-related features across servers.
+
+  Toggle it off from your `/settings` card, or run `/settings show` and click the **Presence Tracking** button.
+</Accordion>
+
+<Accordion title="Name & Avatar History">
+  When enabled, Percy keeps a record of your past usernames, nicknames, and avatars. Toggle it off to stop new entries from being stored.
+
+  Toggle it off from your `/settings` card, or run `/settings show` and click the **Name & Avatar History** button.
+</Accordion>
+
+<Note>
+  Disabling a tracking toggle stops **new** data from being collected. It does not remove data already stored. Use `/settings remove-personal-data` to erase existing history.
+</Note>
+
+## Data Rights
+
+Percy gives you full control over the data it holds about you, in line with GDPR principles.
+
+### Export your data
+
+```
+/settings request-data
+```
+
+Percy compiles everything it has stored about you — settings, reminders, presence and name history, economy stats, tags, highlights, and more — into a JSON file and sends it to your DMs.
+
+<Note>
+  Make sure your DMs are open from server members before running this command, otherwise Percy can't deliver the file.
+</Note>
+
+### Delete your personal data
+
+```
+/settings remove-personal-data
+```
+
+Permanently erases your stored presence history, name/nickname history, and avatar history. Percy will ask you to confirm before anything is deleted.
+
+<Warning>
+  Data deletion is **irreversible**. Once removed, Percy cannot recover your presence or name/avatar history.
+</Warning>
+
+### What Percy stores
+
+| Data type | Retention | Notes |
+|---|---|---|
+| Discord user ID | Indefinitely | Required for core functionality |
+| Timezone preference | Until you reset it | Used only to localise times |
+| Presence history | Up to 30 days | Auto-purged; opt-out available |
+| Name & avatar history | Up to 30 days | Auto-purged; opt-out available |
+| Command content (reminders, tags, etc.) | Until deleted by you | Managed via their own commands |

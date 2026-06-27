@@ -1,0 +1,89 @@
+---
+title: "Autoresponder: Automatic Replies to Trigger Phrases"
+sidebarTitle: "Autoresponder"
+description: "Configure Percy to automatically reply when a message matches a keyword, exact phrase, or regular expression in your server."
+---
+
+Autoresponders let you define trigger phrases that Percy watches for in every message sent to your server. When a message matches a trigger, Percy replies instantly with your configured response — no human intervention required. They're great for answering common questions, surfacing important links, or adding a little personality to your community.
+
+## How Matching Works
+
+Each autoresponder has a **match type** that controls how the trigger is compared against incoming messages:
+
+| Match Type | Behaviour |
+|---|---|
+| `contains` | Fires if the trigger phrase appears **anywhere** in the message (default) |
+| `exact` | Fires only if the **entire** message equals the trigger phrase |
+| `regex` | Fires if the message matches a **regular expression** |
+
+All match types are case-insensitive by default.
+
+<Warning>
+  Broad `contains` triggers (e.g. a single common word) may fire far more often than you expect. Use `exact` or `regex` to keep autoresponders precise and avoid noise.
+</Warning>
+
+## Response Placeholders
+
+Your response text can include placeholders that Percy fills in when the autoresponder fires:
+
+| Placeholder | Replaced with |
+|---|---|
+| `{user}` | A mention of the message author |
+| `{user.name}` | The author's display name |
+| `{server}` | The server name |
+| `{channel}` | A mention of the channel |
+| `{count}` | The current member count |
+
+## Commands
+
+| Command | Description |
+|---|---|
+| `/autoresponder` or `/ar` | List all autoresponders in this server |
+| `/autoresponder add <trigger> <response> [match_type]` | Add a new autoresponder |
+| `/autoresponder remove <trigger>` | Remove an autoresponder by its trigger |
+| `/autoresponder toggle <trigger> <enabled>` | Enable or disable an autoresponder without deleting it |
+
+<Note>
+  `match_type` defaults to `contains` if you leave it out.
+</Note>
+
+<Note>
+  Adding, removing, and toggling autoresponders requires the **Manage Server** permission.
+</Note>
+
+## Examples
+
+**Welcome message using a keyword trigger:**
+```
+/autoresponder add "hello bot" "Hello there! I'm Percy 👋" contains
+```
+Replies whenever someone's message includes "hello bot".
+
+**Rules reminder using an exact trigger:**
+```
+/autoresponder add "!rules" "Please read #rules for server guidelines." exact
+```
+Replies only when someone sends the message `!rules` and nothing else.
+
+**Temporarily disable without deleting:**
+```
+/ar toggle "hello bot" false
+```
+Disables the trigger so it stops firing, preserving it for later.
+
+**Re-enable it:**
+```
+/ar toggle "hello bot" true
+```
+
+## Managing Your Autoresponders
+
+Run `/autoresponder` (or `/ar`) at any time to see the full list of autoresponders configured in your server. Each entry shows the trigger, its match type, how many times it has fired, whether it is currently enabled, and a preview of the response.
+
+<Tip>
+  Reach for `regex` match type when you need fine-grained control — for example, to match several related phrasings with a single rule. Make sure your regex is valid before saving; Percy will warn you if it isn't.
+</Tip>
+
+<Note>
+  A server can have a maximum of **100** autoresponders. Percy processes them in order and stops at the **first** match per message.
+</Note>

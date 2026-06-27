@@ -1,0 +1,119 @@
+---
+title: "Reminders: Schedule Alerts with Natural Language"
+sidebarTitle: "Reminders"
+description: "Set one-off or recurring reminders using plain English. Percy pings you — or a group of friends — wherever and whenever you need it."
+---
+
+Percy's reminder system lets you schedule a personal alert using natural-sounding phrases instead of rigid date formats. Type something like `in 2 hours`, `next friday at 9am`, or `tomorrow at noon` and Percy will ping you the moment that time arrives. Reminders fire in the channel where you set them, or privately in your DMs if you prefer — and they can even be shared with friends so everyone gets pinged at once.
+
+## Creating a Reminder
+
+Use `/reminder create` (also available as `/remindme`, `/remind`, `/timer`, or with the `?` prefix as `?remind`) followed by a time and a message.
+
+```
+/reminder create <time> <message> [flags]
+```
+
+**Natural language time examples**
+
+| Input | Meaning |
+|---|---|
+| `in 2 hours` | 2 hours from now |
+| `next friday at 9am` | Upcoming Friday at 09:00 |
+| `tomorrow at noon` | Next day at 12:00 |
+| `3d` | 3 days from now |
+
+<Note>
+  Times are interpreted in UTC unless you have set a timezone with `/settings timezone set`. Set yours once and every reminder will automatically use your local time.
+</Note>
+
+## Flags
+
+Flags are optional modifiers you append to a `/reminder create` command to customise how and when the reminder fires.
+
+<Accordion title="--timezone / --tz <zone>">
+  Applies a specific timezone to this reminder only, overriding your saved timezone setting.
+
+  ```
+  /reminder create "friday at 5pm" "Team call" --tz Europe/Berlin
+  ```
+</Accordion>
+
+<Accordion title="--dm / --pm">
+  Delivers the reminder to your DMs instead of the current channel. Useful for private notes or when you won't be in a specific server channel at fire time.
+
+  ```
+  /reminder create 1h "Check your email" --dm
+  ```
+
+  <Note>
+    DM reminders cannot be shared with friends via `--share`. Use channel delivery if you want to ping others.
+  </Note>
+</Accordion>
+
+<Accordion title="--every <interval>">
+  Makes the reminder repeat on a fixed interval. The interval uses the same natural-language format as the initial time (`1d`, `12h`, `1w`, etc.).
+
+  ```
+  /reminder create 8am "Morning stand-up" --every 1d
+  ```
+</Accordion>
+
+<Accordion title="--count / --times <n>">
+  Caps a recurring reminder at `n` total firings (including the first). Requires `--every`.
+
+  ```
+  /reminder create 8am "Morning stand-up" --every 1d --count 5
+  ```
+</Accordion>
+
+<Accordion title="--share / --with @User1 @User2 …">
+  Pings up to 10 friends when the reminder fires. Mention each user after the flag.
+
+  ```
+  /reminder create 30m "Pizza's ready" --share @Alice @Bob
+  ```
+</Accordion>
+
+## Commands
+
+| Command | Description |
+|---|---|
+| `/reminder create <time> <message> [flags]` | Create a new reminder |
+| `/reminder list` | View all your active reminders with their IDs |
+| `/reminder delete <id>` | Delete a specific reminder by its ID |
+| `/reminder purge` | Delete **all** your active reminders |
+
+<Note>
+  Find the reminder ID by running `/reminder list` — it appears in brackets next to each entry (e.g. `#1 • [42]`).
+</Note>
+
+## Examples
+
+```
+/reminder create 2h "Submit the report"
+```
+Pings you in 2 hours with "Submit the report".
+
+```
+/reminder create "next monday at 9am" "Team standup" --dm
+```
+Sends a private DM reminder next Monday at 9:00 AM in your saved timezone.
+
+```
+/reminder create 1d "Hydrate!" --every 1d --count 7
+```
+Reminds you to hydrate every day for a week (7 total pings).
+
+```
+/reminder create 30m "Check the oven" --share @Alice @Bob
+```
+Pings you, Alice, and Bob in 30 minutes.
+
+## Snoozing a Reminder
+
+When a reminder fires, Percy attaches a **Snooze** button to the message. Click it to open a short prompt where you can enter a new duration (e.g. `10 minutes`) and reschedule immediately — no need to set a new reminder from scratch.
+
+<Tip>
+  Set your timezone once with `/settings timezone set` so you never have to use `--tz` on individual reminders. See [User Settings](/utility/user-settings) for details.
+</Tip>

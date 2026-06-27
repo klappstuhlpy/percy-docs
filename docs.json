@@ -1,72 +1,103 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mintlify Starter Kit",
+  "name": "Percy",
+  "theme": "almond",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#dedede",
+    "light": "#fbde58"
   },
-  "favicon": "/favicon.svg",
-  "navigation": {
-    "pages": [
-      {
-        "group": "Getting Started",
-        "pages": [
-          "index",
-          "quickstart"
-        ]
-      }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
-  },
+  "favicon": "https://media.brand.dev/b3ea5921-97d6-4dda-9719-2b759af4eb1f.png",
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "https://media.brand.dev/d2aa9377-dc96-447c-87c9-0284e1bca028.png",
+    "dark": "https://media.brand.dev/d2aa9377-dc96-447c-87c9-0284e1bca028.png"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
     "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://app.mintlify.com"
+      "type": "github",
+      "href": "https://github.com/klappstuhlpy/Percy"
     }
   },
-  "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guide",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "permissions"
+            ]
+          },
+          {
+            "group": "Moderation",
+            "pages": [
+              "moderation/overview",
+              "moderation/automod",
+              "moderation/sentinel",
+              "moderation/lockdown"
+            ]
+          },
+          {
+            "group": "Economy",
+            "pages": [
+              "economy/overview",
+              "economy/shop",
+              "economy/games",
+              "economy/lottery"
+            ]
+          },
+          {
+            "group": "Music",
+            "pages": [
+              "music/overview",
+              "music/playlists",
+              "music/247-mode"
+            ]
+          },
+          {
+            "group": "Community",
+            "pages": [
+              "community/leveling",
+              "community/polls",
+              "community/giveaways",
+              "community/highlights",
+              "community/tags",
+              "community/rolemenu"
+            ]
+          },
+          {
+            "group": "Utility",
+            "pages": [
+              "utility/reminders",
+              "utility/autoresponder",
+              "utility/temp-channels",
+              "utility/user-settings"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "configuration/server-setup",
+              "configuration/command-permissions",
+              "configuration/audit-log"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Legal",
+        "groups": [
+          {
+            "group": "Legal",
+            "pages": [
+              "legal/privacy-policy",
+              "legal/terms-of-service"
+            ]
+          }
+        ]
+      }
     ]
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
   }
 }

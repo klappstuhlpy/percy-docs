@@ -1,0 +1,95 @@
+---
+title: "Server Setup: Configure Percy for Your Community"
+sidebarTitle: "Server Setup"
+description: "Get Percy up and running on your Discord server — set a custom prefix, configure moderation, and enable the features your community needs."
+---
+
+Before your community can get the most out of Percy, a few minutes of initial setup go a long way. This guide walks you through choosing a custom prefix, pointing Percy at the right channels, and turning on the features that matter most to your server.
+
+All configuration commands require the **Manage Guild** or **Manage Messages** permission. Every command shown below works both as a prefixed message command (e.g. `?prefix`) and as a slash command (e.g. `/prefix`). Slash commands are always available regardless of which prefix you have set.
+
+## Custom Prefix
+
+By default Percy listens for the `?` prefix. You can add your own prefixes — or remove the default — using the `/prefix` commands. Your server can have up to **25** active prefixes at once.
+
+| Command | What it does |
+|---|---|
+| `/prefix` | Show all currently active prefixes for this server |
+| `/prefix add <prefix>` | Add one or more new prefixes (quote multi-word prefixes) |
+| `/prefix remove <prefix>` | Remove a prefix (works on the default `?` too) |
+| `/prefix reset` | Remove all custom prefixes and return to defaults |
+
+```
+/prefix add !
+/prefix add "percy "
+/prefix remove ?
+```
+
+<Tip>
+  Slash commands (`/`) always work, no matter what prefix you have configured. If you ever lock yourself out by removing all text prefixes, `/prefix add` will save you.
+</Tip>
+
+## Dashboard
+
+Prefer a graphical interface? Every setting covered in this section — and more — is available in the Percy web dashboard without typing a single command.
+
+[Open the Percy Dashboard →](https://percy.klappstuhl.me/dashboard/)
+
+## Initial Server Setup
+
+Follow these steps in order when you first add Percy to your server.
+
+<Steps>
+  <Step title="Invite Percy with recommended permissions">
+    Use the official invite link and grant Percy the recommended permission set. At a minimum Percy needs **Send Messages**, **Embed Links**, **Read Message History**, and **Manage Messages** to function correctly in most channels. Moderation features additionally require **Kick Members**, **Ban Members**, and **Manage Roles**.
+  </Step>
+  <Step title="Set a custom prefix (optional)">
+    If you'd rather not use `?`, pick something that doesn't clash with your other bots:
+
+    ```
+    /prefix add !
+    /prefix remove ?
+    ```
+  </Step>
+  <Step title="Configure moderation settings">
+    Run `/moderation` to review the available protections — raid detection, mention-spam filtering, and AutoMod integration — and enable the ones your server needs.
+  </Step>
+  <Step title="Set up an audit log channel">
+    Create a private channel visible only to moderators, then point Percy at it:
+
+    ```
+    /moderation auditlog set #audit-logs
+    ```
+
+    Percy will post a detailed embed to that channel whenever a moderation action occurs. See [Audit Log](/configuration/audit-log) for the full list of tracked events and how to filter them.
+  </Step>
+  <Step title="Enable leveling (optional)">
+    If you want members to earn XP for chatting, turn on the leveling system:
+
+    ```
+    /level config toggle
+    ```
+  </Step>
+  <Step title="Set up a music panel (optional)">
+    For servers that use Percy's music player, create a persistent control panel in your music channel:
+
+    ```
+    /music setup
+    ```
+  </Step>
+</Steps>
+
+<Note>
+  Config and Admin cog commands can never be disabled through the command-permission system, so you can always reach `/config` and `/prefix` even if other commands have been restricted.
+</Note>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Command Permissions" icon="shield-halved" href="/configuration/command-permissions">
+    Disable or enable specific commands per channel or server-wide.
+  </Card>
+  <Card title="Audit Log" icon="clipboard-list" href="/configuration/audit-log">
+    Track bans, kicks, message deletes, role changes, and more.
+  </Card>
+</CardGroup>

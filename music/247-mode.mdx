@@ -1,0 +1,110 @@
+---
+title: "24/7 Music Mode: Always-On Audio for Your Server"
+sidebarTitle: "24/7 Mode"
+description: "Keep Percy in a voice channel around the clock with radio streams, personal playlists, or YouTube autoplay — no manual restart required."
+---
+
+24/7 mode keeps Percy permanently connected to a voice channel so your server always has music playing, even when no one is actively queuing tracks. Instead of disconnecting when the queue runs out, Percy refills audio from your chosen source automatically. This is ideal for music lounges, study rooms, or any server that benefits from continuous background audio.
+
+## The three 24/7 modes
+
+Percy supports three distinct always-on sources. Pick the one that best fits how your server listens.
+
+<CardGroup cols={3}>
+  <Card title="Radio" icon="radio">
+    Streams a built-in radio preset continuously. No manual queue management needed — Percy pulls from a live audio stream around the clock.
+  </Card>
+  <Card title="Playlist" icon="list-music">
+    Loops one of your personal playlists on repeat. Great for a curated sound that reflects your server's taste.
+  </Card>
+  <Card title="Autoplay" icon="shuffle">
+    Uses YouTube recommendations seeded from recently played tracks. The queue grows organically based on what your server has been listening to.
+  </Card>
+</CardGroup>
+
+## Setting up 24/7 mode
+
+<Steps>
+  <Step title="Open the music configuration dashboard (optional)">
+    Run `/music setup` to open the interactive music configuration panel. From there you can set 24/7 mode, choose a voice channel, and adjust other music settings through a guided interface.
+
+    ```
+    /music setup
+    ```
+  </Step>
+  <Step title="Activate radio mode">
+    Pass a radio preset name to start streaming immediately. Percy joins your voice channel and begins playing the stream.
+
+    ```
+    /music 247 radio lofi
+    /music 247 radio chill
+    ```
+  </Step>
+  <Step title="Activate playlist mode">
+    Provide the name of one of your personal playlists. Percy loops through it continuously.
+
+    ```
+    /music 247 playlist Chill Vibes
+    ```
+  </Step>
+  <Step title="Activate autoplay mode">
+    No arguments needed — Percy seeds recommendations from the server's recent listening history and keeps the queue topped up.
+
+    ```
+    /music 247 autoplay
+    ```
+  </Step>
+  <Step title="Disable 24/7 mode">
+    Turn off always-on mode at any time. Percy finishes the current track and then disconnects normally.
+
+    ```
+    /music 247 off
+    ```
+  </Step>
+</Steps>
+
+## Radio presets
+
+Percy ships with a curated set of radio streams sourced from SomaFM and Antenne Bayern. Use `/music radios` to see the full list at any time.
+
+| Preset | Description |
+|--------|-------------|
+| `lofi` | Fluid — instrumental hip-hop and lo-fi beats (SomaFM) |
+| `chill` | Groove Salad — chilled ambient beats (SomaFM) |
+| `ambient` | Drone Zone — atmospheric ambient and drone music (SomaFM) |
+| `space` | Space Station Soma — ambient electronica (SomaFM) |
+| `vocals` | Lush — electronic tracks with female vocals (SomaFM) |
+| `house` | Beat Blender — deep house and downtempo (SomaFM) |
+| `indie` | Indie Pop Rocks! — indie pop and alternative (SomaFM) |
+| `pop` | PopTron — electro-pop and indie dance (SomaFM) |
+| `lounge` | Secret Agent — spy lounge and easy listening (SomaFM) |
+| `70s` | Left Coast 70s — mellow album rock classics (SomaFM) |
+| `metal` | Metal Detector — all things metal (SomaFM) |
+| `antenne` | ANTENNE BAYERN — German pop and chart hits |
+
+```
+/music radios
+/music 247 radio ambient
+```
+
+## Switching modes
+
+You can switch between modes at any time without turning 24/7 off first. Running a new `/music 247 <mode>` command replaces the current source immediately.
+
+```
+/music 247 radio lofi
+# later...
+/music 247 playlist Late Night Jams
+```
+
+<Note>
+  24/7 mode requires Percy to have the **Connect** and **Speak** permissions in the target voice channel. If Percy is missing either permission, it won't be able to join or stay in the channel.
+</Note>
+
+<Warning>
+  If a server admin manually disconnects Percy from the voice channel, 24/7 mode stops. You'll need to run `/music 247 <mode>` again to restart it. Percy does not rejoin automatically after a forced disconnect.
+</Warning>
+
+<Tip>
+  Combine 24/7 playlist mode with a carefully curated personal playlist for the most consistent listening experience. You stay in full control of every track that plays.
+</Tip>

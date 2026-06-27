@@ -1,0 +1,94 @@
+---
+title: "Tags: Save and Share Reusable Text Snippets"
+sidebarTitle: "Tags"
+description: "Store frequently used text as named tags and retrieve them instantly with a single command. Supports aliases, transfers, usage stats, and CSV export."
+---
+
+Tags are named text snippets you save once and invoke on demand. Instead of retyping the same welcome message, FAQ answer, or server rule every time, you create a tag and call it with `/tag <name>`. Percy replies with the saved content immediately — no copy-pasting required.
+
+Tags are **per-server**: a tag you create in one server is not visible in another.
+
+## Commands
+
+| Command | Description |
+|---|---|
+| `/tag <name>` | Display a tag by name. |
+| `/tag create <name> <content>` | Create a new tag with the given name and text content. |
+| `/tag make` | Create a tag using an interactive modal form (slash command only). |
+| `/tag edit <name> [content]` | Edit your tag's content. Omit `content` to open the modal editor. |
+| `/tag delete <name>` | Delete a tag you own. |
+| `/tag alias <alias> <original>` | Create a shortcut name that points to an existing tag. |
+| `/tag info <name>` | View a tag's metadata: owner, use count, creation date, and any aliases. |
+| `/tag raw <name>` | Show the tag's content with all Markdown escaped, so you can copy the exact source. |
+| `/tag list [flags]` | List your tags or another member's tags in this server. |
+| `/tag search <query>` | Search for tags by name in this server. |
+| `/tag stats [member]` | View tag usage statistics for the server or a specific member. |
+| `/tag transfer <member> <name>` | Send a transfer request to another member — they accept or decline via DM buttons. |
+| `/tag claim <name>` | Take ownership of a tag whose owner has left the server. |
+| `/tag export [server\|personal]` | Download your tags (or all server tags, if you're the server owner) as a CSV file. |
+| `/tag purge <member>` | **(Manage Messages)** Delete all tags owned by a specific user in this server. |
+
+## Examples
+
+```
+/tag create welcome "Welcome to the server! Please read #rules before chatting."
+```
+
+```
+/tag welcome
+```
+
+```
+/tag alias rules welcome
+```
+
+The first command saves a tag named `welcome`. The second invokes it and Percy replies with the content. The third creates an alias `rules` that displays the same content as `welcome`.
+
+## Creating a Tag
+
+<Steps>
+  <Step title="Choose a name">
+    Tag names must be 100 characters or fewer and cannot be reserved command names. Names are case-insensitive when looked up.
+  </Step>
+  <Step title="Create the tag">
+    Run `/tag create <name> <content>` for short content. For longer text with formatting, run `/tag make` to open a modal with a full text editor — no character limits from the command line.
+  </Step>
+  <Step title="Test it">
+    Run `/tag <name>` to confirm Percy returns the right content.
+  </Step>
+</Steps>
+
+## List and Search Flags
+
+Both `/tag list` and `/tag search` accept these optional flags:
+
+| Flag | Short | Description |
+|---|---|---|
+| `--member <@user>` | `-m` | (list only) Show another member's tags instead of yours. |
+| `--sort name\|newest\|oldest\|id` | `-s` | Sort the results. Default is `name`. |
+| `--to_text` | `--tt` | Output the results as a plain text table file instead of an embed. |
+
+## Transferring a Tag
+
+Run `/tag transfer <@member> <name>` to initiate a transfer. Percy sends a DM to the recipient with **Accept** and **Decline** buttons. The tag is placed in a pending state until they respond. If they accept, ownership transfers immediately. If they decline, ownership reverts to you.
+
+## Claiming an Abandoned Tag
+
+If a tag owner leaves the server, run `/tag claim <name>` to take ownership. Percy checks that the original owner is no longer a member before allowing the claim.
+
+## Exporting Tags
+
+`/tag export personal` sends you a CSV file of all your tags in the current server.
+`/tag export server` exports every tag in the server — this option is restricted to the server owner.
+
+<Note>
+  Tags are scoped to individual servers. Use `/tag export` and re-create them with `/tag create` (or a bulk import flow) if you want the same tags in multiple servers.
+</Note>
+
+<Note>
+  Members with **Manage Messages** can delete any user's tags using `/tag purge <member>` or `/tag delete <name>`. Regular members can only delete their own tags.
+</Note>
+
+<Tip>
+  Use `/tag alias` to give a tag multiple short names. For example, a tag named `frequently-asked-questions` can have aliases `faq` and `help` so members don't need to remember the full name.
+</Tip>

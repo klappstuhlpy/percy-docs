@@ -1,0 +1,97 @@
+---
+title: "Command Permissions: Enable and Disable Commands"
+sidebarTitle: "Command Permissions"
+description: "Control exactly which commands Percy responds to — block specific channels or members, or toggle commands on and off per channel and server-wide."
+---
+
+Percy gives server moderators precise control over which commands are available, where, and to whom. You can silence Percy in specific channels, prevent individual members from using the bot entirely, or limit individual commands to only the channels where they make sense — all without touching Discord's built-in permission system.
+
+All `/config` commands require the **Manage Guild** or **Manage Messages** permission.
+
+## Ignoring Channels and Members
+
+"Ignoring" a channel or member tells Percy to silently refuse all commands from that source. It is the bluntest tool — use it when you want Percy completely quiet in a channel, or when a member is misusing the bot.
+
+| Command | What it does |
+|---|---|
+| `/config ignore <channel_or_member>` | Prevent a channel or member from using Percy |
+| `/config ignore` *(no argument)* | Ignore the current channel |
+| `/config ignore list` | List every currently ignored channel and member |
+| `/config ignore all` | Ignore every text channel in the server at once |
+| `/config ignore clear` | Remove all ignores in one go |
+| `/config unignore <channel_or_member>` | Re-enable Percy access for a channel or member |
+| `/config unignore` *(no argument)* | Unignore the current channel |
+
+<Note>
+  Members with the **Administrator** permission can always use Percy, even if their account or channel has been ignored.
+</Note>
+
+## Disabling Commands per Channel
+
+Use these commands when you want a command off by default server-wide but available in one specific channel — or vice versa.
+
+| Command | What it does |
+|---|---|
+| `/config channel disable <command>` | Disable a command in the current channel |
+| `/config channel enable <command>` | Re-enable a command in the current channel |
+| `/config server disable <command>` | Disable a command across the entire server |
+| `/config server enable <command>` | Re-enable a command server-wide |
+| `/config disable [#channel] <command>` | Disable a command in a specific channel (or server-wide if no channel is given) |
+| `/config enable [#channel] <command>` | Enable a command in a specific channel (or server-wide if no channel is given) |
+| `/config disabled [#channel]` | List all disabled commands for a channel (defaults to the current channel) |
+
+## How Precedence Works
+
+When Percy decides whether to run a command, it checks permissions in this order:
+
+1. **Manage Guild bypass** — members with Manage Guild always bypass all restrictions.
+2. **Channel-level rules** — a per-channel `enable` or `disable` overrides the server-wide setting.
+3. **Server-level rules** — a server-wide `disable` blocks the command everywhere except channels that explicitly re-enable it.
+
+So you can disable a command globally and then carve out individual channels where it's still allowed.
+
+## Practical Examples
+
+**Disable gambling server-wide, then re-enable it in one channel:**
+
+```
+/config server disable slots
+/config channel enable slots      ← run this inside #casino
+```
+
+**Block Percy from responding in #general:**
+
+```
+/config ignore #general
+```
+
+**Check what's currently disabled in #bot-commands:**
+
+```
+/config disabled #bot-commands
+```
+
+**Re-enable a command you disabled by mistake:**
+
+```
+/config server enable slots
+```
+
+<Note>
+  Commands in the **Config** and **Admin** categories cannot be disabled through this system. Percy always responds to `/config`, `/prefix`, and related admin commands so you can never lock yourself out of the bot's settings.
+</Note>
+
+<Tip>
+  Use `/config ignore all` followed by `/config unignore #bot-commands` to funnel all bot usage into a single channel quickly, then open up individual channels as needed.
+</Tip>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Server Setup" icon="gear" href="/configuration/server-setup">
+    Set a custom prefix and run through the initial server setup checklist.
+  </Card>
+  <Card title="Audit Log" icon="clipboard-list" href="/configuration/audit-log">
+    Log every moderation action and server event to a dedicated channel.
+  </Card>
+</CardGroup>

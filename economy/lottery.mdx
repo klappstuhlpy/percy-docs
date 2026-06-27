@@ -1,0 +1,73 @@
+---
+title: "Server Lottery: Jackpots and Ticket Purchases"
+sidebarTitle: "Lottery"
+description: "Enter your server's lottery by buying tickets with your cash — the jackpot grows with every ticket sold and one weighted-random winner takes it all."
+---
+
+The server lottery is a periodic event that any admin can kick off. Once a lottery is running, members spend coins on tickets to enter. When the timer runs out Percy picks a single winner using a weighted random draw — the more tickets you hold, the better your odds. The jackpot is funded entirely by ticket sales, so the pot grows as more people buy in.
+
+## How It Works
+
+<Steps>
+  <Step title="Admin starts the lottery">
+    An admin runs `/lottery start` with a duration and a ticket price. A public announcement is posted in the channel so members know a lottery is open.
+  </Step>
+  <Step title="Members buy tickets">
+    Anyone can run `/lottery buy` to spend coins on tickets. Tickets cost cash from your wallet — make sure you've withdrawn enough before buying. You can buy up to **1,000 tickets** in a single command.
+  </Step>
+  <Step title="The jackpot grows">
+    Every ticket purchased adds that ticket's price to the jackpot. The more people who enter (or the more tickets one person buys), the bigger the prize.
+  </Step>
+  <Step title="Drawing">
+    When the timer expires Percy draws a winner. The selection is **weighted by ticket count** — holding more tickets gives you a proportionally better chance. The winner receives the full jackpot directly into their cash balance and a winner announcement is posted.
+  </Step>
+</Steps>
+
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `/lottery` or `/lottery status` | View the current jackpot, ticket price, total tickets sold, your ticket count, your win odds, and the time remaining until the draw |
+| `/lottery buy [amount]` | Purchase one or more tickets using your cash balance |
+| `/lottery start <duration> <ticket_price>` | **(Admin)** Start a new lottery with a given duration and price per ticket |
+
+```
+/lottery
+/lottery buy 5
+/lottery start 24h 100
+```
+
+## Checking Your Odds
+
+Run `/lottery status` at any time to see:
+
+- The current **jackpot** total
+- The **ticket price** per entry
+- The total number of **tickets sold** so far
+- **Your ticket count** and your current **win percentage**
+- The **drawing time** (relative timestamp)
+
+Your displayed odds update in real time as more tickets are sold, so you can decide whether buying more is worth it.
+
+## Admin: Starting a Lottery
+
+```
+/lottery start <duration> <ticket_price>
+```
+
+| Parameter | Details |
+|-----------|---------|
+| `duration` | How long the lottery runs before drawing. Accepts natural language like `2h`, `1 day`, or `30m`. Minimum **5 minutes**, maximum **30 days**. |
+| `ticket_price` | The cost per ticket in coins (minimum 1). |
+
+<Note>
+  Only one lottery can run at a time per server. Starting a new one while one is already active will fail — wait for the current lottery to draw before launching another.
+</Note>
+
+<Note>
+  Starting a lottery requires **Manage Guild** or **Administrator** permission.
+</Note>
+
+## Winner Selection
+
+Percy uses a **weighted random draw**: every ticket you hold is effectively one entry in the draw. If 100 tickets are sold and you hold 20 of them, you have a 20% chance of winning. If no tickets are sold before the timer ends, the lottery closes with no winner and no coins change hands.

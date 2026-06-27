@@ -1,0 +1,70 @@
+---
+title: "Casino Games and Mini-Games in Percy's Economy"
+sidebarTitle: "Games"
+description: "Wager your coins across 14 games — from Blackjack and Poker to Wordle, Trivia, and Hangman — all tied into the server economy."
+---
+
+Percy comes with a full suite of games that let you put your coins on the line. Every game draws from your **cash** balance, so if your coins are sitting safely in the bank you'll need to run `/withdraw` before you play. Winnings are credited straight back to your cash. Games range from classic casino staples like Blackjack and Roulette to social and puzzle games like Wordle, Trivia, and Hangman.
+
+<Note>
+  All games use your **cash** balance, not your bank. Run `/withdraw <amount>` before playing so your coins are available.
+</Note>
+
+## Available Games
+
+| Game | Command | Description |
+|------|---------|-------------|
+| Blackjack | `/blackjack <bet>` | Classic card game against the dealer — hit, stand, or bust |
+| Texas Hold'em Poker | `/poker <stack>` | Multiplayer poker for up to 4 players; buy in with your stack |
+| Roulette | `/roulette <bet> <space>` | Bet on a number, colour, or range; bets close after 60 seconds |
+| Slots | `/slots <bet>` | Spin the slot machine for a chance at a big multiplier |
+| Tower | `/tower [bet]` | Climb floors for a growing multiplier and cash out before you fall |
+| Horse Race | `/horserace <bet> <horse>` | Back one of 6 horses; payouts are parimutuel — the pool splits among winners |
+| Mines | `/mines <bet> [mines]` | Reveal gems on a grid while avoiding hidden mines; cash out any time |
+| Higher or Lower | `/higherlower <bet>` | Guess if the next card is higher or lower for a rising multiplier |
+| Minesweeper | `/minesweeper [mines]` | Classic Minesweeper on Discord — no coins at stake, just the challenge |
+| Wordle | `/wordle` | Guess the server's daily 5-letter word in 6 tries; correct answers pay coins |
+| Trivia | `/trivia` | A multiple-choice question appears — first to answer correctly wins the reward |
+| Tic-Tac-Toe | `/tictactoe @User` | Challenge another member to a game of Tic-Tac-Toe |
+| Russian Roulette | `/russianroulette [ante]` | Players ante into a shared pot and take turns — last one standing wins it all |
+| Hangman | `/hangman` | Guess the hidden word one letter at a time before you run out of tries |
+| Dice | `/dice <bet> <target>` | Bet on the total of two dice (2–12); rarer totals pay more |
+
+## Game Highlights
+
+<CardGroup cols={2}>
+  <Card title="Blackjack" icon="cards">
+    A single-player game against Percy's dealer. Place your bet, then hit or stand until you beat the dealer or bust. A minimum bet applies.
+  </Card>
+  <Card title="Texas Hold'em Poker" icon="spade">
+    Open a poker table in a channel and other members can join (up to 4 players). Each player buys in from their cash balance and the buy-in sets the table's range for latecomers.
+  </Card>
+  <Card title="Roulette" icon="circle-dot">
+    Place your bet on a number, colour, or range using autocomplete for valid spaces. Multiple members can bet on the same table — Percy spins the wheel after 60 seconds and pays out all winning bets.
+  </Card>
+  <Card title="Mines" icon="bomb">
+    Pick the number of mines (1–19) and start flipping tiles. Each safe tile multiplies your payout. Cash out any time, or lose everything if you hit a mine.
+  </Card>
+  <Card title="Horse Race" icon="horse">
+    Pick one of six horses and your bet amount. The betting pool closes on a timer, then the race runs. Payouts are parimutuel — if your horse wins, you share the pool proportionally with other winning bettors.
+  </Card>
+  <Card title="Tower" icon="building">
+    Climb floor by floor. Each new floor you reach raises your multiplier, but the higher you go the bigger the risk. Hit the cash-out button before you fall.
+  </Card>
+  <Card title="Russian Roulette" icon="gun">
+    Everyone antes into the pot. Players take turns and the last one standing takes the full pot. Minimum ante applies and only one game can run per channel at a time.
+  </Card>
+  <Card title="Wordle" icon="spell-check">
+    The whole server shares the same daily word. Solve it in fewer guesses for a larger coin reward — the maximum reward decreases with each guess you use.
+  </Card>
+</CardGroup>
+
+## Tips
+
+<Tip>
+  Activate a **loot\_boost** item from the shop before a fishing or hunting session to multiply your payouts — games themselves are not affected by loot boosts, but `/fish` and `/hunt` are.
+</Tip>
+
+<Tip>
+  In Roulette and Horse Race, your bet is deducted immediately when you place it. If the game message is lost or a technical issue occurs, Percy refunds all placed bets automatically.
+</Tip>

@@ -1,0 +1,130 @@
+---
+title: "Automatic Moderation: Spam, Raids, and Mention Limits"
+sidebarTitle: "AutoMod"
+description: "Configure Percy's built-in spam detection, raid protection, and mention-spam auto-bans to keep your server protected around the clock."
+---
+
+Percy's AutoMod system watches your server around the clock and takes action before a human moderator even has to notice. It covers three distinct threat categories: **message spam** (repeated content or rapid-fire posting), **raid protection** (accounts joining and spamming in quick succession), and **mention-spam auto-bans** (members pinging an excessive number of users in a short window). You configure all of this through the `/moderation` command group, and Percy gives you per-entity exemptions so legitimate bots, trusted channels, and staff roles are never accidentally caught in the net.
+
+## Viewing Your Current Configuration
+
+```
+/moderation
+```
+
+Running `/moderation` with no sub-command displays a summary of every AutoMod feature for your server: which features are active, which channel alerts are bound to, the current mention threshold, and the full list of ignored entities.
+
+## Command Reference
+
+<AccordionGroup>
+  <Accordion title="/moderation alerts #channel — Set the alert channel">
+    ```
+    /moderation alerts #mod-alerts
+    ```
+
+    Enables alert logging and routes automatic action notifications to the specified text channel. Percy creates a private webhook in that channel, so it must have permission to **create webhooks** there.
+
+    To disable alerts, run:
+    ```
+    /moderation disable alerts
+    ```
+  </Accordion>
+
+  <Accordion title="/moderation raid — Toggle raid protection">
+    ```
+    /moderation raid
+    ```
+
+    Toggles raid protection on or off. When enabled, Percy monitors for accounts that join and spam messages in rapid succession and automatically bans them. You can also pass an explicit `true` or `false` to set the state directly:
+
+    ```
+    /moderation raid true
+    /moderation raid false
+    ```
+
+    Raid protection fires when Percy detects one of the following patterns:
+    - A single user sends **10+ messages within 12 seconds**
+    - The same message content appears **5+ times within 15 seconds** across any channel
+    - **30+ messages from new accounts** arrive in a channel within 35 seconds
+  </Accordion>
+
+  <Accordion title="/moderation mentions <threshold> — Set mention-spam threshold">
+    ```
+    /moderation mentions 5
+    ```
+
+    Enables automatic banning for members who @-mention more than `<threshold>` users in a short window. The threshold must be **greater than 3**. Percy counts only non-bot user mentions — role mentions are excluded.
+
+    Percy monitors two separate windows:
+    - **Single message:** more than `<threshold>` mentions in one message triggers an immediate ban.
+    - **Cumulative:** `<threshold>` mentions spread across multiple messages within 15 seconds also triggers a ban.
+
+    When a ban fires, Percy sends an alert to your configured alert channel.
+  </Accordion>
+
+  <Accordion title="/moderation ignore @entity — Add an entity to the ignore list">
+    ```
+    /moderation ignore #bot-commands
+    /moderation ignore @BotRole
+    /moderation ignore @SomeMember
+    ```
+
+    Adds a channel, role, or member to the AutoMod ignore list. Percy skips all automatic spam and raid checks for messages sent in ignored channels, by members with an ignored role, or by a specifically ignored member. You can pass multiple entities in one command separated by spaces.
+  </Accordion>
+
+  <Accordion title="/moderation unignore @entity — Remove an entity from the ignore list">
+    ```
+    /moderation unignore #bot-commands
+    ```
+
+    Removes a previously ignored channel, role, or member from the ignore list. Percy will resume checking their messages against AutoMod rules immediately.
+  </Accordion>
+
+  <Accordion title="/moderation ignored — List all ignored entities">
+    ```
+    /moderation ignored
+    ```
+
+    Displays a paginated list of every channel, role, and member currently in the AutoMod ignore list.
+  </Accordion>
+
+  <Accordion title="/moderation disable [feature] — Disable a feature">
+    ```
+    /moderation disable alerts
+    /moderation disable raid
+    /moderation disable mentions
+    ```
+
+    Disables a specific AutoMod feature. Supported values are `alerts`, `raid`, and `mentions`. Disabling a feature does not delete its configuration — you can re-enable it at any time.
+  </Accordion>
+</AccordionGroup>
+
+## How the Ignore List Works
+
+Any entity — a **text channel**, a **role**, or a **member** — can be added to the ignore list. When Percy checks an incoming message:
+
+1. It looks up the **channel** the message was sent in.
+2. It checks the **author's user ID**.
+3. It checks every **role the author holds**.
+
+If any of those three match an entry in the ignore list, Percy skips all AutoMod checks for that message entirely. This makes it straightforward to exempt `#bot-spam` channels, verified staff roles, or trusted bot accounts from automated action.
+
+<Note>
+  Members with the **Manage Guild** or **Administrator** permission automatically bypass all AutoMod checks regardless of the ignore list. You do not need to add your moderator role manually.
+</Note>
+
+## Frequently Asked Questions
+
+<AccordionGroup>
+  <Accordion title="Will AutoMod affect my own bots?">
+    If your bot is added to the ignore list, or if your bot channel is ignored, Percy will not act on those messages. Additionally, Percy never applies AutoMod to its own messages or to the server owner.
+  </Accordion>
+
+  <Accordion title="What happens when a raid is detected?">
+    If raid protection is enabled and an alert channel is configured, Percy posts a notification with the flagged members. Moderators can mass-ban all detected raiders directly from that alert message using the **Ban All Raiders** button.
+  </Accordion>
+
+  <Accordion title="Can I use AutoMod alongside Discord's built-in AutoMod?">
+    Yes. Percy's AutoMod and Discord's native AutoMod operate independently. Running both gives you layered protection but be mindful that the same user could be actioned by both systems simultaneously.
+  </Accordion>
+</AccordionGroup>

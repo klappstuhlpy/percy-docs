@@ -1,0 +1,136 @@
+{
+  "projectType": "saas",
+  "projectName": "Percy",
+  "projectDescription": "Percy is a multipurpose Discord bot offering moderation, economy, music playback, leveling, games, and community tools for Discord servers.",
+  "theme": "almond",
+  "primaryColor": "#dedede",
+  "lightColor": "#fbde58",
+  "darkColor": null,
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guide",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "permissions"
+            ]
+          },
+          {
+            "group": "Moderation",
+            "pages": [
+              "moderation/overview",
+              "moderation/automod",
+              "moderation/sentinel",
+              "moderation/lockdown"
+            ]
+          },
+          {
+            "group": "Economy",
+            "pages": [
+              "economy/overview",
+              "economy/shop",
+              "economy/games",
+              "economy/lottery"
+            ]
+          },
+          {
+            "group": "Music",
+            "pages": [
+              "music/overview",
+              "music/playlists",
+              "music/247-mode"
+            ]
+          },
+          {
+            "group": "Community",
+            "pages": [
+              "community/leveling",
+              "community/polls",
+              "community/giveaways",
+              "community/highlights",
+              "community/tags",
+              "community/rolemenu"
+            ]
+          },
+          {
+            "group": "Utility",
+            "pages": [
+              "utility/reminders",
+              "utility/autoresponder",
+              "utility/temp-channels",
+              "utility/user-settings"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "configuration/server-setup",
+              "configuration/command-permissions",
+              "configuration/audit-log"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Legal",
+        "groups": [
+          {
+            "group": "Legal",
+            "pages": [
+              "legal/privacy-policy",
+              "legal/terms-of-service"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Hybrid slash and prefix commands (every command works as both /command and ?command)",
+    "Full moderation suite: kick, ban, mute, tempban, slowmode, purge, lockdown",
+    "AutoMod with raid protection, spam detection, and mention-spam auto-ban",
+    "Captcha Sentinel: verification system to block bot accounts and raiders",
+    "Economy system: wallet/banking, daily rewards, shop, fishing, hunting, lottery",
+    "Casino games: Blackjack, Texas Hold'em Poker, Roulette, Slots, Tower, and more",
+    "Lavalink-powered music player with Spotify, Apple Music, SoundCloud support",
+    "Playlists, 24/7 mode, radio presets, audio filters, lyrics with sync",
+    "Server leveling with XP, rank cards, leaderboards, level roles, and voice XP",
+    "Community tools: polls, giveaways, highlights, tags, role menus",
+    "Utility: reminders, autoresponder, temporary voice channels, translations",
+    "Per-user privacy controls (GDPR-compliant data export and deletion)"
+  ],
+  "publicApiSurface": [
+    "/ban, /kick, /mute, /unmute, /tempban, /tempmute, /softban, /unban, /multiban",
+    "/purge (with filters: user, contains, prefix, suffix, bot, webhooks, embeds, files, emoji)",
+    "/lockdown, /lockdown for, /lockdown end",
+    "/slowmode",
+    "/moderation (sentinel, automod, alerts, auditlog, raid, mentions, ignore)",
+    "/balance, /deposit, /withdraw, /transfer, /daily",
+    "/shop, /buy, /sell, /inventory, /use, /perks",
+    "/fish, /hunt",
+    "/lottery, /lottery buy, /lottery start",
+    "/play, /queue, /skip, /back, /pause, /resume, /volume, /seek, /loop, /shuffle",
+    "/filter (equalizer, bassboost, nightcore, 8d, lowpass)",
+    "/playlist (show, create, add, remove, delete, clear, play)",
+    "/lyrics",
+    "/music setup, /music 247",
+    "/level rank, /level leaderboard, /level set, /level config",
+    "/polls create, /polls end, /polls edit, /polls search",
+    "/giveaway create, /giveaway end",
+    "/highlight add, /highlight remove, /highlight list, /highlight block",
+    "/tag, /tag create, /tag edit, /tag delete, /tag search, /tag transfer",
+    "/rolemenu create, /rolemenu add, /rolemenu remove, /rolemenu unique",
+    "/reminder create, /reminder list, /reminder delete",
+    "/autoresponder add, /autoresponder remove, /autoresponder toggle",
+    "/temp set, /temp list, /temp remove",
+    "/settings timezone, /settings request-data, /settings remove-personal-data",
+    "/config ignore, /config unignore, /config channel disable/enable, /config server disable/enable",
+    "/serverinfo, /avatar, /ping, /prefix, /vote",
+    "/anilist (anime/manga search)",
+    "/doc (documentation search for Python libraries)"
+  ]
+}

@@ -1,0 +1,96 @@
+---
+title: "Polls: Create and Manage Server Votes"
+sidebarTitle: "Polls"
+description: "Run structured polls with up to 8 options, a countdown timer, optional discussion threads, and a full vote history — all managed through slash commands."
+---
+
+Percy's poll system lets you post rich, timed votes directly in any channel. You define the question, up to 8 answer options, a deadline, and optional extras like a discussion thread or a ping notification. When time runs out, the poll closes automatically and the results are locked in.
+
+## How Polls Work
+
+When you create a poll, Percy posts an interactive card in your chosen channel. Members click a button or select an option to cast their vote. Each member can vote once, and you can optionally require them to provide a written reason. The poll closes at the time you specify — or earlier if you end it manually. A discussion thread can be opened alongside the poll so voters can talk without cluttering the main channel.
+
+## Commands
+
+| Command | Description |
+|---|---|
+| `/polls create <when> <question> [flags]` | Create a new poll. `when` is a plain-English duration like `24h` or `3d`. |
+| `/polls end <poll_id>` | End a running poll before its scheduled time. |
+| `/polls delete <poll_id>` | Permanently delete a poll and its data. |
+| `/polls edit <poll_id> [flags]` | Edit the question, description, options, or appearance of a running poll. |
+| `/polls search [flags]` | Browse all polls in the server, with sorting and keyword filters. |
+| `/polls history [member]` | View a member's full voting history for this server's polls. |
+| `/polls debug <poll_id>` | Re-attach the interactive buttons to a poll message if they stop responding. |
+| `/polls config [flags]` | View or update server-wide poll settings (default channel, reason channel, ping role). |
+
+<Note>
+  `/polls create`, `/polls end`, `/polls delete`, `/polls edit`, `/polls debug`, and `/polls config` require **Manage Guild** or **Manage Messages**.
+</Note>
+
+## Creation Flags
+
+Pass these flags when running `/polls create` to customize your poll:
+
+| Flag | Description |
+|---|---|
+| `--opt_1` through `--opt_8` | Answer options. At least two (`--opt_1`, `--opt_2`) are required. |
+| `--description` | Optional subtitle shown beneath the question. |
+| `--color` | Accent color for the poll card (hex or color name). |
+| `--channel` | Post the poll in a specific channel instead of the default poll channel. |
+| `--thread_question` | Open a discussion thread on the poll and pin this message inside it. |
+| `--ping` | Mention the configured ping role alongside the poll. |
+| `--with_reason` | Require voters to submit a written reason when they vote. |
+| `--image` | Attach an image file to the poll card. |
+| `--image_url` | Embed an image by URL instead of uploading a file. |
+
+## Example
+
+```
+/polls create 24h "What game should we play tonight?" --opt_1 Minecraft --opt_2 Valorant --opt_3 "Among Us"
+```
+
+This creates a 24-hour poll with three choices. Members click one of the option buttons to cast their vote.
+
+## Creating a Poll Step by Step
+
+<Steps>
+  <Step title="Configure a poll channel">
+    Run `/polls config --channel #polls` so Percy knows where to post polls by default. You can skip this and always pass `--channel` at creation time instead.
+  </Step>
+  <Step title="Create the poll">
+    Run `/polls create` with a duration, your question, and at least two options. Percy immediately posts the interactive card and schedules the timer.
+  </Step>
+  <Step title="Let it run">
+    Members vote by clicking the buttons on the poll card. You can monitor results in real time using `/polls search` or by looking at the live vote counts on the card.
+  </Step>
+  <Step title="End or wait">
+    The poll closes automatically when the timer expires. You can also run `/polls end <poll_id>` to close it early. Once ended, the card updates to show final results and voting is disabled.
+  </Step>
+</Steps>
+
+## Editing a Running Poll
+
+Use `/polls edit <poll_id>` with any combination of the edit flags (`--question`, `--description`, `--color`, `--image`, `--image_url`, `--thread_question`, `--opt_1` through `--opt_8`) to update a live poll without restarting it.
+
+Pass `--clear` as the value for any field to remove it entirely. For example, `--description --clear` strips the description from the card.
+
+When using the slash command version of `/polls edit`, Percy opens a modal form pre-filled with the current values so you can edit inline.
+
+## Searching Polls
+
+`/polls search` accepts several flags to filter and sort:
+
+| Flag | Description |
+|---|---|
+| `--keyword <text>` | Filter polls whose question matches the keyword. |
+| `--sort id\|new\|old\|"most votes"\|"least votes"` | Choose the sort order (default: `new`). |
+| `--active` | Show only currently running polls. |
+| `--showextrainfo` | Display extra metadata (requires Manage Messages). |
+
+<Note>
+  Use `/polls config` to set a default channel, a reason channel (for `--with_reason` votes), and a ping role. Without a default channel configured, you must pass `--channel` every time you create a poll.
+</Note>
+
+<Tip>
+  Add `--thread_question "Share your thoughts below!"` to automatically open a discussion thread on every poll. The thread archives and locks itself when the poll ends.
+</Tip>

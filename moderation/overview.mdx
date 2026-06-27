@@ -1,0 +1,100 @@
+---
+title: "Moderation Commands and Tools in Percy"
+sidebarTitle: "Overview"
+description: "A full reference to Percy's moderation commands — ban, kick, mute, purge, and more — with required permissions and usage examples."
+---
+
+Percy's moderation suite gives your team the tools to keep your server safe and well-managed. Every command in this section is a **hybrid command**, meaning you can run it as a slash command (e.g. `/ban`) or as a text prefix command (e.g. `?ban`) — both forms behave identically. Most actions require the invoking member to hold a moderator-level permission such as **Kick Members**, **Ban Members**, **Moderate Members**, or **Manage Messages**, and Percy itself needs the same permission in order to carry out the action.
+
+## Command Reference
+
+<Note>
+  All commands below work as both slash commands (`/command`) and prefix commands (`?command`). Slash command syntax is used throughout this page.
+</Note>
+
+| Command | Description | Required Permission |
+|---------|-------------|---------------------|
+| `/kick` | Kicks a member from the server. | Kick Members |
+| `/ban` | Permanently bans a member or user ID from the server. | Ban Members |
+| `/multiban` | Bans multiple members at once, accepting a list of IDs. | Ban Members + Kick Members |
+| `/softban` | Bans then immediately unbans a member, removing their recent messages without a lasting ban. | Kick Members |
+| `/unban` | Revokes an existing ban by username or user ID. | Ban Members |
+| `/tempban` | Temporarily bans a member for a specified duration; automatically lifts when time is up. | Ban Members |
+| `/mute` | Applies the configured mute role to one or more members indefinitely. | Manage Roles |
+| `/unmute` | Removes the mute role from one or more members, cancelling any pending expiry timer. | Manage Roles |
+| `/tempmute` | Temporarily mutes a member for a specified duration; automatically unmutes when time is up. | Manage Roles |
+| `/selfmute` | Lets you voluntarily mute yourself for between 5 minutes and 24 hours. | — (any member) |
+| `/muterole` | Opens the interactive mute-role configuration dashboard. | Manage Roles + Manage Channels |
+| `/slowmode` | Sets the slowmode delay for the current channel, or pass `0s` to disable it. | Manage Channels |
+| `/purge` | Bulk-deletes messages that match the supplied filter flags. | Manage Messages |
+
+## Usage Examples
+
+### Banning a member
+
+```
+/ban @User#1234 Spamming in general
+```
+
+Permanently bans the mentioned user and records the reason in the audit log.
+
+### Temporary ban
+
+```
+/tempban @User#1234 3d Breaking server rules
+```
+
+Bans the member for **3 days**, then automatically unbans them. Duration accepts short forms such as `30m`, `2h`, `3d`.
+
+### Bulk-purging messages
+
+```
+/purge 50 --bot
+```
+
+Deletes up to 50 messages sent by bots in the current channel. You can combine multiple flags — see the full flag list below.
+
+### Timed mute
+
+```
+/mute @User#1234 10m Cooldown
+```
+
+<Note>
+  Use `/tempmute` for a mute that automatically expires. `/mute` applies the role indefinitely until you manually run `/unmute`.
+</Note>
+
+## Purge Flags
+
+The `/purge` command accepts optional flags to narrow which messages are deleted:
+
+| Flag | Description |
+|------|-------------|
+| `--user @User` | Only remove messages from a specific user |
+| `--contains <text>` | Only remove messages containing this string (case-sensitive) |
+| `--prefix <text>` | Only remove messages starting with this string |
+| `--suffix <text>` | Only remove messages ending with this string |
+| `--after <message ID>` | Only search messages after a specific message ID |
+| `--before <message ID>` | Only search messages before a specific message ID |
+| `--delete-pinned` | Also delete pinned messages (skipped by default) |
+| `--bot` | Only remove messages from bots (excludes webhooks) |
+| `--webhooks` | Only remove messages from webhooks |
+| `--embeds` | Only remove messages that contain embeds |
+| `--files` | Only remove messages that contain file attachments |
+| `--emoji` | Only remove messages that contain custom emoji |
+| `--reactions` | Only remove messages that have reactions |
+| `--require any\|all` | Whether **any** or **all** flags must match before deleting (default: `all`) |
+
+## More in This Section
+
+<CardGroup cols={3}>
+  <Card title="AutoMod" icon="shield-halved" href="/moderation/automod">
+    Configure spam detection, raid protection, and mention-spam auto-bans.
+  </Card>
+  <Card title="Sentinel" icon="lock" href="/moderation/sentinel">
+    Set up captcha verification to gate new members joining your server.
+  </Card>
+  <Card title="Lockdown" icon="door-closed" href="/moderation/lockdown">
+    Instantly pause channel activity during raids or emergencies.
+  </Card>
+</CardGroup>

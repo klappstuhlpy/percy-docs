@@ -1,0 +1,98 @@
+---
+title: "Sentinel: Captcha Verification for New Members"
+sidebarTitle: "Sentinel"
+description: "Use Percy's Sentinel system to gate new members behind an image captcha challenge before granting them access to your server's channels."
+---
+
+Sentinel is Percy's built-in member verification gate. When Sentinel is active, every new account that joins your server is immediately assigned a **lockdown role** that strips their access to all regular channels. They are then directed to a dedicated verification channel where they must solve a text-based captcha before the lockdown role is removed and they can participate. This prevents bots, raider accounts, and automated joins from interacting with your community before a human has confirmed they are real.
+
+## How Sentinel Works
+
+1. A new member joins the server.
+2. Percy assigns them the **lockdown role**, which blocks them from reading or sending messages in all regular channels.
+3. The member can only see and interact with the **verification channel**.
+4. They press the **Begin Verification** button and receive a private captcha challenge — a 6-character, case-sensitive image they must type back within 90 seconds.
+5. If they answer correctly, Percy removes the lockdown role and optionally grants them a **post-verification (starter) role**.
+6. If they attempt to speak in any other channel or join a voice channel before verifying, Percy enforces the configured **bypass action** (kick or ban).
+
+Sentinel can also activate automatically when it detects a burst of members joining in rapid succession — this is configured via the **auto-trigger** rate.
+
+## Required Bot Permissions
+
+Before setting up Sentinel, make sure Percy has the following permissions:
+
+- **Manage Roles** — to assign and remove the lockdown role
+- **Ban Members** and **Kick Members** — to enforce the bypass action on members who skip verification
+- **Send Messages** and **Embed Links** in the verification channel — to post the captcha card
+- **Manage Permissions** (channel-level) in the verification channel — to grant temporary send-message access during the captcha
+
+<Warning>
+  The lockdown role **must sit below Percy's highest role** in the server's role hierarchy. If Percy's role is lower than the lockdown role, it cannot assign or remove it and Sentinel will not function.
+</Warning>
+
+## Setting Up Sentinel
+
+<Steps>
+  <Step title="Open the Sentinel dashboard">
+    Run `/moderation sentinel` to open the interactive setup panel. Percy creates the initial Sentinel configuration for your server the first time you run this command.
+  </Step>
+
+  <Step title="Select a verification channel">
+    Use the **Verification Channel** dropdown in the dashboard to pick a dedicated text channel. This is the only channel new members will be able to see until they pass verification.
+
+    Percy will offer to automatically fix channel permissions so that `@everyone` cannot read the channel but the lockdown role can. Accept the prompt to apply the fix automatically.
+
+    <Note>
+      If you later delete the verification channel, Percy automatically deactivates Sentinel and alerts you via the configured alert channel. Re-select a channel and redeploy the verification message to re-enable it.
+    </Note>
+  </Step>
+
+  <Step title="Configure the lockdown role">
+    Click **Configure Role** in the dashboard. You can either:
+
+    - **Pick an existing role** — choose any role that sits below Percy in the hierarchy. Percy will offer to sync channel permission overwrites across your server.
+    - **Create a new role** — Percy creates an "Unverified" role and offers to sync permissions automatically.
+
+    <Warning>
+      Do not select a role that is at or above Percy's top role in the hierarchy. The dashboard will reject such a selection and show an error.
+    </Warning>
+  </Step>
+
+  <Step title="(Optional) Set a post-verification role">
+    Use the **Post-Verification Role** dropdown to select a role that Percy grants to members immediately after they pass the captcha. This is useful if you want verified members to have a distinct colour or access to bonus channels.
+
+    The starter role must also sit below Percy's top role, and it cannot be the same role as the lockdown role.
+  </Step>
+
+  <Step title="Deploy the verification message">
+    Click **Deploy Message** to post the captcha card into the verification channel. A modal appears so you can customise the title and body text of the card. Once deployed, Percy pins the message ID — if it is deleted, Sentinel deactivates automatically and notifies you.
+  </Step>
+
+  <Step title="Configure enforcement rules (optional)">
+    - **Bypass action** — choose whether members who speak or join voice before verifying are **kicked** or **banned** (default: kick).
+    - **Auto-trigger** — set a join-rate threshold (e.g. 5 joins within 5 seconds) that automatically activates Sentinel when a raid is detected, even if it was previously on standby.
+  </Step>
+
+  <Step title="Activate Sentinel">
+    Click **Activate** in the dashboard. Percy switches Sentinel from standby to active — new members from this point onward are held in the verification channel until they solve the captcha.
+
+    The Activate button is only enabled once the lockdown role, verification channel, and captcha message are all configured.
+  </Step>
+</Steps>
+
+## Deactivating Sentinel
+
+To pause or disable Sentinel, open the dashboard again with `/moderation sentinel` and click **Deactivate**. If members are still pending verification when you deactivate, Percy asks you to confirm — standing down unblocks everyone in the background.
+
+You can also click the **Stand Down** button directly from a raid-alert message in your alert channel.
+
+## What Happens to Members Who Bypass Verification
+
+Percy watches for members who attempt to interact with the server before completing verification:
+
+- **Sending a message** in any channel other than the verification channel → bypass action (kick or ban).
+- **Joining a voice channel** before verifying → bypass action (kick or ban).
+
+<Note>
+  Percy re-applies the lockdown role to returning members who were muted or previously blocked, ensuring they cannot circumvent verification by rejoining after a kick.
+</Note>

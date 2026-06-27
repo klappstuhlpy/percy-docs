@@ -1,0 +1,75 @@
+---
+title: "Channel Lockdowns: Pause Activity During Incidents"
+sidebarTitle: "Lockdown"
+description: "Use Percy's lockdown commands to instantly prevent @everyone from sending messages in channels during raids, announcements, or emergencies."
+---
+
+A lockdown lets you freeze one or more channels at a moment's notice. When you lock a channel, Percy edits the `@everyone` permission overwrite to deny sending messages, adding reactions, using slash commands, and creating threads — effectively silencing the channel for all regular members without affecting moderators or roles with explicit allow overwrites. Lockdowns are reversible at any time, and Percy stores the original overwrites so restoring the channel returns it to exactly the state it was in before.
+
+## Required Bot Permissions
+
+Percy needs the **Manage Roles** permission (either globally or as a channel overwrite) to edit the `@everyone` overwrite on each channel. Make sure Percy has an explicit **allow** for **Send Messages** in the channels you want to be able to lock, or it may lock itself out.
+
+<Note>
+  If Percy detects that locking the current channel could prevent it from sending messages there, it will warn you and ask whether you want to resolve the permission issue before proceeding.
+</Note>
+
+## Commands
+
+### `/lockdown [channels...]` — Lock channels immediately
+
+```
+/lockdown #general #off-topic
+```
+
+Locks one or more text or voice channels right away by denying `@everyone` from sending messages or interacting. Pass a space-separated list of channel mentions. Percy reports how many channels were successfully locked and lists any that failed.
+
+### `/lockdown for <duration> [channels...]` — Lock for a set duration
+
+```
+/lockdown for 30m #general
+/lockdown for 2h #general #off-topic
+```
+
+Locks the specified channels for a duration, then automatically lifts the lockdown when time expires. Duration accepts short forms such as `30m`, `2h`, `1d`. Percy schedules a background timer and posts the expiry time so your team knows when the lockdown will end.
+
+### `/lockdown end` — End all active lockdowns
+
+```
+/lockdown end
+```
+
+Immediately restores all channels that are currently locked, reverting every `@everyone` overwrite to its original state. Use this to end a lockdown early before the timer fires.
+
+## Lockdown Workflow
+
+<Steps>
+  <Step title="Identify the threat">
+    Confirm that a raid, announcement, or emergency requires pausing chat activity. Decide whether you need a timed lockdown or an indefinite one.
+  </Step>
+  <Step title="Lock the affected channels">
+    Run `/lockdown for 30m #general` (or the instant form `/lockdown #general`) to apply the overwrite immediately. Percy confirms which channels were locked and shows the scheduled end time for timed lockdowns.
+  </Step>
+  <Step title="Handle the situation">
+    Take any additional moderator action needed — banning raiders, posting an announcement, or waiting for the situation to calm down.
+  </Step>
+  <Step title="End the lockdown">
+    Either wait for the timer to expire automatically, or run `/lockdown end` to restore channels early. Percy reverts every overwrite to the exact state it captured before the lockdown began.
+  </Step>
+</Steps>
+
+## Lockdowns and Existing Permission Overwrites
+
+Percy records the original `@everyone` overwrite for each channel before modifying it. When the lockdown ends — whether by timer or by `/lockdown end` — Percy writes those saved values back. This means:
+
+- Channels that already had `@everyone` send-message **denied** before the lockdown remain denied after it ends.
+- Channels that had neutral (unset) or allowed send-message permissions are restored to that same state.
+- No custom role or member overwrites are ever touched.
+
+<Note>
+  Percy stores lockdown records per channel. If Percy restarts while a timed lockdown is active, it will still lift the lockdown correctly when the timer fires.
+</Note>
+
+<Tip>
+  Lockdowns are most effective when combined with Percy's [Sentinel](/moderation/sentinel) verification gate. Lock channels during an active raid while Sentinel screens the incoming wave of new joins, then lift the lockdown once the situation is resolved.
+</Tip>

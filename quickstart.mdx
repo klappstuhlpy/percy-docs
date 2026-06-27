@@ -1,47 +1,91 @@
 ---
-title: "Quickstart"
-description: "Begin with a guide on the fastest path to a successful outcome"
+title: "Get Started with Percy in Under 5 Minutes"
+sidebarTitle: "Quick Start"
+description: "Invite Percy to your Discord server, grant the right permissions, and run your first command in just a few steps."
 ---
 
-Describe how someone begins using your product. What is the first thing they need to do? Are there any prerequisites?
-
-A quickstart should take someone from zero to using your product. They'll get a quick win and a sense of what they can accomplish.
-
-## Prerequisites
-
-Before you begin, you must have:
-
-- Requirement one (for example, Node.js 18+, a free account, an API key)
-- Requirement two (for example, a compatible device, a compatible browser, a compatible operating system)
-
-## Get started
+Getting Percy up and running on your server takes less than five minutes. You'll invite the bot, confirm its permissions, verify it's online with a quick test command, and then set up your first feature. No configuration files, no hosting — just click, invite, and go.
 
 <Steps>
-  <Step title="Install">
-    Describe how to install your product or sign up.
+  <Step title="Invite Percy to Your Server">
+    Click the link below to open Discord's official OAuth2 invite flow. Select the server you want to add Percy to from the drop-down menu, then click **Authorize**.
 
-    ```bash
-    npm install your-package
-    ```
+    [**Invite Percy →**](https://discord.com/api/oauth2/authorize?client_id=1070054930125176923)
+
+    <Note>
+      You need the **Manage Server** permission (or be the server owner) to add a bot to a Discord server.
+    </Note>
   </Step>
-  <Step title="Configure">
-    Describe any setup or configuration needed before first use.
 
-    ```bash
-    your-cli init
-    ```
+  <Step title="Grant the Required Permissions">
+    The invite link requests a default set of permissions that cover Percy's core features. Review the permissions dialog and click **Authorize** to confirm.
+
+    If you'd like to limit Percy's access, you can uncheck individual permissions — just be aware that some features won't work without their required permissions. See the [Permissions guide](/permissions) for a full breakdown by feature.
+
+    Once you authorize, Percy will appear in your server's member list and its slash commands will register automatically within a few seconds.
   </Step>
-  <Step title="Run it">
-    Show the first thing a user does to see it working.
 
-    ```bash
-    your-cli start
-    ```
+  <Step title="Verify Percy Is Online">
+    Head to any channel Percy can read and write in, then run a quick ping test. Percy should reply instantly with its current latency.
+
+    <CodeGroup>
+      ```text Slash command
+      /ping
+      ```
+
+      ```text Prefix command
+      ?ping
+      ```
+    </CodeGroup>
+
+    If Percy doesn't respond, double-check that it has **Send Messages** and **View Channel** permissions in that channel.
+
+    <Tip>
+      Not sure which commands exist? Run `/help` or `?help` for a full, paginated overview of every command category. Use `/help <command>` to get detailed usage and examples for any specific command.
+    </Tip>
+  </Step>
+
+  <Step title="Set Up Your First Feature — Moderation">
+    Percy's moderation suite is one of the most common first things to configure. Run the moderation config command to open an interactive panel that walks you through logging channels, mute role setup, and automod rules.
+
+    <CodeGroup>
+      ```text Slash command
+      /moderation
+      ```
+
+      ```text Prefix command
+      ?moderation
+      ```
+    </CodeGroup>
+
+    The interactive menu lets you enable or disable individual moderation features, assign a dedicated log channel, and bind a mute role — all without leaving Discord.
+
+    Here's a quick taste of what moderation commands look like in both styles:
+
+    <CodeGroup>
+      ```text Slash — ban a user
+      /ban user:@Username reason:Spamming duration:7d
+      ```
+
+      ```text Prefix — ban a user
+      ?ban @Username 7d Spamming
+      ```
+    </CodeGroup>
+
+    <Tip>
+      Every Percy command works as both a slash command and a prefix command. Slash commands offer autocomplete and guided argument input; prefix commands are faster to type once you know them. Use whichever you prefer — they're identical under the hood.
+    </Tip>
   </Step>
 </Steps>
 
-<Tip>
-  Give people a way to get help. This could be a link to a support page, a chat with a customer support agent, or a forum for your product.
+## What's Next?
 
-  Example: Need help? Reach out to us at [support@yourcompany.com](mailto:support@yourcompany.com).
-</Tip>
+Once Percy is in your server and responding to commands, you're ready to explore the rest of what it offers.
+
+- **Browse all commands** — run `/help` or `?help` in any channel.
+- **Manage settings visually** — visit the [Percy Dashboard](https://percy.klappstuhl.me/dashboard/) to configure your server from a web interface.
+- **Get help anytime** — join the [Percy Support Server](https://discord.gg/3jSYQ9VNbA) if you have questions or run into issues.
+
+<Note>
+  Percy's default prefix is `?`. Your server admin can change it to any custom prefix — check with your server admin or run `/config prefix` to update it.
+</Note>

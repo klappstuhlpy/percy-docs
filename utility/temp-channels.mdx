@@ -1,0 +1,84 @@
+---
+title: "Temporary Voice Channels: Auto-Create Personal Rooms"
+sidebarTitle: "Temp Channels"
+description: "Turn any voice channel into a hub that spawns a personal voice room for each member who joins, then deletes it automatically when empty."
+---
+
+Temporary voice channels turn a single "hub" voice channel into a self-service room factory. When a member joins the hub, Percy immediately creates a dedicated voice channel named after them and moves them into it. The moment that channel empties, Percy deletes it — keeping your channel list tidy without any manual housekeeping.
+
+## How It Works
+
+1. A member joins the designated hub voice channel.
+2. Percy creates a new voice channel in the same category, named according to your configured format.
+3. Percy moves the member into their new personal channel and grants them **Manage Channel**, **Manage Roles**, and **Move Members** permissions so they can control their own room.
+4. When the last member leaves, Percy automatically deletes the channel.
+
+<Note>
+  Percy needs the **Manage Channels** and **Move Members** permissions in the voice category (or server-wide) to create, configure, and delete temporary channels. If these are missing, Percy will post a warning in your server's system channel or alert webhook.
+</Note>
+
+## Commands
+
+| Command | Description |
+|---|---|
+| `/temp list` | Show all voice hub channels configured in this server |
+| `/temp set <channel> [format]` | Designate a voice channel as a temp hub, optionally with a custom name format |
+| `/temp remove <channel>` | Remove a channel's hub configuration (existing temp channels are unaffected) |
+| `/temp purge` | Remove **all** hub configurations from this server |
+
+## Name Format Placeholders
+
+When you run `/temp set`, you can supply a custom `format` string for the names of spawned channels. The following placeholders are available:
+
+| Placeholder | Replaced with |
+|---|---|
+| `%name` | The member's username |
+| `%display_name` | The member's server display name |
+| `%channel` | The hub channel's name |
+| `%guild` | The server name |
+
+If you don't provide a format, Percy defaults to `⏳ \| %name`.
+
+## Setting Up Temp Channels
+
+<Steps>
+  <Step title="Create a hub voice channel">
+    In your server's voice category, create a new voice channel with an inviting name such as **➕ Join to Create** or **🔊 New Room**.
+  </Step>
+  <Step title="Register the hub with Percy">
+    Run `/temp set` and select the channel you just created. Optionally pass a `format` to control what spawned rooms are called.
+
+    ```
+    /temp set #「Join to Create」
+    ```
+
+    With a custom format:
+    ```
+    /temp set #「Join to Create」 "%display_name's Room"
+    ```
+  </Step>
+  <Step title="Test it">
+    Join the hub channel yourself. Percy should move you into a freshly created voice channel within a second or two. Leave the channel and confirm it is deleted automatically.
+  </Step>
+</Steps>
+
+## Examples
+
+**Default format** — spawned channels are named `⏳ | Username`:
+```
+/temp set #「Join to Create」
+```
+
+**Display-name format** — spawned channels say `Alice's Room`:
+```
+/temp set #「Join to Create」 "%display_name's Room"
+```
+
+**Include the hub name** — useful when you run multiple hubs:
+```
+/temp set #「Gaming Hub」 "%display_name • %channel"
+```
+
+<Tip>
+  Place the hub channel at the **top** of its voice category so it's always visible and easy to find. Members instinctively look there for joinable channels.
+</Tip>

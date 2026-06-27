@@ -1,0 +1,76 @@
+---
+title: "Role Menus: Self-Assignable Roles with Buttons"
+sidebarTitle: "Role Menus"
+description: "Post persistent button panels that let members assign themselves roles with a single click — no commands needed after setup."
+---
+
+Role menus post a permanent, interactive panel in any channel you choose. Members click a button to instantly assign or remove a role — no commands, no waiting for a moderator. Each menu can hold up to 25 roles, and you can enable "unique" mode to make it behave like a radio selector where picking one option removes any previously held menu role.
+
+## Commands
+
+| Command | Description |
+|---|---|
+| `/rolemenu` | List all role menus in the server with their IDs and channels. |
+| `/rolemenu create <channel> <title> [description]` | Create a new, empty role menu in the specified channel. |
+| `/rolemenu add <menu_id> <role> [emoji] [label]` | Add a role button to an existing menu. |
+| `/rolemenu remove <menu_id> <role>` | Remove a role button from a menu. |
+| `/rolemenu unique <menu_id> <true\|false>` | Toggle single-choice (radio) mode on or off for a menu. |
+| `/rolemenu delete <menu_id>` | Delete the menu and remove its message from the channel. |
+
+<Note>
+  All role menu commands require **Manage Guild** or **Manage Messages**.
+</Note>
+
+## Setting Up a Role Menu
+
+<Steps>
+  <Step title="Create the menu">
+    Run `/rolemenu create #roles "Pick Your Color" "Choose your favorite color role"`. Percy posts the empty panel in the channel and returns the new menu's ID — you will need it for the next steps.
+  </Step>
+  <Step title="Add role buttons">
+    Run `/rolemenu add <menu_id> <@role> [emoji] [label]` for each role you want to offer. The emoji and label are optional — if you skip the label, Percy uses the role name.
+
+    ```
+    /rolemenu add 42 @Red 🔴
+    /rolemenu add 42 @Blue 🔵
+    /rolemenu add 42 @Green 🟢
+    ```
+
+    Percy updates the live panel message after every addition, so members see the new button immediately.
+  </Step>
+  <Step title="Enable unique mode (optional)">
+    If members should only hold one role from this menu at a time — for example, a team color or a class selector — run:
+
+    ```
+    /rolemenu unique 42 true
+    ```
+
+    When unique mode is on, clicking a new button removes the member's current menu role before assigning the new one.
+  </Step>
+</Steps>
+
+## Full Example
+
+```
+/rolemenu create #roles "Pick Your Color" "Choose your favorite color role"
+/rolemenu add 42 @Red 🔴
+/rolemenu add 42 @Blue 🔵
+/rolemenu add 42 @Yellow 🟡
+/rolemenu unique 42 true
+```
+
+This creates a color picker where a member can hold only one color role at a time. Clicking **🔴 Red** while already holding **🔵 Blue** swaps the roles automatically.
+
+## Managing Existing Menus
+
+- **List menus:** Run `/rolemenu` to see every menu, its ID, title, and the channel it lives in.
+- **Remove a role:** Run `/rolemenu remove <menu_id> <@role>`. The button disappears from the panel instantly.
+- **Delete the whole menu:** Run `/rolemenu delete <menu_id>`. Percy removes both the database record and the message in the channel.
+
+<Warning>
+  Percy needs the **Manage Roles** permission to assign and remove roles. Additionally, each role you add to a menu must be **below Percy's highest role** in the server's role hierarchy. Roles above Percy's top role, or roles managed by integrations, cannot be added to menus.
+</Warning>
+
+<Tip>
+  Use `/rolemenu unique` for any menu where choices are mutually exclusive — class selections, team assignments, region pickers, or notification tier opt-ins. For menus where members can hold multiple roles at once (e.g., interest tags or game pings), leave unique mode off.
+</Tip>
