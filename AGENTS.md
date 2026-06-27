@@ -33,6 +33,7 @@ This site documents **Percy**, a multipurpose Discord bot, and the **Klappstuhl.
 
 ## Content boundaries
 
-- **Document:** every user-facing feature and command, the optional AI layer, the public Klappstuhl.me API, and the internal dashboard API (as operator/contributor reference).
+- **Document:** every user-facing feature and command, the optional AI layer, and the **Percy internal API** (operator/contributor reference). The API Reference tab is driven by the OpenAPI spec at `api-reference/percy-internal-api.json`.
+- The **public Klappstuhl.me platform API** is **out of scope here for now** — it will get its own separate page later. Its live reference is the Scalar page at `klappstuhl.me/api/docs`.
 - **Never document secrets:** tokens, `.env` values, internal hostnames/ports, or anything that would help bypass auth. The internal API is reference-only — it lives on localhost behind a shared bearer token.
-- Don't invent commands or endpoints — mirror what the code actually exposes.
+- Don't invent commands or endpoints — mirror what the code actually exposes. Regenerate `percy-internal-api.json` from the FastAPI app rather than hand-editing it.

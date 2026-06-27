@@ -108,22 +108,14 @@
         "tab": "API Reference",
         "groups": [
           {
-            "group": "Klappstuhl.me API",
+            "group": "Get started",
             "pages": [
-              "api-reference/introduction",
-              "api-reference/images",
-              "api-reference/media",
-              "api-reference/render",
-              "api-reference/scan",
-              "api-reference/admin"
+              "api-reference/introduction"
             ]
           },
           {
-            "group": "Percy Internal API",
-            "pages": [
-              "internal-api/overview",
-              "internal-api/endpoints"
-            ]
+            "group": "Endpoints",
+            "openapi": "api-reference/percy-internal-api.json"
           }
         ]
       },
@@ -140,6 +132,20 @@
         ]
       }
     ]
+  },
+  "api": {
+    "playground": {
+      "display": "interactive"
+    },
+    "examples": {
+      "languages": [
+        "curl",
+        "python",
+        "javascript",
+        "go",
+        "java"
+      ]
+    }
   },
   "description": "The Documentation for  my personal multipurpose Discord Bot Percy."
 }

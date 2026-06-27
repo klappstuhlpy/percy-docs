@@ -1,93 +1,69 @@
 ---
-title: "Klappstuhl.me API"
+title: "Percy Internal API"
 sidebarTitle: "Introduction"
-description: "A simple REST API for the Klappstuhl.me platform: host images, manipulate and convert media, render code and web pages, and scan files for malware."
+description: "The HTTP API the Percy bot exposes for its dashboard backend. A local, bearer-authenticated contract that the dashboard proxies to for every configuration change."
 ---
 
-The Klappstuhl.me API is a small REST API for the platform that hosts Percy. Use it to upload and manage images, apply visual effects and format conversions, render content to images and documents, and scan files for malware.
+The internal API is the boundary between Percy's two halves: the **web dashboard** (a Rust backend) and the **bot** (Python). Every change you make on the dashboard is proxied through this API to the bot, which owns the database and its caches.
 
 <Note>
-  This is the **public platform API**. For the dashboard-to-bot contract, see the [Percy Internal API](/internal-api/overview).
+  This is **internal infrastructure**, not a public API. It binds to `127.0.0.1` and is reached only by Percy's own dashboard backend. It's documented here for operators and contributors. The public Klappstuhl.me platform API is documented separately.
 </Note>
+
+## Why it exists
+
+The dashboard must **never** write directly to the bot's database — Percy memoizes config in memory, so a direct write would create split-brain state. Instead, every mutation flows through this API, which performs the write **and** invalidates the relevant cache:
+
+```
+Browser → Dashboard (Rust BFF) → Percy Internal API → PostgreSQL
+                                          │
+                                  cache.invalidate()
+```
 
 ## Base URL
 
 ```
-https://klappstuhl.me
+http://127.0.0.1:8090
 ```
+
+The server binds to `127.0.0.1` only; the port is set by `INTERNAL_API_PORT` (8090 by convention). Routes live under the `/api/v1` prefix.
+
+<Warning>
+  Because the API is localhost-only, the **Try it** playground on each endpoint page builds and runs requests against `127.0.0.1` — useful when you're running Percy yourself. It won't reach a remote bot.
+</Warning>
 
 ## Authentication
 
-The API uses API keys, sent in the `Authorization` header. An account is required.
-
-```bash
-curl https://klappstuhl.me/api/admin/updates \
-  -H "Authorization: YOUR_API_KEY"
-```
-
-Generate a key on your [account page](https://klappstuhl.me/account). Requests without a valid key get `401 Unauthorized`.
-
-### Scopes
-
-Each key carries scopes. An endpoint that needs a scope your key lacks returns `403 Forbidden`.
-
-| Scope | Grants |
-|---|---|
-| `images:read` | Read/process operations: media effects, conversion, metadata, render, scan, bulk download. |
-| `images:write` | Upload and delete images. |
-| `admin:read` | Read admin-scoped homelab state. |
-| `admin:write` | Mutate admin-scoped homelab state. |
-
-## Rate limits
-
-Limits are enforced per IP. When you exceed one, the API returns `429 Too Many Requests` with headers describing how to back off:
+Every `/api/v1` route requires a bearer token:
 
 ```
-x-ratelimit-limit: 25
-x-ratelimit-remaining: 14
-x-ratelimit-reset: 1713373688
-x-ratelimit-reset-after: 0.98
+Authorization: Bearer <INTERNAL_API_TOKEN>
 ```
 
-| Header | Meaning |
-|---|---|
-| `x-ratelimit-limit` | Requests allowed in the window. |
-| `x-ratelimit-remaining` | Requests left before a 429. |
-| `x-ratelimit-reset` | UNIX timestamp (seconds) when the limit resets. |
-| `x-ratelimit-reset-after` | Seconds to wait until reset. |
+The dashboard and the bot share this pre-shared token (`percy.api_token` on the dashboard, `INTERNAL_API_TOKEN` on the bot). Requests without it are rejected. Enter the token once in the playground's **Authorization** field to try any endpoint.
 
-## Errors
+<Note>
+  Routes under `/api/webhooks` are **exempt** from the bearer middleware — they're reached by external bot lists (top.gg, discordbotlist.com), not the dashboard, and validate their own per-service secret instead.
+</Note>
 
-Errors return a JSON body with a message:
+## Conventions
 
-```json
-{
-  "error": "A human-readable description of what went wrong."
-}
-```
+- **Versioned header.** Every response carries an `X-API-Version` header.
+- **Cache invalidation is mandatory.** Any handler that mutates guild or user config invalidates the matching cache so the bot and dashboard never disagree.
+- **Member actions hit Discord directly.** Endpoints like ban/kick call the Discord API; they don't mutate the database.
+- **Read-only endpoints** (stats, browsing) require no invalidation.
 
-| Status | Meaning |
-|---|---|
-| `400` | Bad input (missing field, unknown operation, undecodable image). |
-| `401` | Missing or invalid API key. |
-| `403` | The key lacks the required scope. |
-| `404` | The resource was not found. |
-| `429` | Rate limited — see the headers above. |
-| `500` | A server-side dependency (Chromium, ffmpeg) is unavailable or the operation failed. |
+## Endpoints
 
-## Endpoint groups
+Browse the full reference by category in the sidebar. Each endpoint page includes its parameters, request and response schemas, ready-to-copy code samples in several languages, and an interactive **Try it** field. Endpoints are grouped by domain:
 
 <CardGroup cols={2}>
-  <Card title="Images" icon="image" href="/api-reference/images">
-    Upload, delete, and bulk-download your hosted images.
-  </Card>
-  <Card title="Media" icon="wand-magic-sparkles" href="/api-reference/media">
-    Apply effects, convert raster formats, and inspect image metadata.
-  </Card>
-  <Card title="Render" icon="file-image" href="/api-reference/render">
-    Render code, web pages, Markdown, and transcode media.
-  </Card>
-  <Card title="Scan" icon="shield-virus" href="/api-reference/scan">
-    Scan uploaded files for malware via ClamAV and VirusTotal.
-  </Card>
+  <Card title="Guilds" icon="gear">Guild configuration, AI flags, roles, channels, gatekeeper.</Card>
+  <Card title="Members" icon="users">Member list, detail/lookup, moderation actions, roles.</Card>
+  <Card title="Leveling" icon="chart-line">Config, leaderboard, XP history, reward roles, multipliers.</Card>
+  <Card title="Economy" icon="coins">Balances, shop items, lottery.</Card>
+  <Card title="Content" icon="layer-group">Polls, giveaways, tags, autoresponders, comics, and more.</Card>
+  <Card title="Moderation" icon="gavel">Cases, bulk actions, member activity.</Card>
+  <Card title="Music" icon="music">Now-playing, queue, player control, filters, lyrics.</Card>
+  <Card title="Stats & Users" icon="chart-simple">Bot/guild statistics, feature flags, user profile data.</Card>
 </CardGroup>
