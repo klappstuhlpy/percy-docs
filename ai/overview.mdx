@@ -1,0 +1,54 @@
+---
+title: "AI Features: Percy's Optional Self-Hosted Assistant"
+sidebarTitle: "Overview"
+description: "Percy ships an optional, self-hosted AI layer that adds a conversational assistant, natural-language commands, and a moderation signal. Every AI feature is off by default and opt-in per server."
+---
+
+Percy has an optional **AI layer** powered by a self-hosted [Ollama](https://ollama.com) model. It adds a conversational assistant, lets members phrase commands in plain language, and gives moderators an extra review signal — without changing how any existing command works.
+
+<Note>
+  Every AI feature is **off by default**. A server owner opts in per feature (and can scope each feature to specific channels) from the **AI** tab of the [dashboard](https://percy.klappstuhl.me/dashboard). With everything off, Percy behaves exactly as it always has.
+</Note>
+
+## What the AI layer adds
+
+<CardGroup cols={2}>
+  <Card title="Assistant" icon="comments" href="/ai/assistant">
+    Ask Percy questions with `/ask`. Replies thread into a conversation, and Percy can hand you a button to run the real command it recommends.
+  </Card>
+  <Card title="Smart commands" icon="wand-magic-sparkles" href="/ai/smart-commands">
+    Phrase polls, giveaways, music, and tag lookups in plain language — Percy fills in the structured details for you.
+  </Card>
+  <Card title="Moderation signal" icon="shield-halved" href="/ai/moderation">
+    An opt-in review signal that flags potentially harmful messages for a human. It never punishes anyone on its own.
+  </Card>
+  <Card title="Self-hosting" icon="server" href="/ai/self-hosting">
+    Run the model yourself. Nothing is sent to a third-party AI provider.
+  </Card>
+</CardGroup>
+
+## How it behaves
+
+Three principles govern every AI feature:
+
+- **Off by default, opt-in per server.** Each feature has its own toggle, plus optional per-channel overrides. You turn on only what you want, only where you want it.
+- **Graceful fallback.** If the model is disabled, unreachable, slow, or unsure, Percy silently falls back to its normal behavior. An AI hiccup never breaks a command or shows an error.
+- **AI suggests, it never acts irreversibly.** The AI extracts structured details, answers questions, and flags messages for review. Bans, kicks, and deletions always stay behind the existing commands and human review.
+
+## Privacy
+
+The model runs on Percy's **own server** — message text is processed locally and is **not** sent to any third-party AI provider, and **not** stored for training. See the [Privacy Policy](/legal/privacy-policy) and the [self-hosting guide](/ai/self-hosting) for details.
+
+## Enabling AI
+
+<Steps>
+  <Step title="Open the dashboard">
+    Go to [percy.klappstuhl.me/dashboard](https://percy.klappstuhl.me/dashboard), pick your server, and open the **AI** tab.
+  </Step>
+  <Step title="Toggle the features you want">
+    Enable any of: assistant, smart commands (router, music, polls, giveaways, tags), and the moderation signal. Each is independent.
+  </Step>
+  <Step title="Scope to channels (optional)">
+    Add per-channel overrides if you want a feature only in certain channels — for example, the assistant only in `#ask-percy`.
+  </Step>
+</Steps>

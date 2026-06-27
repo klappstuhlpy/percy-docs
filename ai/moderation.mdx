@@ -1,0 +1,72 @@
+---
+title: "AI Moderation: A Review Signal, Not an Enforcer"
+sidebarTitle: "AI moderation"
+description: "Optional AI moderation flags potentially harmful messages for a human moderator to review. It never deletes, mutes, kicks, or bans on its own, and it is off by default."
+---
+
+AI moderation gives your moderators an extra set of eyes. When enabled, Percy asks its local model whether a message looks harmful and, if so, posts a **review alert** for a human moderator to act on.
+
+<Warning>
+  AI moderation is a **signal, not an enforcer**. It **never** deletes, mutes, kicks, or bans on its own. It is **off by default** and gated per server (and per channel). The only action it ever takes is posting an alert for human review.
+</Warning>
+
+## How it works
+
+1. A message arrives that passes Percy's normal pre-filters (see [criteria](#exact-criteria) below).
+2. In the background — never blocking your server — Percy asks the model to classify the text.
+3. The model returns a verdict: whether it's flagged, a category, a short reason, and a confidence score.
+4. **Only if** the message is flagged, the category isn't "none", and the model is confident, Percy posts a review alert to your mod channel.
+5. Anything else — not flagged, low confidence, model unavailable — results in **no action at all**.
+
+## Exact criteria
+
+An alert is posted **only when every one of these holds**:
+
+| Gate | Condition |
+|---|---|
+| Feature on | AI moderation is enabled for the server (and not disabled for the channel) |
+| Engine up | The model is available |
+| Real target | Not a bot, not the owner, not staff with Manage Messages, not a system message |
+| Not exempt | The channel, author, or author's roles are not on the AutoMod ignore list |
+| Substantial | The message is at least 16 characters |
+| Not spammy | At most one alert per member per 15 seconds |
+| Harmful | The verdict is flagged **and** the category isn't "none" |
+| Confident | The confidence is at least 0.7 |
+
+### Categories
+
+`harassment`, `hate`, `sexual`, `violence`, `self_harm`, `spam`, and `other`. A "none" verdict never alerts — even if the model also marked it flagged.
+
+## The alert
+
+The alert is a rich embed showing the user, channel, category, confidence, the model's short reason, a message excerpt, and a jump link — with four moderator action buttons:
+
+<AccordionGroup>
+  <Accordion title="Delete">
+    Removes the flagged message. Requires the clicking moderator to have **Manage Messages**. The alert stays open so you can take further action.
+  </Accordion>
+  <Accordion title="Warn / Kick">
+    Warns or kicks the member. Requires **Kick Members**. Recorded as a standard moderation case, exactly like the `/warn` and `/kick` commands.
+  </Accordion>
+  <Accordion title="Ban">
+    Bans the member. Requires **Ban Members**. Works even if the member already left. Recorded as a standard moderation case.
+  </Accordion>
+</AccordionGroup>
+
+Any moderator can act, but **each button re-checks the clicker's own permissions** at click time (plus the usual self / owner / role-hierarchy guards). Unauthorized clicks get a private refusal and nothing happens. Warn, Kick, and Ban resolve the flag — the embed turns green with a "Resolved by" note and the buttons disable.
+
+## Where alerts go
+
+Percy posts the alert to the first usable moderation channel, in this order: your **alert channel**, then your **audit-log channel**, then your **mod-log channel**. It never posts to a public system channel. If none is configured, the flag is logged as a warning rather than lost — so enabling AI moderation is only useful alongside one of those channels.
+
+<Note>
+  Set an alert channel with `/moderation alerts #channel` or an audit-log channel with `/moderation auditlog #channel`. See [AutoMod](/moderation/automod).
+</Note>
+
+## Tuning
+
+A server owner can adjust sensitivity from the dashboard. By default the confidence threshold is 0.7 — raise it to alert less (fewer false positives), lower it to catch more.
+
+## Privacy
+
+Message content is sent to Percy's **self-hosted** model for classification and is **not** stored for this purpose — the call is transient and nothing is kept for training. See the [Privacy Policy](/legal/privacy-policy).

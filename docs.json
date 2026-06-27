@@ -91,6 +91,31 @@
               "configuration/command-permissions",
               "configuration/audit-log"
             ]
+          },
+          {
+            "group": "AI",
+            "pages": [
+              "ai/overview",
+              "ai/assistant",
+              "ai/smart-commands",
+              "ai/moderation",
+              "ai/self-hosting"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Get started",
+            "pages": [
+              "api-reference/introduction"
+            ]
+          },
+          {
+            "group": "Endpoints",
+            "openapi": "api-reference/percy-internal-api.json"
           }
         ]
       },
@@ -107,6 +132,20 @@
         ]
       }
     ]
+  },
+  "api": {
+    "playground": {
+      "display": "interactive"
+    },
+    "examples": {
+      "languages": [
+        "curl",
+        "python",
+        "javascript",
+        "go",
+        "java"
+      ]
+    }
   },
   "description": "The Documentation for  my personal multipurpose Discord Bot Percy."
 }

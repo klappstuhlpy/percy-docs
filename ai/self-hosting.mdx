@@ -1,0 +1,60 @@
+---
+title: "Self-Hosting the AI Layer"
+sidebarTitle: "Self-hosting"
+description: "Percy's AI runs on a self-hosted Ollama instance. Configure the models, keep one warm for fast replies, and understand how the persona and security model work."
+---
+
+Percy's AI layer talks to a self-hosted [Ollama](https://ollama.com) instance. Nothing is sent to a third-party AI provider — you own the model and the data path. This page is for operators running their own Percy.
+
+## Configuration
+
+Percy reads its AI settings from the environment:
+
+| Variable | Purpose |
+|---|---|
+| `OLLAMA_ENABLED` | Master switch for the AI layer. |
+| `OLLAMA_HOST` | URL of your Ollama instance. |
+| `OLLAMA_FAST_MODEL` | Model tag for the fast tier (routing, tag find). |
+| `OLLAMA_BALANCED_MODEL` | Model tag for the balanced tier (moderation, polls, giveaways, music). |
+| `OLLAMA_SMART_MODEL` | Model tag for the smart tier (the assistant). |
+| `OLLAMA_TIMEOUT` | Per-call timeout in seconds. |
+| `OLLAMA_MAX_CONCURRENCY` | Cap on concurrent model calls. |
+
+Even with `OLLAMA_ENABLED` on, every server still has to opt in per feature — the environment only makes the layer *available*.
+
+## Keeping the model warm
+
+On a small or CPU-only box, the persona is wasted if calls time out. Keep one model resident so replies land quickly:
+
+```ini
+# ollama systemd unit
+Environment="OLLAMA_KEEP_ALIVE=-1"        # never unload
+Environment="OLLAMA_MAX_LOADED_MODELS=1"
+```
+
+Then point `OLLAMA_FAST_MODEL`, `OLLAMA_BALANCED_MODEL`, and `OLLAMA_SMART_MODEL` at the **same tag** so switching tiers doesn't evict and reload models.
+
+<Tip>
+  A constant system prompt is processed once and cached by Ollama while the model stays loaded, so Percy resending the persona on each call is effectively free.
+</Tip>
+
+## How the persona works
+
+Percy tells the model "you are Percy" by sending a system prompt on every request. That prompt contains a high-level map of Percy's capabilities plus light, public context (your server name, the command prefix, public URLs) — never an exhaustive command dump, and never anything sensitive.
+
+The persona is kept **in code**, not baked into the model, so it stays version-controlled, testable, and able to inject per-server context. If you ever want it baked into a model file for use outside Percy, generate it from the same source rather than hand-maintaining a copy.
+
+## Security model
+
+The model only ever knows **what Percy puts in the prompt**. It has no filesystem, no environment, no database, and no source access.
+
+- **Secrets are never interpolated into prompts.** Only display-safe values (a server name, a prefix, public URLs) are ever passed in.
+- **User text is treated as untrusted data.** The persona instructs the model to refuse any request to reveal its instructions or internal data, and to ignore attempts to redefine its instructions (prompt-injection resistance).
+
+<Warning>
+  If you extend Percy, never pass secrets, tokens, config values, or raw internal objects into any prompt. Keep dynamic context to public, display-safe values.
+</Warning>
+
+## Graceful degradation
+
+Every AI call can fail safely. If the model is disabled, unreachable, times out, returns invalid output, or is unsure, the feature returns nothing and Percy falls back to its normal behavior. A failing model never breaks a command or surfaces an error to users.

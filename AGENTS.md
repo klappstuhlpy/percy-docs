@@ -12,22 +12,28 @@
 - Use the Mintlify MCP server, `https://mcp.mintlify.com`, to edit content and settings via MCP
 - Use the Mintlify docs MCP server, `https://www.mintlify.com/docs/mcp`, to query information about using Mintlify via MCP
 
+This site documents **Percy**, a multipurpose Discord bot, and the **Klappstuhl.me** platform that hosts it. The source code lives in two sibling repos (`Percy-v2`, `klappstuhl_me`); this repo is docs-only. When a user-facing command, AI feature flag, or API endpoint changes there, update the matching page here.
+
 ## Terminology
 
-{/* Add product-specific terms and preferred usage */}
-{/* Example: Use "workspace" not "project", "member" not "user" */}
+- Say **server** (not "guild") in user-facing prose; "guild" is fine only in API paths where the code uses it.
+- Say **member** for a user in a server, **moderator** for staff.
+- Refer to commands in the slash form with code formatting: `/tag find`.
+- The bot is **Percy**; the platform/API is **Klappstuhl.me**.
 
 ## Style preferences
 
-{/* Add any project-specific style rules below */}
-
-- Use active voice and second person ("you")
-- Keep sentences concise — one idea per sentence
-- Use sentence case for headings
-- Bold for UI elements: Click **Settings**
-- Code formatting for file names, commands, paths, and code references
+- Use active voice and second person ("you").
+- Keep sentences concise — one idea per sentence.
+- Use sentence case for headings.
+- Bold for UI elements: Click **Settings**.
+- Code formatting for command names, file names, paths, and code references.
+- Prefer the Mintlify components already used here: `<Note>`, `<Warning>`, `<Tip>`, `<Steps>`, `<AccordionGroup>`, `<CardGroup>`, `<ParamField>`.
+- For API endpoints, lead with method + path, then params (`<ParamField>`), then a `curl` example and a response/error table.
 
 ## Content boundaries
 
-{/* Define what should and shouldn't be documented */}
-{/* Example: Don't document internal admin features */}
+- **Document:** every user-facing feature and command, the optional AI layer, and the **Percy internal API** (operator/contributor reference). The API Reference tab is driven by the OpenAPI spec at `api-reference/percy-internal-api.json`.
+- The **public Klappstuhl.me platform API** is **out of scope here for now** — it will get its own separate page later. Its live reference is the Scalar page at `klappstuhl.me/api/docs`.
+- **Never document secrets:** tokens, `.env` values, internal hostnames/ports, or anything that would help bypass auth. The internal API is reference-only — it lives on localhost behind a shared bearer token.
+- Don't invent commands or endpoints — mirror what the code actually exposes. Regenerate `percy-internal-api.json` from the FastAPI app rather than hand-editing it.

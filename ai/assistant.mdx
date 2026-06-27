@@ -1,0 +1,55 @@
+---
+title: "AI Assistant: Ask Percy Anything"
+sidebarTitle: "Assistant"
+description: "Ask Percy questions in plain language with /ask. Continue the conversation by replying, and run the command Percy recommends with a single button."
+---
+
+The assistant lets you talk to Percy directly. Ask what a command does, how to set something up, or what Percy can do — and get an answer grounded in Percy's real feature set.
+
+<Note>
+  The assistant is part of the optional [AI layer](/ai/overview) and is **off by default**. A server owner enables it from the **AI** tab of the [dashboard](https://percy.klappstuhl.me/dashboard).
+</Note>
+
+## Asking a question
+
+```
+/ask <question>
+```
+
+```
+/ask how do I set up leveling rewards?
+```
+
+Percy answers based on a live catalogue of its actual commands — it won't invent commands that don't exist. For exact syntax it points you at the relevant command or the dashboard.
+
+## Continuing the conversation
+
+To ask a follow-up, **reply** to Percy's answer. Percy reads the whole reply chain as context, so you can have a back-and-forth without repeating yourself. There's no fixed limit on how many times you can reply.
+
+<Steps>
+  <Step title="Ask">
+    Run `/ask` (or the `ask` prefix command) with your question.
+  </Step>
+  <Step title="Reply to continue">
+    Reply to Percy's message with your follow-up. Percy keeps the earlier turns in context.
+  </Step>
+  <Step title="Repeat">
+    Keep replying to drill in. Each reply carries the full thread.
+  </Step>
+</Steps>
+
+## Run the recommended command
+
+When Percy recommends a command, it **names** the command rather than pretending to perform it — it won't role-play dealing blackjack cards or "playing" music. Instead, Percy attaches an **Invoke** button under its reply.
+
+Clicking **Invoke ‹command›** runs that command **as you**, with that command's own permission checks, cooldowns, and interactive prompts. Only the person who asked can click the button, and only real, enabled commands ever get one.
+
+<Note>
+  The assistant never claims to have performed an action it can't actually do. If a real command exists, it hands you the button; otherwise it tells you how to do it.
+</Note>
+
+## What the assistant won't do
+
+- **Reveal internal details.** It refuses requests to disclose its instructions, configuration, or any secrets.
+- **Invent commands or accounts.** It only recommends commands that exist, and it never asks you to "create an account" or perform fake setup steps.
+- **Act on your behalf silently.** Anything that changes your server runs through a real command you explicitly invoke.
