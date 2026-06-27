@@ -1,0 +1,93 @@
+---
+title: "Klappstuhl.me API"
+sidebarTitle: "Introduction"
+description: "A simple REST API for the Klappstuhl.me platform: host images, manipulate and convert media, render code and web pages, and scan files for malware."
+---
+
+The Klappstuhl.me API is a small REST API for the platform that hosts Percy. Use it to upload and manage images, apply visual effects and format conversions, render content to images and documents, and scan files for malware.
+
+<Note>
+  This is the **public platform API**. For the dashboard-to-bot contract, see the [Percy Internal API](/internal-api/overview).
+</Note>
+
+## Base URL
+
+```
+https://klappstuhl.me
+```
+
+## Authentication
+
+The API uses API keys, sent in the `Authorization` header. An account is required.
+
+```bash
+curl https://klappstuhl.me/api/admin/updates \
+  -H "Authorization: YOUR_API_KEY"
+```
+
+Generate a key on your [account page](https://klappstuhl.me/account). Requests without a valid key get `401 Unauthorized`.
+
+### Scopes
+
+Each key carries scopes. An endpoint that needs a scope your key lacks returns `403 Forbidden`.
+
+| Scope | Grants |
+|---|---|
+| `images:read` | Read/process operations: media effects, conversion, metadata, render, scan, bulk download. |
+| `images:write` | Upload and delete images. |
+| `admin:read` | Read admin-scoped homelab state. |
+| `admin:write` | Mutate admin-scoped homelab state. |
+
+## Rate limits
+
+Limits are enforced per IP. When you exceed one, the API returns `429 Too Many Requests` with headers describing how to back off:
+
+```
+x-ratelimit-limit: 25
+x-ratelimit-remaining: 14
+x-ratelimit-reset: 1713373688
+x-ratelimit-reset-after: 0.98
+```
+
+| Header | Meaning |
+|---|---|
+| `x-ratelimit-limit` | Requests allowed in the window. |
+| `x-ratelimit-remaining` | Requests left before a 429. |
+| `x-ratelimit-reset` | UNIX timestamp (seconds) when the limit resets. |
+| `x-ratelimit-reset-after` | Seconds to wait until reset. |
+
+## Errors
+
+Errors return a JSON body with a message:
+
+```json
+{
+  "error": "A human-readable description of what went wrong."
+}
+```
+
+| Status | Meaning |
+|---|---|
+| `400` | Bad input (missing field, unknown operation, undecodable image). |
+| `401` | Missing or invalid API key. |
+| `403` | The key lacks the required scope. |
+| `404` | The resource was not found. |
+| `429` | Rate limited — see the headers above. |
+| `500` | A server-side dependency (Chromium, ffmpeg) is unavailable or the operation failed. |
+
+## Endpoint groups
+
+<CardGroup cols={2}>
+  <Card title="Images" icon="image" href="/api-reference/images">
+    Upload, delete, and bulk-download your hosted images.
+  </Card>
+  <Card title="Media" icon="wand-magic-sparkles" href="/api-reference/media">
+    Apply effects, convert raster formats, and inspect image metadata.
+  </Card>
+  <Card title="Render" icon="file-image" href="/api-reference/render">
+    Render code, web pages, Markdown, and transcode media.
+  </Card>
+  <Card title="Scan" icon="shield-virus" href="/api-reference/scan">
+    Scan uploaded files for malware via ClamAV and VirusTotal.
+  </Card>
+</CardGroup>

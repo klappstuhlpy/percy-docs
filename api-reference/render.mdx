@@ -1,0 +1,105 @@
+---
+title: "Render API"
+sidebarTitle: "Render"
+description: "Turn content into images and documents: syntax-highlighted code screenshots, web-page screenshots, Markdown to PDF, and media transcoding."
+---
+
+Render content into images and documents.
+
+<Note>
+  Screenshot, Markdown-to-PDF, and transcode rely on server-side binaries (Chromium, ffmpeg). If the binary isn't installed, those endpoints return `500`. Code rendering is pure Rust and always available.
+</Note>
+
+## Render code
+
+<ParamField path="POST /api/render/code" required>
+  Scope: `images:read` · Content type: `application/json`
+</ParamField>
+
+Render source code to a syntax-highlighted SVG.
+
+**Body** (`CodeImageRequest`)
+
+<ParamField body="code" type="string" required>
+  The source code to render.
+</ParamField>
+
+<ParamField body="language" type="string">
+  Language token or extension (e.g. `rust`, `py`, `js`). Falls back to plain text when omitted or unknown.
+</ParamField>
+
+<ParamField body="theme" type="string">
+  Theme name (a syntect default such as `base16-ocean.dark`, `InspiredGitHub`, `Solarized (dark)`). Optional.
+</ParamField>
+
+```bash
+curl -X POST https://klappstuhl.me/api/render/code \
+  -H "Authorization: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"code": "fn main() { println!(\"hi\"); }", "language": "rust", "theme": "base16-ocean.dark"}' \
+  --output code.svg
+```
+
+Returns `200` with the rendered SVG (`image/svg+xml`). Errors: `400` (missing or oversized code), `401`, `429`.
+
+## Screenshot a web page
+
+<ParamField path="POST /api/render/screenshot" required>
+  Scope: `images:read` · Content type: `application/json`
+</ParamField>
+
+**Body** (`ScreenshotRequest`)
+
+<ParamField body="url" type="string" required>
+  Public http(s) URL to capture. Private/reserved addresses are refused.
+</ParamField>
+
+<ParamField body="width" type="integer">
+  Viewport width in pixels (default 1280).
+</ParamField>
+
+<ParamField body="height" type="integer">
+  Viewport height in pixels (default 800).
+</ParamField>
+
+<ParamField body="dark_mode" type="boolean">
+  Emulate dark mode.
+</ParamField>
+
+<ParamField body="mobile" type="boolean">
+  Emulate a mobile viewport / user-agent.
+</ParamField>
+
+Returns `200` with a PNG (`image/png`). Errors: `400` (invalid or non-public URL), `401`, `500` (Chromium not available or render failed), `429`.
+
+## Markdown to PDF
+
+<ParamField path="POST /api/render/markdown-pdf" required>
+  Scope: `images:read` · Content type: `application/json`
+</ParamField>
+
+**Body** (`MarkdownRequest`)
+
+<ParamField body="markdown" type="string" required>
+  The Markdown source to render. Tables, strikethrough, and task lists are supported.
+</ParamField>
+
+Returns `200` with a PDF (`application/pdf`). Errors: `400` (empty markdown), `401`, `500` (Chromium not available or render failed), `429`.
+
+## Transcode media
+
+<ParamField path="POST /api/convert/transcode" required>
+  Scope: `images:read` · Content type: `multipart/form-data`
+</ParamField>
+
+Convert MOV → MP4 or HEIC → JPG via ffmpeg.
+
+**Query parameters**
+
+<ParamField query="to" type="string" required>
+  Target format: `mp4` or `jpg`.
+</ParamField>
+
+**Body** — multipart form with the file to convert.
+
+Returns `200` with the converted file. Errors: `400` (missing file or unsupported target), `401`, `500` (ffmpeg not available or conversion failed), `429`.

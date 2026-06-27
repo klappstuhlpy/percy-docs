@@ -1,0 +1,95 @@
+---
+title: "Smart Commands: Natural-Language Polls, Giveaways, Music, and Tags"
+sidebarTitle: "Smart commands"
+description: "Describe what you want in plain language and let Percy fill in the structured details — for polls, giveaways, music, tag lookups, and command routing."
+---
+
+Smart commands let you describe what you want instead of learning flag syntax. Percy's AI turns your description into the structured fields the real command expects, then runs that command — so you get all of its normal validation and behavior.
+
+<Note>
+  Smart commands are part of the optional [AI layer](/ai/overview) and are **off by default**, enabled per feature from the **AI** tab of the [dashboard](https://percy.klappstuhl.me/dashboard). If the AI is off or unsure, use the underlying command directly — it always works.
+</Note>
+
+## Command router
+
+When you type a command that doesn't quite exist — a typo, or a request phrased in plain words — Percy can figure out what you meant and offer to run it.
+
+```
+/aks who are you?
+```
+
+Percy recognizes the intent, and (when confident) asks you to confirm before running the real command. Low-confidence guesses are never run automatically.
+
+## Polls from a description
+
+```
+/polls ask <description>
+```
+
+```
+/polls ask should we host a movie night? options yes, no, and maybe — run it for 2 days
+```
+
+Percy extracts the question, the options (2–8), and the duration, then creates the poll. It also understands extras:
+
+- **Image** — paste an image URL in your description and Percy attaches it to the poll.
+- **Discussion thread** — ask Percy to "open a thread" and it opens and pins a discussion thread on the poll.
+
+If the AI can't parse your description, Percy points you at [`/polls create`](/community/polls).
+
+## Giveaways from a description
+
+```
+/giveaway quick <description>
+```
+
+```
+/giveaway quick give away 3 copies of a game to 3 winners in #giveaways, ends in 1 day
+```
+
+Percy extracts:
+
+- **Prize** — the item itself (a quantity like "3 copies" becomes the winner count, not part of the prize).
+- **Winners** — how many people win.
+- **Duration** — how long it runs.
+- **Channel** — mention a channel (e.g. `#giveaways`) and Percy posts there; otherwise it posts in the current channel.
+- **Description** — any extra blurb you want shown.
+
+If the AI can't parse it, Percy points you at [`/giveaway create`](/community/giveaways).
+
+## Music by vibe
+
+```
+/vibe <description>
+```
+
+```
+/vibe something upbeat for coding, with a bass boost
+```
+
+Percy turns your description into a search query and an optional audio filter (such as bass boost, nightcore, 8D, or low-pass), then queues it up. See [Music](/music/overview) for the full player.
+
+## Find a tag by meaning
+
+```
+/tag find <question>
+```
+
+```
+/tag find what are the server guidelines?
+```
+
+Instead of matching a tag's exact name, `/tag find` matches the **intent** of your question to the most relevant tag and shows it — handy when you know what you're looking for but not what the tag is called. It only ever returns a real tag from your server. If nothing fits, Percy suggests [`/tag search`](/community/tags).
+
+## When the AI is unavailable
+
+Every smart command has a plain counterpart that always works:
+
+| Smart command | Falls back to |
+|---|---|
+| `/polls ask` | [`/polls create`](/community/polls) |
+| `/giveaway quick` | [`/giveaway create`](/community/giveaways) |
+| `/vibe` | [`/play`](/music/overview) |
+| `/tag find` | [`/tag search`](/community/tags) |
+
+If a feature is disabled or the model is unreachable, Percy tells you which command to use instead.

@@ -91,6 +91,39 @@
               "configuration/command-permissions",
               "configuration/audit-log"
             ]
+          },
+          {
+            "group": "AI",
+            "pages": [
+              "ai/overview",
+              "ai/assistant",
+              "ai/smart-commands",
+              "ai/moderation",
+              "ai/self-hosting"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Klappstuhl.me API",
+            "pages": [
+              "api-reference/introduction",
+              "api-reference/images",
+              "api-reference/media",
+              "api-reference/render",
+              "api-reference/scan",
+              "api-reference/admin"
+            ]
+          },
+          {
+            "group": "Percy Internal API",
+            "pages": [
+              "internal-api/overview",
+              "internal-api/endpoints"
+            ]
           }
         ]
       },
