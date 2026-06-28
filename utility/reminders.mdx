@@ -11,7 +11,7 @@ Percy's reminder system lets you schedule a personal alert using natural-soundin
 Use `/reminder create` (also available as `/remindme`, `/remind`, `/timer`, or with the `?` prefix as `?remind`) followed by a time and a message.
 
 ```
-/reminder create <time> <message> [flags]
+/reminder create <prompt> [flags]
 ```
 
 **Natural language time examples**
@@ -35,7 +35,7 @@ Flags are optional modifiers you append to a `/reminder create` command to custo
   Applies a specific timezone to this reminder only, overriding your saved timezone setting.
 
   ```
-  /reminder create "friday at 5pm" "Team call" --tz Europe/Berlin
+  /reminder create friday at 5pm Team call --tz Europe/Berlin
   ```
 </Accordion>
 
@@ -43,7 +43,7 @@ Flags are optional modifiers you append to a `/reminder create` command to custo
   Delivers the reminder to your DMs instead of the current channel. Useful for private notes or when you won't be in a specific server channel at fire time.
 
   ```
-  /reminder create 1h "Check your email" --dm
+  /reminder create in 1h check your email --dm
   ```
 
   <Note>
@@ -55,7 +55,7 @@ Flags are optional modifiers you append to a `/reminder create` command to custo
   Makes the reminder repeat on a fixed interval. The interval uses the same natural-language format as the initial time (`1d`, `12h`, `1w`, etc.).
 
   ```
-  /reminder create 8am "Morning stand-up" --every 1d
+  /reminder create at 8am for morning stand-up --every 1d
   ```
 </Accordion>
 
@@ -63,7 +63,7 @@ Flags are optional modifiers you append to a `/reminder create` command to custo
   Caps a recurring reminder at `n` total firings (including the first). Requires `--every`.
 
   ```
-  /reminder create 8am "Morning stand-up" --every 1d --count 5
+  /reminder create at 8am for morning stand-up --every 1d --count 5
   ```
 </Accordion>
 
@@ -71,18 +71,18 @@ Flags are optional modifiers you append to a `/reminder create` command to custo
   Pings up to 10 friends when the reminder fires. Mention each user after the flag.
 
   ```
-  /reminder create 30m "Pizza's ready" --share @Alice @Bob
+  /reminder create 30m that the pizza's ready --share @Alice @Bob
   ```
 </Accordion>
 
 ## Commands
 
-| Command | Description |
-|---|---|
-| `/reminder create <time> <message> [flags]` | Create a new reminder |
-| `/reminder list` | View all your active reminders with their IDs |
-| `/reminder delete <id>` | Delete a specific reminder by its ID |
-| `/reminder purge` | Delete **all** your active reminders |
+| Command                             | Description                                                                    |
+|-------------------------------------|--------------------------------------------------------------------------------|
+| `/reminder create <prompt> [flags]` | Create a new user friendly timed reminder that naturally extracts a given time |
+| `/reminder list`                    | View all your active reminders with their IDs                                  |
+| `/reminder delete <id>`             | Delete a specific reminder by its ID                                           |
+| `/reminder purge`                   | Delete **all** your active reminders                                           |
 
 <Note>
   Find the reminder ID by running `/reminder list` — it appears in brackets next to each entry (e.g. `#1 • [42]`).
@@ -91,22 +91,22 @@ Flags are optional modifiers you append to a `/reminder create` command to custo
 ## Examples
 
 ```
-/reminder create 2h "Submit the report"
+/reminder create in 2h to submit the report
 ```
 Pings you in 2 hours with "Submit the report".
 
 ```
-/reminder create "next monday at 9am" "Team standup" --dm
+/reminder create next monday at 9am for Team standup --dm
 ```
 Sends a private DM reminder next Monday at 9:00 AM in your saved timezone.
 
 ```
-/reminder create 1d "Hydrate!" --every 1d --count 7
+/reminder create 1d Hydrate! --every 1d --count 7
 ```
 Reminds you to hydrate every day for a week (7 total pings).
 
 ```
-/reminder create 30m "Check the oven" --share @Alice @Bob
+/reminder create in 30 mins to check the oven! --share @Alice @Bob
 ```
 Pings you, Alice, and Bob in 30 minutes.
 
