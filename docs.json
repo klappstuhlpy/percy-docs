@@ -7,10 +7,10 @@
     "light": "#D97757",
     "dark": "#D97757"
   },
-  "favicon": "https://media.brand.dev/b3ea5921-97d6-4dda-9719-2b759af4eb1f.png",
+  "favicon": "/images/percy_pfp_rounded_corners.png",
   "logo": {
-    "light": "/images/a_63c5bfdd426832fb2fe7378ec34d7e6a.gif",
-    "dark": "/images/a_63c5bfdd426832fb2fe7378ec34d7e6a.gif",
+    "light": "/images/percy_thumbnail.png",
+    "dark": "/images/percy_thumbnail.png",
     "href": "https://percy.klappstuhl.me/"
   },
   "navbar": {
@@ -147,5 +147,5 @@
       ]
     }
   },
-  "description": "The Documentation for  my personal multipurpose Discord Bot Percy."
+  "description": "The Documentation for my personal multipurpose Discord Bot Percy."
 }
