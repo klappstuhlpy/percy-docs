@@ -51,6 +51,7 @@
             "group": "Economy",
             "pages": [
               "economy/overview",
+              "economy/progression",
               "economy/shop",
               "economy/games",
               "economy/lottery"

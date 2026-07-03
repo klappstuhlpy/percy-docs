@@ -19,12 +19,16 @@ Deposit cash into the bank to keep it safe, and withdraw when you need to spend.
 
 | Command | Description |
 |---------|-------------|
+| `/economy` | One interactive card with your balance, job, pet, quests, badges, and perks |
 | `/balance` | Show your cash, bank, and total — or check another member with `/balance @User` |
 | `/balance leaderboard` | See the richest members on the server |
 | `/deposit <amount>` | Move cash into your bank (use your full amount to empty your wallet) |
 | `/withdraw <amount>` | Pull coins out of your bank into cash |
 | `/transfer @User <amount>` | Send cash directly to another member |
+| `/gift @User <item> [quantity]` | Gift items from your inventory to another member |
 | `/daily` | Claim your daily reward and build a streak |
+| `/weekly` | Claim a 1,500-coin reward once every 7 days |
+| `/monthly` | Claim a 7,000-coin reward once every 30 days |
 
 ```
 /balance
@@ -51,20 +55,32 @@ Claiming your daily reward once every 24 hours builds a **streak**. Each consecu
 
 The streak bonus caps at 7 bonus steps, reached on day 8, so the highest possible daily payout is **600 coins**. If you miss a day and more than **48 hours** pass since your last claim, your streak resets to 1.
 
+The table shows the defaults — admins can change the base daily payout with `/economy-config daily-base`, and every claim is also scaled by the server's payout multiplier and your [prestige bonus](/economy/progression#prestige).
+
 <Tip>
   Set a reminder to claim `/daily` at the same time each day. Your streak keeps growing as long as you claim within 48 hours of your previous claim — missing that window resets it to 1.
 </Tip>
 
 ## Earning Activities
 
-Beyond the daily reward, you can earn coins by going fishing or hunting. Both commands pay out a random amount based on a weighted loot table — common catches pay a little, rare ones pay a lot.
+Beyond the daily reward, a set of earning commands pays out from weighted loot tables — common catches pay a little, rare ones pay a lot.
 
 | Command | Cooldown | Description |
 |---------|----------|-------------|
+| `/work` | 1 hour | Work a shift at your job — pay depends on your rung on the [career ladder](/economy/progression#jobs-and-careers) |
 | `/fish` | 60 seconds | Cast a line for catches ranging from an old boot to a rare pearl |
 | `/hunt` | 90 seconds | Head out for higher variance payouts — rabbits to trophy stags |
+| `/beg` | 45 seconds | Beg for spare change — usually a little, occasionally a windfall, sometimes nothing |
+| `/dig` | 90 seconds | Dig for buried valuables, from bottle caps to ancient relics |
+| `/search` | 75 seconds | Pick one of three random locations to rummage through — riskier spots hold better loot but can injure you and cost cash |
 
-Hunting has a longer cooldown but higher maximum payouts than fishing. Both activities are boosted by **loot\_boost** items from the shop — see the [Shop](/economy/shop) page for details.
+Fishing and hunting are boosted by **loot\_boost** items from the shop — see the [Shop](/economy/shop) page for details. Every activity above is also scaled by the server's payout multiplier and your prestige bonus, and most of them advance your [daily quests](/economy/progression#daily-quests).
+
+<Tip>
+  `/search` shows you three locations to choose from with buttons. Safe spots like your couch never go wrong; the bank lobby pays far better — if security doesn't catch you first.
+</Tip>
+
+There's also `/rob @User` — attempt to steal a slice of another member's **cash**, with success odds based on your wealth versus theirs, and a fine if you fail. Admins can turn robbing off entirely with `/economy-config rob`, and members can protect themselves with a **rob shield** item from the [shop](/economy/shop).
 
 ## Admin Commands
 
@@ -76,18 +92,34 @@ Server administrators (members with the **Administrator** permission) have acces
 | `/add-money-role @Role <amount> <cash\|bank>` | Add coins to every member who holds a given role |
 | `/remove-money @User <amount> <cash\|bank>` | Deduct coins from a specific member's balance |
 
+### Server Economy Settings
+
+The `/economy-config` group tunes how the whole economy behaves on your server. Run `/economy-config` on its own to see the current settings.
+
+| Command | Description |
+|---------|-------------|
+| `/economy-config multiplier <0.1–10>` | Scale every payout — work, fishing, hunting, begging, digging, searching, and timed claims |
+| `/economy-config daily-base <10–100,000>` | Set the base `/daily` payout before streak bonuses |
+| `/economy-config max-bet <amount>` | Cap stakes across all casino games (`0` removes the cap) |
+| `/economy-config rob <on\|off>` | Allow or forbid members robbing each other's cash |
+
+The same settings are editable from the **Economy** tab of the [web dashboard](https://percy.klappstuhl.me/dashboard).
+
 <Note>
   Economy data is stored per-server. A member's balance in your server is not shared with or affected by any other server.
 </Note>
 
 ---
 
-<CardGroup cols={3}>
+<CardGroup cols={2}>
+  <Card title="Progression" icon="trending-up" href="/economy/progression">
+    Climb the career ladder, adopt a pet, complete daily quests, unlock badges, and prestige for permanent bonuses.
+  </Card>
   <Card title="Shop" icon="store" href="/economy/shop">
-    Browse, buy, sell, and use items. Admins can build a fully custom shop with cash payouts, lootboxes, roles, and timed boosts.
+    Browse, buy, sell, gift, and use items. Admins can build a fully custom shop with cash payouts, lootboxes, roles, boosts, and rob shields.
   </Card>
   <Card title="Games" icon="gamepad-2" href="/economy/games">
-    Wager your coins in Blackjack, Poker, Roulette, Slots, and many more casino and mini-games.
+    Wager your coins in Blackjack, Poker, Roulette, Coinflip duels, and many more casino and mini-games.
   </Card>
   <Card title="Lottery" icon="ticket" href="/economy/lottery">
     Buy tickets for the server lottery and compete for a growing jackpot — more tickets mean better odds.

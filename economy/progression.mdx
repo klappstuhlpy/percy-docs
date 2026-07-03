@@ -1,0 +1,122 @@
+---
+title: "Economy Progression: Jobs, Pets, Quests, Achievements, and Prestige"
+sidebarTitle: "Progression"
+description: "Climb Percy's career ladder, adopt a pet that earns while you sleep, complete rotating daily quests, unlock achievement badges, and prestige for permanent payout bonuses."
+---
+
+Beyond one-off earning commands, Percy's economy has long-term progression systems that reward showing up: a career ladder you climb by working shifts, pets that earn passively, a daily quest board, achievement badges, and a prestige system for members who hit the top. Everything on this page is per-server — your career in one server doesn't carry over to another.
+
+<Tip>
+  Run `/economy` (or `/eco`) for an interactive card that bundles your balance, job, pet, quests, badges, and perks in one place — use the select menu to jump between sections.
+</Tip>
+
+## Jobs and Careers
+
+Work shifts to earn coins and climb an 8-rung career ladder from **Freelancer** all the way to **Astronaut**. Every shift you work counts toward your lifetime total, and lifetime shifts unlock better-paying jobs.
+
+| Command | Description |
+|---------|-------------|
+| `/work` | Work a shift at your current job (1 hour cooldown) |
+| `/job` | Show your job, lifetime shifts, and progress to the next unlock |
+| `/job list` | The full career ladder with pay ranges and unlock requirements |
+| `/job apply <name>` | Apply for a job you've unlocked |
+| `/job quit` | Quit back down to Freelancer (lifetime shifts are kept) |
+
+Each shift rolls a payout within your job's pay range, plus a random shift event — pull **overtime** for 1.5× pay, receive a **tip** for 1.25×, or suffer a **mishap** that halves it. Most shifts pass without incident.
+
+| Job | Pay per shift | Lifetime shifts to unlock |
+|-----|---------------|---------------------------|
+| Freelancer | 20–250 | — (everyone starts here) |
+| Barista | 80–300 | 5 |
+| Cashier | 140–420 | 15 |
+| Line Cook | 220–560 | 30 |
+| Electrician | 320–750 | 55 |
+| Programmer | 450–1,000 | 90 |
+| Surgeon | 620–1,350 | 140 |
+| Astronaut | 850–1,800 | 200 |
+
+<Note>
+  Lifetime shifts never reset — not when you switch jobs, quit, or prestige. Every shift you ever work counts toward unlocking the next rung.
+</Note>
+
+## Pets
+
+Adopt a pet and it earns coins passively, even while you're offline — as long as you keep it fed. Each species has a purchase cost, an hourly earn rate, a storage cap (earnings stop accruing past that many unclaimed hours), and a feeding cost.
+
+| Command | Description |
+|---------|-------------|
+| `/pet` | Show your pet: hunger, unclaimed earnings, and feeding cost |
+| `/pet shop` | Browse the adoptable species and prices |
+| `/pet adopt <species> [name]` | Adopt a pet (one per member) |
+| `/pet feed` | Feed your pet to keep it earning at full rate |
+| `/pet claim` | Collect your pet's accumulated earnings |
+| `/pet rename <name>` | Give your pet a new name |
+| `/pet abandon` | Release your pet (no refund) |
+
+| Species | Cost | Earns | Stores up to | Feeding |
+|---------|------|-------|--------------|---------|
+| Hamster | 500 | 8/h | 12h | 25 |
+| Cat | 2,500 | 20/h | 18h | 60 |
+| Dog | 3,000 | 26/h | 14h | 80 |
+| Parrot | 6,000 | 45/h | 20h | 120 |
+| Fox | 12,000 | 80/h | 24h | 200 |
+| Dragon | 50,000 | 250/h | 36h | 600 |
+
+<Warning>
+  Hunger matters: a pet unfed for **18 hours** earns at half rate, and one unfed for **36 hours** stops earning entirely. Feed regularly and claim before you hit the storage cap.
+</Warning>
+
+## Daily Quests
+
+Every member gets **3 quests per day**, drawn from a rotating pool — catch fish, work shifts, dig up finds, deposit cash, gift items, and more. Progress counts automatically as you play, and rewards pay out the moment a quest completes.
+
+```
+/quests
+```
+
+The board resets at midnight UTC. Quest goals and rewards vary day to day, and completing quests also counts toward the **Quartermaster** achievement.
+
+## Achievements
+
+Percy tracks 13 milestone badges per server, from your first 1,000 coins to a seven-figure net worth. Each badge pays a one-time cash reward when it unlocks — awards happen automatically as you play.
+
+```
+/achievements
+/achievements @User
+```
+
+Badges cover net worth milestones, daily streaks (7 and 30 days), working shifts, reaching the top of the career ladder, prestiging, adopting a pet, completing 25 quests, and owning 50 items at once.
+
+## Prestige
+
+Once your net worth (cash + bank) crosses the requirement, you can **prestige**: your cash and bank reset to zero in exchange for a permanent **+10% payout bonus** per level. The bonus applies to every earning activity — work, fishing, hunting, begging, digging, searching, and the daily/weekly/monthly claims.
+
+```
+/prestige
+```
+
+| Prestige level | Net worth required | Permanent bonus after |
+|----------------|--------------------|-----------------------|
+| 1 | 250,000 | +10% |
+| 2 | 500,000 | +20% |
+| 3 | 750,000 | +30% |
+| … | +250,000 per level | +10% per level |
+| 10 | 2,500,000 | +100% (maximum) |
+
+<Note>
+  Prestige resets only your cash and bank. Your inventory, job, lifetime shifts, pet, quests, and achievements are all kept.
+</Note>
+
+---
+
+<CardGroup cols={3}>
+  <Card title="Overview" icon="landmark" href="/economy/overview">
+    Wallet basics, daily/weekly/monthly claims, and all the earning activities.
+  </Card>
+  <Card title="Shop" icon="store" href="/economy/shop">
+    Spend your career earnings on items, boosts, and rob shields.
+  </Card>
+  <Card title="Games" icon="gamepad-2" href="/economy/games">
+    Wager your fortune in the casino — 16 games from Blackjack to Coinflip duels.
+  </Card>
+</CardGroup>

@@ -1,20 +1,25 @@
 ---
 title: "Percy Casino and Mini-Games: Wager Coins on Discord"
 sidebarTitle: "Games"
-description: "Wager your coins across 15 games — classic casino staples like Blackjack, Poker, and Roulette sit alongside puzzles like Wordle, Trivia, and Hangman."
+description: "Wager your coins across 16 games — classic casino staples like Blackjack, Poker, and Roulette sit alongside Coinflip duels and puzzles like Wordle, Trivia, and Hangman."
 ---
 
-Percy comes with a full suite of 15 games that let you put your coins on the line. Every game draws from your **cash** balance, so if your coins are sitting safely in the bank you'll need to run `/withdraw` before you play. Winnings are credited straight back to your cash. Games range from classic casino staples like Blackjack and Roulette to social and puzzle games like Wordle, Trivia, and Hangman.
+Percy comes with a full suite of 16 games that let you put your coins on the line. Every game draws from your **cash** balance, so if your coins are sitting safely in the bank you'll need to run `/withdraw` before you play. Winnings are credited straight back to your cash. Games range from classic casino staples like Blackjack and Roulette to social and puzzle games like Wordle, Trivia, and Hangman.
 
 <Note>
   All games use your **cash** balance, not your bank. Run `/withdraw <amount>` before playing so your coins are available.
 </Note>
+
+<Tip>
+  Run `/games` for an interactive catalogue of every game — pick one from the menu to see how it plays and your personal record: rounds, winrate, net profit, biggest win, and best streak.
+</Tip>
 
 ## Available Games
 
 | Game | Command | Description |
 |------|---------|-------------|
 | Blackjack | `/blackjack <bet>` | Classic card game against the dealer — hit, stand, or bust |
+| Coinflip | `/coinflip <bet> [side] [opponent]` | Call heads or tails — double or nothing against Percy, or duel another member for the pot |
 | Texas Hold'em Poker | `/poker <stack>` | Multiplayer poker for up to 4 players; buy in with your stack |
 | Roulette | `/roulette <bet> <space>` | Bet on a number, colour, or range; bets close after 60 seconds |
 | Slots | `/slots <bet>` | Spin the slot machine for a chance at a big multiplier |
@@ -54,6 +59,9 @@ Percy comes with a full suite of 15 games that let you put your coins on the lin
   <Card title="Russian Roulette" icon="gun">
     Everyone antes into the pot. Players take turns and the last one standing takes the full pot. Minimum ante applies and only one game can run per channel at a time.
   </Card>
+  <Card title="Coinflip Duels" icon="coins">
+    Call your side and flip against Percy for double or nothing — or challenge a member. In a duel both of you ante the bet, nobody pays until the challenge is accepted, and the winner takes the whole pot.
+  </Card>
   <Card title="Wordle" icon="spell-check">
     The whole server shares the same daily word. Solve it in fewer guesses for a larger coin reward — the maximum reward decreases with each guess you use.
   </Card>
@@ -68,3 +76,7 @@ Percy comes with a full suite of 15 games that let you put your coins on the lin
 <Tip>
   In Roulette and Horse Race, your bet is deducted immediately when you place it. If the game message is lost or a technical issue occurs, Percy refunds all placed bets automatically.
 </Tip>
+
+<Note>
+  Admins can cap the maximum stake across every casino game with `/economy-config max-bet` (or from the dashboard's **Economy** tab). Bets above the cap are rejected before any coins move.
+</Note>

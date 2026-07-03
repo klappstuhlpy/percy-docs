@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Percy Internal API",
-    "description": "The internal HTTP API the Percy Discord bot exposes for its dashboard backend (BFF). It listens on localhost only and authenticates every `/api/v1` route with a shared bearer token (`INTERNAL_API_TOKEN`). Webhook routes under `/api/webhooks` validate their own per-service secret instead.",
+    "description": "Internal API for the Percy Discord bot, consumed by the klappstuhl.me BFF dashboard.",
     "version": "1"
   },
   "paths": {
@@ -393,6 +393,77 @@
                   "type": "object",
                   "additionalProperties": true,
                   "title": "Response Delete Ai Override Api V1 Guilds  Guild Id  Ai Overrides  Channel Id  Delete"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/guilds/{guild_id}/ai/ask": {
+      "post": {
+        "tags": [
+          "Guilds"
+        ],
+        "summary": "Ai Ask",
+        "description": "Answer a dashboard command-palette question with Percy's AI assistant.\n\nGated like every other AI behaviour: the guild must have the ``assistant`` AI feature\nenabled *and* the engine must be reachable. When either is false this returns\n``{\"available\": false, ...}`` (never an error) so the palette degrades gracefully to its\nnavigation/action results. The answer is grounded in the real command catalogue, and any\ncommand it names is resolved and returned as a suggestion (invented commands are dropped).",
+        "operationId": "ai_ask_api_v1_guilds__guild_id__ai_ask_post",
+        "parameters": [
+          {
+            "name": "guild_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Guild Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AIAskBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Ai Ask Api V1 Guilds  Guild Id  Ai Ask Post"
                 }
               }
             }
@@ -2757,6 +2828,76 @@
                   "type": "object",
                   "additionalProperties": true,
                   "title": "Response Get Economy Api V1 Guilds  Guild Id  Economy Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/guilds/{guild_id}/economy/settings": {
+      "patch": {
+        "tags": [
+          "Economy"
+        ],
+        "summary": "Patch Economy Settings",
+        "operationId": "patch_economy_settings_api_v1_guilds__guild_id__economy_settings_patch",
+        "parameters": [
+          {
+            "name": "guild_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Guild Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchSettingsBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Patch Economy Settings Api V1 Guilds  Guild Id  Economy Settings Patch"
                 }
               }
             }
@@ -6779,6 +6920,67 @@
         }
       }
     },
+    "/api/v1/guilds/{guild_id}/games": {
+      "get": {
+        "tags": [
+          "Stats"
+        ],
+        "summary": "Get Guild Games",
+        "description": "Guild-wide game statistics: per-game totals and the top players by wins.",
+        "operationId": "get_guild_games_api_v1_guilds__guild_id__games_get",
+        "parameters": [
+          {
+            "name": "guild_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Guild Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Guild Games Api V1 Guilds  Guild Id  Games Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/bot/stats": {
       "get": {
         "tags": [
@@ -7576,8 +7778,7 @@
               }
             }
           }
-        },
-        "security": []
+        }
       }
     },
     "/api/webhooks/discordbotlist": {
@@ -7601,13 +7802,25 @@
               }
             }
           }
-        },
-        "security": []
+        }
       }
     }
   },
   "components": {
     "schemas": {
+      "AIAskBody": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "title": "Question"
+          }
+        },
+        "type": "object",
+        "required": [
+          "question"
+        ],
+        "title": "AIAskBody"
+      },
       "AlwaysOnBody": {
         "properties": {
           "enabled": {
@@ -9168,6 +9381,57 @@
         "type": "object",
         "title": "PatchSentinelBody"
       },
+      "PatchSettingsBody": {
+        "properties": {
+          "payout_multiplier": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payout Multiplier"
+          },
+          "rob_enabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rob Enabled"
+          },
+          "daily_base": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Daily Base"
+          },
+          "max_bet": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Bet"
+          }
+        },
+        "type": "object",
+        "title": "PatchSettingsBody",
+        "description": "Partial update; omitted fields keep their value. ``max_bet=0`` clears the cap."
+      },
       "PatchTempChannelBody": {
         "properties": {
           "format": {
@@ -9521,11 +9785,6 @@
     {
       "url": "http://127.0.0.1:8090",
       "description": "Local internal API (bind 127.0.0.1, port = INTERNAL_API_PORT)."
-    }
-  ],
-  "security": [
-    {
-      "BearerAuth": []
     }
   ]
 }

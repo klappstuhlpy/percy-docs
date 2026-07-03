@@ -43,6 +43,14 @@ You can sell any item in your inventory back to the shop at **50% of its origina
 
 Your inventory lists every item you own, how many you have, their total sell value, and each item's use-effect. You can also check another member's inventory by mentioning them.
 
+## Gifting Items
+
+```
+/gift @User <item name> [quantity]
+```
+
+Gift items straight from your inventory to another member — no coins change hands, the items simply move. Gifting also counts toward the daily **gift** quest when it's on your [quest board](/economy/progression#daily-quests).
+
 ## Using Items
 
 ```
@@ -60,6 +68,7 @@ Using an item consumes one copy from your inventory and triggers its effect imme
 | **role** | Grants you a Discord role configured by an admin; the role is yours to keep |
 | **xp\_boost** | Activates a timed multiplier on all XP you earn through leveling (e.g. +50% XP for 120 minutes) |
 | **loot\_boost** | Activates a timed multiplier on all coins earned from `/fish` and `/hunt` (e.g. +100% payouts for 60 minutes) |
+| **rob\_shield** | Activates a timed shield that blocks every `/rob` attempt against you until it expires |
 
 Items with no effect are plain collectibles — they sit in your inventory as status symbols or server memorabilia but don't do anything mechanically when used.
 
@@ -97,11 +106,12 @@ Members with the **Administrator** permission can add and remove items from the 
     Choose a display name and a purchase price in coins. If the name contains spaces, wrap it in quotes when using the prefix command.
   </Step>
   <Step title="Pick an effect">
-    Select one of the six effect types: `none`, `cash`, `lootbox`, `role`, `xp_boost`, or `loot_boost`. Leave this blank for a plain collectible.
+    Select one of the seven effect types: `none`, `cash`, `lootbox`, `role`, `xp_boost`, `loot_boost`, or `rob_shield`. Leave this blank for a plain collectible.
   </Step>
   <Step title="Supply effect parameters">
     - **cash / lootbox** — set `value` to the coin amount (the lootbox rolls around this number).
     - **xp\_boost / loot\_boost** — set `value` to the bonus percentage (1–500) and `duration` to how many minutes the boost lasts (up to 10,080 minutes / 7 days).
+    - **rob\_shield** — set `duration` to how many minutes the shield blocks `/rob` attempts (up to 10,080 minutes / 7 days).
     - **role** — select the `role` parameter with the role you want the item to grant. Percy must have a role above it in the hierarchy.
   </Step>
   <Step title="Add a description">
