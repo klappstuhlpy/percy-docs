@@ -1,0 +1,72 @@
+---
+title: "Backup & Templates: Export, restore, and share your server setup"
+sidebarTitle: "Backup & Templates"
+description: "Export a portable snapshot of your Percy configuration, restore it into any server, and publish reusable server-setup templates that others can apply by slug."
+---
+
+The **Backup & Templates** page lets you save your server's Percy configuration as a portable file, restore it later (or into a different server), and publish it as a template others can reuse. It's the fastest way to clone a working setup or recover after a mistake.
+
+Find it under **Integrations → Backup & Templates** on the [dashboard](https://percy.klappstuhl.me/dashboard). It requires the **Manage Server** permission.
+
+## What's in a backup
+
+A backup is **portable** — it contains only configuration that makes sense in any server, with no channel or role IDs baked in:
+
+| Section | Contents |
+|---|---|
+| **Config** | Portable server settings (prefixes, mention count, feature flags, music-panel preference) |
+| **Autoresponders** | Trigger/response pairs and their match settings |
+| **Tags** | Tag names and content |
+
+<Note>
+  Features bound to specific channels or roles — comic feeds, temp-channel hubs, log channels — are **deliberately excluded** so a backup restores cleanly into any server without pointing at IDs that don't exist there.
+</Note>
+
+## Exporting
+
+Click **Download backup** to save a JSON snapshot of the current configuration. Keep it somewhere safe, or hand it to another server owner to import.
+
+## Importing / restoring
+
+<Steps>
+  <Step title="Load the backup">
+    Paste a backup's JSON, or choose a `.json` file to load it into the box.
+  </Step>
+  <Step title="Preview">
+    Click **Preview**. Percy performs a dry run and shows exactly how many items each section would add — nothing is written yet.
+  </Step>
+  <Step title="Restore">
+    Click **Restore** to apply it.
+  </Step>
+</Steps>
+
+<Warning>
+  Import is **additive**. Existing tags and autoresponder triggers with the same name are **skipped, never overwritten**, so a restore can't clobber work you've already done.
+</Warning>
+
+## Templates
+
+A template is a backup published under a **slug** — a short, lowercase name like `gaming-starter`. Templates let other servers apply your setup without you sending a file around.
+
+### Publishing
+
+Fill in a slug, a display name, and an optional description, then choose whether to make it **public**. Public templates appear in the gallery for any server to apply; private ones are visible only to the server that published them.
+
+### Applying
+
+Both your own templates and public ones can be applied to the current server. Applying previews the changes first (a dry run), then adds the template's content additively — exactly like an import.
+
+### Managing
+
+Your published templates show their usage count. You can delete any template your server authored at any time.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Webhooks" icon="bolt" href="/configuration/webhooks">
+    Send signed server events to your own services.
+  </Card>
+  <Card title="Server Setup" icon="gear" href="/configuration/server-setup">
+    Run through the full initial setup checklist.
+  </Card>
+</CardGroup>

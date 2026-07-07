@@ -1,0 +1,49 @@
+---
+title: "Analytics: Track command usage, XP, and member growth over time"
+sidebarTitle: "Analytics"
+description: "Use the Percy dashboard's Analytics page to chart command volume, command failures, XP earned, and new members across any time range, with deltas against the previous window."
+---
+
+The **Analytics** page on the [dashboard](https://percy.klappstuhl.me/dashboard) turns Percy's activity records into charts, so you can see how your server is trending at a glance. It reads from Percy's command log, the daily XP snapshots, and the live member list — nothing new is tracked, it just visualises what Percy already knows.
+
+Open it from **Overview → Analytics** on your server's dashboard. It requires the **Manage Server** permission.
+
+## Headline numbers
+
+At the top of the page, three tiles summarise the selected window:
+
+- **Commands** — how many commands were used, with a delta against the window immediately before it (for example, this 30 days vs the previous 30 days).
+- **New members** — how many members joined in the window, with the same period-over-period delta.
+- **Members** — the current total member count.
+
+A green ▲ means the number rose versus the previous window; a red ▼ means it fell.
+
+## The trend chart
+
+Below the tiles, a chart plots one metric over time. Use the two pickers to change what it shows:
+
+| Picker | Options |
+|---|---|
+| **Metric** | Commands used, Command failures, XP earned, New members |
+| **Range** | Last 24 hours, 7 days, 30 days, 90 days, or 1 year |
+
+The series is **zero-filled**: a bucket with no activity shows `0` rather than leaving a gap, so a quiet day never looks like missing data. Percy picks a sensible bucket size for the range automatically — hourly for a day, daily for a month, weekly for a year.
+
+<Note>
+  The **XP earned** metric is always bucketed by day. It comes from a cumulative daily snapshot, so summing it into hourly or weekly buckets would be misleading.
+</Note>
+
+## Top commands
+
+The final section lists the five most-used commands in the selected window, with their usage counts. Switching the range updates this list along with the headline tiles.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Statistics" icon="chart-simple" href="/configuration/server-setup">
+    See at-a-glance server and bot statistics on the dashboard.
+  </Card>
+  <Card title="Leveling" icon="arrow-up-right-dots" href="/community/leveling">
+    Configure XP, level roles, and the XP-over-time leaderboard chart.
+  </Card>
+</CardGroup>

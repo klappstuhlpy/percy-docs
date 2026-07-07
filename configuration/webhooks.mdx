@@ -1,0 +1,90 @@
+---
+title: "Webhooks: Send signed server events to your own services"
+sidebarTitle: "Webhooks"
+description: "Subscribe your own URL to Percy server events. Percy POSTs a signed JSON envelope on member joins, bans, level-ups, moderation cases, and more, verifiable with an HMAC-SHA256 signature."
+---
+
+Outbound **webhooks** let you connect your server's activity to anything you run. Register a URL and pick the events you care about, and whenever one of them fires, Percy sends a signed JSON payload to that URL. Use it to drive a status board, mirror events into another service, or trigger your own automations.
+
+Manage webhooks from **Integrations → Webhooks** on the [dashboard](https://percy.klappstuhl.me/dashboard). It requires the **Manage Server** permission.
+
+## Creating a webhook
+
+<Steps>
+  <Step title="Add the endpoint">
+    Click **Add Webhook**, enter the **Payload URL** that should receive events (an `https://` URL you control), and optionally a **Label** to identify it later.
+  </Step>
+  <Step title="Choose events">
+    Tick the events this endpoint should receive. You can change the selection later.
+  </Step>
+  <Step title="Store the signing secret">
+    On save, Percy shows a **signing secret once**. Copy it now — it is never shown again. You'll use it to verify that deliveries genuinely came from Percy.
+  </Step>
+</Steps>
+
+## Events you can subscribe to
+
+| Event | Fires when |
+|---|---|
+| `member.join` | A member joins the server |
+| `member.remove` | A member leaves the server |
+| `member.ban` | A member is banned |
+| `member.unban` | A member is unbanned |
+| `role.create` | A role is created |
+| `role.delete` | A role is deleted |
+| `level.up` | A member reaches a new level |
+| `moderation.case` | A moderation case is opened |
+| `giveaway.ended` | A giveaway ends and winners are drawn |
+
+## The delivery payload
+
+Every delivery is a JSON envelope:
+
+```json
+{
+  "id": "b2f1c0e2-…",
+  "event": "member.join",
+  "guild_id": "123456789012345678",
+  "sent_at": "2026-07-07T12:34:56.789012+00:00",
+  "data": { }
+}
+```
+
+- `id` is unique per delivery — use it to de-duplicate retries.
+- `guild_id` is a string (so it survives JavaScript number limits).
+- `data` carries the event-specific fields.
+
+## Verifying the signature
+
+Each request carries an `X-Percy-Signature` header of the form `sha256=<hex>`. It is the HMAC-SHA256 of the **raw request body** using your subscription's secret. Recompute it and compare in constant time before trusting a delivery.
+
+```python
+import hmac, hashlib
+
+def verify(secret: str, raw_body: bytes, header: str) -> bool:
+    expected = "sha256=" + hmac.new(secret.encode(), raw_body, hashlib.sha256).hexdigest()
+    return hmac.compare_digest(expected, header)
+```
+
+<Warning>
+  Sign against the **exact bytes** of the request body, not a re-serialised copy — re-encoding JSON can reorder keys or change spacing and break the signature.
+</Warning>
+
+## Testing and monitoring
+
+- **Test** sends a sample `ping` payload to the endpoint and reports the result immediately, so you can confirm your receiver works.
+- **Log** shows recent delivery attempts — the event, whether it succeeded, the HTTP status, the number of tries, and any error.
+- The **enable toggle** pauses a subscription without deleting it.
+
+Deliveries retry a few times on failure. A subscription that keeps failing is **automatically disabled** so a dead endpoint doesn't pile up retries; re-enable it once your receiver is healthy again.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Backup & Templates" icon="floppy-disk" href="/configuration/backup-templates">
+    Export your server's configuration and share it as a reusable template.
+  </Card>
+  <Card title="Audit Log" icon="scroll" href="/configuration/audit-log">
+    Post rich embeds to a channel whenever moderation or server events happen.
+  </Card>
+</CardGroup>
