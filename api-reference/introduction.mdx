@@ -1,69 +1,38 @@
 ---
-title: "Percy Internal API"
-sidebarTitle: "Introduction"
-description: "The HTTP API the Percy bot exposes for its dashboard backend. A local, bearer-authenticated contract that the dashboard proxies to for every configuration change."
+title: "Percy Public API"
+sidebarTitle: "Coming soon"
+description: "A public HTTP API to connect your apps and services with Percy is in the works. Its interactive reference will live at percy.klappstuhl.me/api/docs."
 ---
 
-The internal API is the boundary between Percy's two halves: the **web dashboard** (a Rust backend) and the **bot** (Python). Every change you make on the dashboard is proxied through this API to the bot, which owns the database and its caches.
-
 <Note>
-  This is **internal infrastructure**, not a public API. It binds to `127.0.0.1` and is reached only by Percy's own dashboard backend. It's documented here for operators and contributors. The public Klappstuhl.me platform API is documented separately.
+  The reference for Percy's **internal** dashboard API used to live on this tab. It documented private
+  infrastructure — a localhost-only, bearer-authenticated contract between the dashboard and the bot — so it has
+  been removed from the public docs.
 </Note>
 
-## Why it exists
+## What's coming
 
-The dashboard must **never** write directly to the bot's database — Percy memoizes config in memory, so a direct write would create split-brain state. Instead, every mutation flows through this API, which performs the write **and** invalidates the relevant cache:
+A **public API** that lets you connect your own apps and services with Percy — think leaderboard widgets for your
+community site, stream overlays, managing your server's tags from CI, or rewarding external events (donations,
+subs, contributions) with in-server currency and XP.
 
-```
-Browser → Dashboard (Rust BFF) → Percy Internal API → PostgreSQL
-                                          │
-                                  cache.invalidate()
-```
-
-## Base URL
+When it ships, the interactive reference will be served at:
 
 ```
-http://127.0.0.1:8090
+https://percy.klappstuhl.me/api/docs
 ```
 
-The server binds to `127.0.0.1` only; the port is set by `INTERNAL_API_PORT` (8090 by convention). Routes live under the `/api/v1` prefix.
+## Integrate with Percy today
 
-<Warning>
-  Because the API is localhost-only, the **Try it** playground on each endpoint page builds and runs requests against `127.0.0.1` — useful when you're running Percy yourself. It won't reach a remote bot.
-</Warning>
+You don't have to wait to build on Percy's events. **Outbound webhooks** are available now: subscribe your
+endpoint to server events (member joins, level-ups, moderation cases, ended giveaways, and more) and receive
+HMAC-signed JSON deliveries with retries and a delivery health log.
 
-## Authentication
+<Card title="Outbound Webhooks" icon="webhook" href="/configuration/webhooks">
+  Set up event subscriptions from the dashboard and verify signed deliveries.
+</Card>
 
-Every `/api/v1` route requires a bearer token:
+## For contributors
 
-```
-Authorization: Bearer <INTERNAL_API_TOKEN>
-```
-
-The dashboard and the bot share this pre-shared token (`percy.api_token` on the dashboard, `INTERNAL_API_TOKEN` on the bot). Requests without it are rejected. Enter the token once in the playground's **Authorization** field to try any endpoint.
-
-<Note>
-  Routes under `/api/webhooks` are **exempt** from the bearer middleware — they're reached by external bot lists (top.gg, discordbotlist.com), not the dashboard, and validate their own per-service secret instead.
-</Note>
-
-## Conventions
-
-- **Versioned header.** Every response carries an `X-API-Version` header.
-- **Cache invalidation is mandatory.** Any handler that mutates guild or user config invalidates the matching cache so the bot and dashboard never disagree.
-- **Member actions hit Discord directly.** Endpoints like ban/kick call the Discord API; they don't mutate the database.
-- **Read-only endpoints** (stats, browsing) require no invalidation.
-
-## Endpoints
-
-Browse the full reference by category in the sidebar. Each endpoint page includes its parameters, request and response schemas, ready-to-copy code samples in several languages, and an interactive **Try it** field. Endpoints are grouped by domain:
-
-<CardGroup cols={2}>
-  <Card title="Guilds" icon="gear">Guild configuration, AI flags, roles, channels, gatekeeper.</Card>
-  <Card title="Members" icon="users">Member list, detail/lookup, moderation actions, roles.</Card>
-  <Card title="Leveling" icon="chart-line">Config, leaderboard, XP history, reward roles, multipliers.</Card>
-  <Card title="Economy" icon="coins">Balances, shop items, lottery.</Card>
-  <Card title="Content" icon="layer-group">Polls, giveaways, tags, autoresponders, comics, and more.</Card>
-  <Card title="Moderation" icon="gavel">Cases, bulk actions, member activity.</Card>
-  <Card title="Music" icon="music">Now-playing, queue, player control, filters, lyrics.</Card>
-  <Card title="Stats & Users" icon="chart-simple">Bot/guild statistics, feature flags, user profile data.</Card>
-</CardGroup>
+If you run Percy yourself and need the internal API reference, the bot serves an always-current interactive
+(Scalar) reference at `http://127.0.0.1:8090/docs` whenever it runs with `INTERNAL_API_TOKEN` set.
