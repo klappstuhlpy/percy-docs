@@ -1,7 +1,7 @@
 ---
-title: "Percy Public API"
-sidebarTitle: "Coming soon"
-description: "A public HTTP API to connect your apps and services with Percy is in the works. Its interactive reference will live at percy.klappstuhl.me/api/docs."
+title: "Percy and APIs"
+sidebarTitle: "Overview"
+description: "Percy doesn't offer a public API. Here's how to integrate with Percy today, and where contributors find the internal reference."
 ---
 
 <Note>
@@ -10,27 +10,21 @@ description: "A public HTTP API to connect your apps and services with Percy is 
   been removed from the public docs.
 </Note>
 
-## What's coming
-
-A **public API** that lets you connect your own apps and services with Percy — think leaderboard widgets for your
-community site, stream overlays, managing your server's tags from CI, or rewarding external events (donations,
-subs, contributions) with in-server currency and XP.
-
-When it ships, the interactive reference will be served at:
-
-```
-https://percy.klappstuhl.me/api/docs
-```
-
 ## Integrate with Percy today
 
-You don't have to wait to build on Percy's events. **Outbound webhooks** are available now: subscribe your
-endpoint to server events (member joins, level-ups, moderation cases, ended giveaways, and more) and receive
-HMAC-signed JSON deliveries with retries and a delivery health log.
+**Outbound webhooks** are the supported integration path: subscribe your endpoint to server events (member joins,
+level-ups, moderation cases, ended giveaways, and more) and receive HMAC-signed JSON deliveries with retries and a
+delivery health log.
 
 <Card title="Outbound Webhooks" icon="webhook" href="/configuration/webhooks">
   Set up event subscriptions from the dashboard and verify signed deliveries.
 </Card>
+
+## About a public API
+
+A public API for connecting your own apps and services with Percy — leaderboard widgets, stream overlays, managing
+tags from CI — is an idea we keep on the shelf, but it is **not currently planned**. If that changes, this page will
+say so.
 
 ## For contributors
 

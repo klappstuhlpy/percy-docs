@@ -34,7 +34,7 @@ This site documents **Percy**, a multipurpose Discord bot, and the **Klappstuhl.
 ## Content boundaries
 
 - **Document:** every user-facing feature and command, and the optional AI layer.
-- The **Percy internal API** is **not documented here** — it's private infrastructure (localhost, shared bearer token). Contributors use the bot's self-hosted Scalar reference at `http://127.0.0.1:8090/docs`. The API Reference tab holds only the "Public API — coming soon" page (`api-reference/introduction.mdx`); the future public API reference will be served at `percy.klappstuhl.me/api/docs`, not from this repo.
+- The **Percy internal API** is **not documented here** — it's private infrastructure (localhost, shared bearer token). Contributors use the bot's self-hosted Scalar reference at `http://127.0.0.1:8090/docs`. The API Reference tab holds only a single overview page (`api-reference/introduction.mdx`) pointing at outbound webhooks. A third-party public API is a **parked idea, not planned** (see `PUBLIC_API_IDEA.md` in the workspace root) — don't announce it as coming.
 - The **public Klappstuhl.me platform API** is **out of scope here for now** — it will get its own separate page later. Its live reference is the Scalar page at `klappstuhl.me/api/docs`.
 - **Never document secrets:** tokens, `.env` values, internal hostnames/ports, or anything that would help bypass auth.
 - Don't invent commands or endpoints — mirror what the code actually exposes.
