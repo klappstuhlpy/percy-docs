@@ -1,0 +1,76 @@
+---
+title: "Tools: Links, Pastes, QR & Image Utilities"
+sidebarTitle: "Tools"
+description: "A toolbox of everyday utilities backed by klappstuhl.me — shorten URLs, host pastes, make QR codes, preview links, and manipulate or inspect images right inside Discord."
+---
+
+Percy bundles a set of handy utilities powered by [klappstuhl.me](https://klappstuhl.me): a URL shortener, a paste host, a QR generator, link previews, and a full image toolkit. They all run as **prefix commands** (type `?` followed by the command), so anyone can use them without special permissions.
+
+<Note>
+  These tools rely on a klappstuhl.me API key configured by the person who hosts Percy. On instances where it isn't set up, each command replies with a friendly "not configured" message instead of erroring. The public Percy has them enabled.
+</Note>
+
+## Links, Pastes & QR
+
+| Command | Description |
+|---|---|
+| `?shorten <url> [alias]` | Create a short link (`r.klappstuhl.me/<code>`) for a URL, optionally with a custom alias |
+| `?paste <content>` | Host a text or code snippet and get a highlighted `/p/<id>` link plus a raw link |
+| `?qr <data>` | Generate a QR code image for any text or URL |
+| `?preview <url>` | Fetch a link's Open Graph / preview metadata (title, description, image) |
+
+**Examples**
+```
+?shorten https://example.com/a/very/long/path launch
+?qr https://percy.klappstuhl.me
+?paste console.log("hello world")
+?preview https://github.com/klappstuhlpy
+```
+
+## Image Tools
+
+The `?image` group (alias `?img`) manipulates and inspects images. Every subcommand accepts an image from any of these sources — checked in order:
+
+1. A **member** you mention (their avatar)
+2. An **image URL** you pass
+3. An **attachment** on your message
+4. An image on the **message you reply to**
+5. Otherwise, **your own avatar**
+
+| Command | Description |
+|---|---|
+| `?image blur [target]` | Apply a Gaussian blur |
+| `?image pixelate [target]` | Pixelate / mosaic the image (alias `pixel`) |
+| `?image deepfry [target]` | The crunchy "deep-fried" meme look (alias `fry`) |
+| `?image invert [target]` | Invert all colours |
+| `?image grayscale [target]` | Desaturate to gray (aliases `greyscale`, `gray`, `grey`) |
+| `?image convert <format> [target]` | Convert to `png`, `jpeg`/`jpg`, `webp`, `gif`, `bmp`, or `tiff` |
+| `?image info [target]` | Show dimensions, format, colour mode, and file size (alias `metadata`) |
+| `?image palette [target]` | Extract the dominant colours (aliases `colors`, `colours`) |
+
+**Examples**
+```
+?image deepfry @Alice
+?img blur https://example.com/photo.png
+?image convert webp
+?image palette
+```
+
+<Tip>
+  `?image palette` is great for picking an embed accent colour or a theme — it returns each colour's hex code and how much of the image it covers.
+</Tip>
+
+## Scan & Screenshot
+
+| Command | Description |
+|---|---|
+| `?scan` | Scan an attached file (or one you reply to) for malware via ClamAV + VirusTotal |
+| `?screenshot <url>` | Render a public web page to a PNG using a headless browser |
+
+`?scan` never stores your file — only its SHA-256 hash (never the contents) is checked against VirusTotal, and the result shows a clean / infected verdict plus per-engine details.
+
+**Examples**
+```
+?scan            (with a file attached, or replying to one)
+?screenshot https://percy.klappstuhl.me
+```

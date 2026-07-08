@@ -82,6 +82,7 @@
               "utility/reminders",
               "utility/autoresponder",
               "utility/temp-channels",
+              "utility/tools",
               "utility/user-settings"
             ]
           },
