@@ -74,3 +74,38 @@ The `?image` group (alias `?img`) manipulates and inspects images. Every subcomm
 ?scan            (with a file attached, or replying to one)
 ?screenshot https://percy.klappstuhl.me
 ```
+
+## Render
+
+Turn code, data, or Markdown into a rendered document.
+
+| Command | Description |
+|---|---|
+| `?codeimage <code>` | Render syntax-highlighted code to an image (aliases `codeshot`, `rendercode`) |
+| `?chart <kind> [title] \| label:value, …` | Render a chart from `label:value` pairs (alias `renderchart`) |
+| `?mdpdf <markdown>` | Render Markdown to a PDF document (aliases `markdownpdf`, `md2pdf`) |
+
+- **`?codeimage`** — wrap your code in a fenced ` ```lang ` block to choose the highlighter (e.g. ` ```rust `); otherwise it renders as plain text. You get a link to the rendered image.
+- **`?chart`** — the `kind` is one of `line`, `area`, `bar`, `scatter`, `pie`, or `donut`. Put an optional title after the kind, then a `|`, then comma-separated `label:value` pairs. You get a link to the rendered chart.
+- **`?mdpdf`** — returns a `.pdf` file you can download.
+
+**Examples**
+````
+?codeimage ```py
+def greet(name):
+    print(f"hello, {name}")
+```
+
+?chart bar Quarterly Sales | Q1:120, Q2:180, Q3:90, Q4:210
+?chart donut Languages | Rust:45, Python:30, TypeScript:25
+
+?mdpdf # Report
+
+Some **bold** text and a list:
+- one
+- two
+````
+
+<Note>
+  `?codeimage` and `?chart` produce SVG images, which are hosted on klappstuhl.me and returned as a link you can open in your browser. `?mdpdf` is attached directly as a PDF file.
+</Note>
