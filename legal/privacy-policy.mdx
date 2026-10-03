@@ -6,7 +6,7 @@ description: "Learn what data Percy collects, how it is used, how long it is kep
 
 Percy is built to respect your privacy. This page explains exactly what data the bot collects, why it needs it, how long it keeps it, and what you can do to view, export, or delete it at any time. If you have questions that aren't answered here, you can always reach out directly.
 
-**Last updated: 13 June 2026**
+**Last updated: 3 October 2026**
 
 <Note>
   This policy does not replace [Discord's Privacy Policy](https://discord.com/privacy) or the [Discord Developer Terms of Service](https://discord.com/developers/docs/policies-and-agreements/developer-terms-of-service). Your use of Discord itself is governed by Discord's own policies.
@@ -18,11 +18,11 @@ Percy is built to respect your privacy. This page explains exactly what data the
 
 Percy only collects data that a feature actually needs to work. The table below lists every category, why it exists, and whether you can turn it off.
 
-| Data | Purpose | Opt-out available? |
+| Data | Purpose | Your choice |
 |---|---|---|
 | **Discord user, server, channel, role, and message IDs** | Identify where your settings, content, and actions belong | No — required for the bot to function |
-| **Presence history** (online / idle / dnd / offline transitions) | Presence graphs and statistics | Yes |
-| **Username, nickname, and avatar history** | "Name history" and "Avatar history" features | Yes |
+| **Presence history** (online / idle / dnd / offline transitions) | Presence graphs and statistics | Off until you turn it on |
+| **Username, nickname, and avatar history** | "Name history" and "Avatar history" features | Off until you turn it on |
 | **Server configuration and moderation logs** | Run the features a server admin enables (logging, automod, leveling, etc.) | Controlled by server admins |
 | **Message and voice activity counts** | Leveling / XP system | Controlled by server admins |
 | **Content you submit to a command** (reminders, tags, playlists, giveaways, notes, poll answers) | Provide that specific feature | When you stop using the feature |
@@ -43,9 +43,9 @@ When data is no longer needed for its original purpose, it is deleted.
 
 ---
 
-## Tracking: On by Default, Always Under Your Control
+## Tracking: Off Until You Turn It On
 
-Presence, name, and avatar tracking are **enabled by default** so that related features work out of the box. You can change these settings at any time using Percy's `/settings` commands — no need to contact anyone.
+Presence, name, and avatar tracking are **disabled by default**. Nothing is recorded for your account until you switch it on yourself, and you can switch it off again at any time using Percy's `/settings` commands — no need to contact anyone.
 
 | Command | What it does |
 |---|---|
@@ -63,7 +63,6 @@ Percy is hosted on secured private servers. Some features require sending limite
 | Service | What is sent | When |
 |---|---|---|
 | **Discord** | All bot activity (Discord is the platform) | Always |
-| **Groq** | The text of a message you send to the AI assistant | When you use the AI assistant |
 | **Google Translate** | The text you ask to translate | When you use translation |
 | **AniList** | OAuth authorization to link your account | When you link AniList |
 | **Lavalink** (self-hosted) | Music search queries and track URLs | When you use music features |
@@ -85,7 +84,7 @@ You have the following rights over your personal data at any time. Many can be e
 |---|---|
 | **Access / export your data** | Run `/settings request-data` — Percy sends you a full JSON export |
 | **Delete your data** | Run `/settings remove-personal-data` — permanently deletes your stored presence, name, and avatar history |
-| **Opt out of tracking** | Run `/settings show` and click the **Presence Tracking** or **Name & Avatar History** toggle buttons |
+| **Opt in or out of tracking** | Run `/settings show` and click the **Presence Tracking** or **Name & Avatar History** toggle buttons |
 | **Rectification** | Contact us at `klappstuhl65@pm.me` to request a correction to inaccurate data |
 
 ---

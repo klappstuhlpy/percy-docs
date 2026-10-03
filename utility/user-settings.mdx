@@ -39,18 +39,18 @@ You can also type common names like `Eastern Time`, `Pacific Time`, or abbreviat
 
 ## Privacy & Tracking
 
-Percy can optionally record your presence activity and track changes to your name, nickname, and avatar. Both features are **on by default** and can be toggled off at any time. Stored history is automatically deleted after **30 days**.
+Percy can optionally record your presence activity and track changes to your name, nickname, and avatar. Both features are **off by default** — nothing is recorded until you turn them on, and you can turn them off again at any time. Presence history is automatically deleted after **30 days**; name and avatar history is kept until you delete it.
 
 <Accordion title="Presence Tracking">
   When enabled, Percy logs when you come online and go offline. This data powers presence-related features across servers.
 
-  Toggle it off from your `/settings` card, or run `/settings show` and click the **Presence Tracking** button.
+  Toggle it from your `/settings` card, or run `/settings show` and click the **Presence Tracking** button.
 </Accordion>
 
 <Accordion title="Name & Avatar History">
   When enabled, Percy keeps a record of your past usernames, nicknames, and avatars. Toggle it off to stop new entries from being stored.
 
-  Toggle it off from your `/settings` card, or run `/settings show` and click the **Name & Avatar History** button.
+  Toggle it from your `/settings` card, or run `/settings show` and click the **Name & Avatar History** button.
 </Accordion>
 
 <Note>
@@ -91,6 +91,6 @@ Permanently erases your stored presence history, name/nickname history, and avat
 |---|---|---|
 | Discord user ID | Indefinitely | Required for core functionality |
 | Timezone preference | Until you reset it | Used only to localise times |
-| Presence history | Up to 30 days | Auto-purged; opt-out available |
-| Name & avatar history | Up to 30 days | Auto-purged; opt-out available |
+| Presence history | Up to 30 days | Auto-purged; opt-in |
+| Name & avatar history | Until you delete it | Opt-in |
 | Command content (reminders, tags, etc.) | Until deleted by you | Managed via their own commands |
