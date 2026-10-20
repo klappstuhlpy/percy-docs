@@ -14,10 +14,10 @@ Percy's moderation suite gives your team the tools to keep your server safe and 
 
 | Command | Description | Required Permission |
 |---------|-------------|---------------------|
-| `/kick` | Kicks a member from the server. | Kick Members |
+| `/kick` | Kicks a member from the server. Refuses someone who is not in the server. | Kick Members |
 | `/ban` | Permanently bans a member or user ID from the server. | Ban Members |
 | `/multiban` | Bans multiple members at once, accepting a list of IDs. | Ban Members + Kick Members |
-| `/softban` | Bans then immediately unbans a member, removing their recent messages without a lasting ban. | Kick Members |
+| `/softban` | Bans then immediately unbans a member, removing their recent messages without a lasting ban. Refuses someone who is not in the server. If the unban step fails, Percy says the member is still banned and records the ban. | Kick Members |
 | `/unban` | Revokes an existing ban by username or user ID. | Ban Members |
 | `/tempban` | Temporarily bans a member for a specified duration; automatically lifts when time is up. | Ban Members |
 | `/mute` | Applies the configured mute role to one or more members indefinitely. | Manage Roles |
@@ -25,6 +25,12 @@ Percy's moderation suite gives your team the tools to keep your server safe and 
 | `/tempmute` | Temporarily mutes a member for a specified duration; automatically unmutes when time is up. | Manage Roles |
 | `/slowmode` | Sets the slowmode delay for the current channel, or pass `0s` to disable it. | Manage Channels |
 | `/purge` | Bulk-deletes messages that match the supplied filter flags. | Manage Messages |
+
+## Who can act on whom
+
+Every moderation action follows one rule: you cannot act on yourself, Percy or the server owner, and your top role must be strictly higher than the member's (the server owner is exempt). Bans and kicks also need Percy's top role above the member's. Mutes only need the mute role to sit below Percy's top role, so a low-ranked Percy can still mute. Warnings do not require Percy to outrank the member. Members you cannot act on are listed as skipped, and long skipped lists are cut off with an "and N more" count. A muted moderator cannot unmute themselves.
+
+The dashboard applies the same rules: each action needs the same permission as the matching command (Ban Members to ban, Manage Roles to mute or change roles) and the same hierarchy, and you can only give or take roles below your own top role. `@everyone` and integration-managed roles are refused.
 
 ## Usage Examples
 
@@ -59,6 +65,10 @@ Deletes up to 50 messages sent by bots in the current channel. You can combine m
 ```
 
 <Note>
+  `/mute` needs your top role above the mute role and says why when it is not (the server owner can always mute). A mute role level with Percy's own top role is refused, and if the mute role was deleted, the mute commands tell you to set up a new one with `/muterole`. Unbinding the mute role leaves muted members with the role.
+</Note>
+
+<Note>
   Use `/tempmute` for a mute that automatically expires. `/mute` applies the mute role indefinitely until you manually run `/unmute`.
 </Note>
 
@@ -81,7 +91,17 @@ The `/purge` command accepts optional flags to narrow which messages are deleted
 | `--files` | Only remove messages that contain file attachments |
 | `--emoji` | Only remove messages that contain custom emoji |
 | `--reactions` | Only remove messages that have reactions |
-| `--require any\|all` | Whether **any** or **all** flags must match before deleting (default: `all`) |
+| `--require any\|all` | Whether **any** or **all** flags must match before deleting (default: `all`). With `any`, only messages matching one of your filters are deleted |
+
+A `/purge` with no filters asks for confirmation. If a purge runs out of time, Percy says so. You can purge messages of someone who has left the server.
+
+## Timed bans and mutes
+
+Banning, unbanning, muting or unmuting, by command or from the dashboard, cancels the member's old tempban or tempmute timer, so an old timer cannot undo a newer action. A timed action that cannot end on time (a Discord outage, a missing permission) is retried for about a day, and Percy tells your alert channel when a permission is missing. Pending mutes are saved before Percy restarts.
+
+## Mod cases
+
+Percy records a case for every moderation action, including automatic ones: `/multiban` and the **Ban All Raiders** button, raid and mention-spam bans, kicks and bans for bypassing Sentinel, and tempbans and tempmutes ending on their own. Automatic cases are filed under Percy's name with the reason Percy acted on. Use `/cases <user>` to list a member's cases and `/case <number>` to see one. A reason longer than about 1,000 characters is shortened in the case card. Case numbers are never reused: deleting the newest case does not hand its number to the next one, so old modlog posts never point at the wrong case.
 
 ## More in This Section
 

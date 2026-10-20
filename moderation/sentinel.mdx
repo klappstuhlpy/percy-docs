@@ -11,9 +11,9 @@ Sentinel is Percy's built-in member verification gate. When Sentinel is active, 
 1. A new member joins the server.
 2. Percy assigns them the **lockdown role**, which blocks them from reading or sending messages in all regular channels.
 3. The member can only see and interact with the **verification channel**.
-4. They press the **Begin Verification** button and receive a private captcha challenge — a 6-character, case-sensitive image they must type back within 90 seconds.
+4. They press the **Begin Verification** button and receive a private captcha card — a 6-character, case-sensitive image. They press **Enter Code** and type the characters into the pop-up form within five minutes.
 5. If they answer correctly, Percy removes the lockdown role and optionally grants them a **post-verification (starter) role**.
-6. If they attempt to speak in any other channel or join a voice channel before verifying, Percy enforces the configured **bypass action** (kick or ban).
+6. If they attempt to speak in any other channel or join a voice channel before verifying, Percy enforces the configured **bypass action** (kick or ban). Opening the captcha without finishing it does not hold them again.
 
 Sentinel can also activate automatically when it detects a burst of members joining in rapid succession — this is configured via the **auto-trigger** rate.
 
@@ -42,6 +42,8 @@ Before setting up Sentinel, make sure Percy has the following permissions:
 
     Percy will offer to automatically fix channel permissions so that `@everyone` cannot read the channel but the lockdown role can. Accept the prompt to apply the fix automatically.
 
+    While Sentinel is running, the verification channel cannot be changed.
+
     <Note>
       If you later delete the verification channel, Percy automatically deactivates Sentinel and alerts you via the configured alert channel. Re-select a channel and redeploy the verification message to re-enable it.
     </Note>
@@ -50,8 +52,10 @@ Before setting up Sentinel, make sure Percy has the following permissions:
   <Step title="Configure the lockdown role">
     Click **Configure Role** in the dashboard. You can either:
 
-    - **Pick an existing role** — choose any role that sits below Percy in the hierarchy. Percy will offer to sync channel permission overwrites across your server.
-    - **Create a new role** — Percy creates an "Unverified" role and offers to sync permissions automatically.
+    - **Pick an existing role** — choose any role that sits below Percy in the hierarchy. Percy always offers to hide every channel and category except the verification channel from it. `@everyone` and integration-managed roles are refused.
+    - **Create a new role** — Percy creates an "Unverified" role and offers to sync permissions automatically. The verification channel stays visible to it.
+
+    While Sentinel is running, the lockdown role cannot be changed. Members who held the old lockdown role lose it when you switch roles or delete the verification message or channel.
 
     <Warning>
       Do not select a role that is at or above Percy's top role in the hierarchy. The dashboard will reject such a selection and show an error.
@@ -80,11 +84,19 @@ Before setting up Sentinel, make sure Percy has the following permissions:
   </Step>
 </Steps>
 
+## Syncing channel permissions
+
+Click **Sync Permissions** in the `/moderation sentinel` menu to hide every channel and category from the lockdown role (voice, stage and forum channels included) and open only the verification channel, which `@everyone` can no longer see. Run it again whenever you add channels. Channels that are already set up correctly are left alone, so a re-run is quick.
+
+## Role problems and held members
+
+If Percy cannot give or take the lockdown role (the role sits above Percy's, or Percy lost **Manage Roles**), it alerts your moderators and retries on its own for about an hour, and again on the next join or verification. Members who left or were banned while held are skipped and do not block the queue. If Percy restarts mid-queue, it finishes the interrupted work even when Sentinel is off.
+
 ## Deactivating Sentinel
 
 To pause or disable Sentinel, open the dashboard again with `/moderation sentinel` and click **Deactivate**. If members are still pending verification when you deactivate, Percy asks you to confirm — standing down unblocks everyone in the background.
 
-You can also click the **Stand Down** button directly from a raid-alert message in your alert channel.
+You can also click the **Stand Down** button directly from a raid-alert message in your alert channel. Using it requires **Ban Members** and **Manage Messages**, the same as the Sentinel menu. However Sentinel ends (Deactivate, the dashboard, or deleting the verification channel or message), released members stop being marked as raiders, so chatting freely cannot get them banned.
 
 ## What Happens to Members Who Bypass Verification
 
@@ -93,6 +105,14 @@ Percy watches for members who attempt to interact with the server before complet
 - **Sending a message** in any channel other than the verification channel → bypass action (kick or ban).
 - **Joining a voice channel** before verifying → bypass action (kick or ban).
 
-<Note>
-  Percy re-applies the lockdown role to returning members who were muted or previously blocked, ensuring they cannot circumvent verification by rejoining after a kick.
-</Note>
+Members held when Sentinel's auto-trigger fires are treated the same way. A muted member who rejoins is held like every other new member.
+
+When Percy cannot kick or ban a member who bypassed Sentinel, it tries again only every few minutes (not at all without **Kick Members** or **Ban Members**) and tells your alert channel once what to fix.
+
+Every automatic kick or ban is recorded as a [mod case](/moderation/overview#mod-cases) under Percy's name.
+
+## Sentinel on the dashboard
+
+The dashboard follows the same rules as the Discord menu: the lockdown and starter roles must not be `@everyone`, must not be integration-managed, must sit below Percy's role, and must differ from each other. The auto-trigger rate needs two numbers above 0; clearing the rate or the starter role works. A new lockdown role or verification channel is synced automatically, and Percy alerts moderators when channels could not be hidden. Because that sync does not ask first, the dashboard refuses a lockdown role that members already wear, and it never hides the verification channel from `@everyone` itself: it warns you when that channel is still public. Sentinel cannot be switched on while Sentinel protection is off for the server.
+
+If you save only the rate or bypass action while the unchanged lockdown or starter role has since moved above Percy's role, the save goes through and the problem is shown as a warning. An invalid Sentinel setting fails the Sentinel part on its own.

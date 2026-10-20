@@ -64,6 +64,10 @@ Running `/moderation` with no sub-command displays a summary of every AutoMod fe
     - A single user sends **10+ messages within 12 seconds**
     - The same message content appears **5+ times within 15 seconds** across any channel
     - **30+ messages from new accounts** arrive in a channel within 35 seconds
+
+    The last two only tell Percy a raid may be happening in a busy channel. Percy then bans just the members who sent several of those messages themselves. Messages without text, or with only a few characters, are never compared, so a few people posting the same image, sticker or "gg" are not banned. One raid bans each member once and posts one alert in your alert channel saying who was banned, in which channel and why. The alert never quotes the spam itself. Large raid alerts are split across several messages.
+
+    Turning off audit logging or alerts does not reset raid tracking; only turning off raid protection or Sentinel does.
   </Accordion>
 
   <Accordion title="/moderation mentions <threshold> — Set mention-spam threshold">
@@ -71,11 +75,9 @@ Running `/moderation` with no sub-command displays a summary of every AutoMod fe
     /moderation mentions 5
     ```
 
-    Enables automatic banning for members who @-mention more than `<threshold>` users in a short window. The threshold must be **greater than 3**. Percy counts only non-bot user mentions — role mentions are excluded.
+    Enables automatic banning for members who @-mention more than `<threshold>` users. The threshold must be between **3 and 100**; a lower value saved earlier is treated as 3. On the dashboard, 0 turns the feature off. Percy counts only non-bot user mentions — role mentions are excluded.
 
-    Percy monitors two separate windows:
-    - **Single message:** more than `<threshold>` mentions in one message triggers an immediate ban.
-    - **Cumulative:** `<threshold>` mentions spread across multiple messages within 15 seconds also triggers a ban.
+    A member is banned when one message, or all their messages within 15 seconds, mention more than the threshold. The alert reports how many mentions they actually sent.
 
     When a ban fires, Percy sends an alert to your configured alert channel.
   </Accordion>
@@ -127,10 +129,10 @@ Any entity — a **text channel**, a **role**, or a **member** — can be added 
 2. It checks the **author's user ID**.
 3. It checks every **role the author holds**.
 
-If any of those three match an entry in the ignore list, Percy skips all AutoMod checks for that message entirely. This makes it straightforward to exempt `#bot-spam` channels, verified staff roles, or trusted bot accounts from automated action.
+If any of those three match an entry in the ignore list, Percy skips all AutoMod checks for that message entirely. Threads and forum posts inside an ignored channel are ignored too. This makes it straightforward to exempt `#bot-spam` channels, verified staff roles, or trusted bot accounts from automated action.
 
 <Note>
-  Members with the **Manage Guild**, **Manage Messages**, or **Administrator** permission automatically bypass all AutoMod checks regardless of the ignore list. You do not need to add your moderator role manually.
+  Members with the **Manage Guild**, **Manage Messages**, or **Administrator** permission automatically bypass all AutoMod checks regardless of the ignore list. A member who has **Manage Messages** only in some channels is exempt in those channels. You do not need to add your moderator role manually.
 </Note>
 
 ## Frequently Asked Questions
@@ -141,7 +143,11 @@ If any of those three match an entry in the ignore list, Percy skips all AutoMod
   </Accordion>
 
   <Accordion title="What happens when a raid is detected?">
-    If raid protection is enabled and an alert channel is configured, Percy posts a notification with the flagged members. Moderators can mass-ban all detected raiders directly from that alert message using the **Ban All Raiders** button.
+    If raid protection is enabled and an alert channel is configured, Percy posts a notification with the flagged members. Moderators can mass-ban all detected raiders directly from that alert message using the **Ban All Raiders** button. Only current flags are used, and the button skips raiders who outrank the person clicking it. A server with alerts on but Sentinel off also gets the join-burst alert when dozens of accounts join at once, with its own **Ban All Raiders** button.
+  </Accordion>
+
+  <Accordion title="What if Percy cannot ban someone?">
+    When raid or mention-spam protection cannot ban a member (Percy lacks **Ban Members**, or the member's role is above Percy's), Percy posts an alert naming who it could not ban and what to fix. The server owner can never be banned, and the alert says so. A missing-permission alert is sent again each time Percy loses the permission after having it back.
   </Accordion>
 
   <Accordion title="Can I use AutoMod alongside Discord's built-in AutoMod?">

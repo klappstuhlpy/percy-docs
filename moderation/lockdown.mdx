@@ -24,7 +24,7 @@ The member running the lockdown command must hold **Ban Members** and **Manage M
 /lockdown #general #off-topic
 ```
 
-Locks one or more text or voice channels right away by denying `@everyone` from sending messages or interacting. Pass a space-separated list of channel mentions. Percy reports how many channels were successfully locked and lists any that failed.
+Locks one or more text or voice channels right away by denying `@everyone` from sending messages or interacting. For a voice channel, the lockdown also denies connecting and speaking, not just its text chat. Pass a space-separated list of channel mentions. Percy reports how many of the channels you asked for were locked (for example "2/3 channels") and lists any that failed.
 
 ### `/lockdown for <duration> [channels...]` — Lock for a set duration
 
@@ -41,7 +41,7 @@ Locks the specified channels for a duration, then automatically lifts the lockdo
 /lockdown end
 ```
 
-Immediately restores all channels that are currently locked, reverting every `@everyone` overwrite to its original state. Use this to end a lockdown early before the timer fires.
+Immediately restores all channels that are currently locked, reverting every `@everyone` overwrite to its original state. You can run it from any channel, such as a mod channel, and it also cancels a pending `/lockdown for` timer so that timer cannot end a later lockdown early. Use this to end a lockdown early before the timer fires.
 
 ## Lockdown Workflow
 
@@ -70,6 +70,10 @@ Percy records the original `@everyone` overwrite for each channel before modifyi
 
 <Note>
   Percy stores lockdown records per channel. If Percy restarts while a timed lockdown is active, it will still lift the lockdown correctly when the timer fires.
+</Note>
+
+<Note>
+  If Percy cannot unlock a channel, that channel stays listed as locked with its original permissions kept. Ending the lockdown again retries it, and Percy also retries by itself. A timed lockdown that fails to unlock a channel alerts your moderators. A timed lockdown only ever ends the channels it still covers, so unlocking a channel early (on the dashboard, for example) is safe.
 </Note>
 
 <Tip>
