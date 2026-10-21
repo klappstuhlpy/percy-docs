@@ -1,0 +1,26 @@
+---
+title: "Starboard"
+description: "Repost messages that collect enough star reactions to a highlight channel."
+---
+
+The starboard collects your server's best messages. When a message gets enough star reactions, Percy reposts it in the starboard channel and keeps its star count up to date.
+
+## Setting It Up
+
+On the dashboard's **Starboard** page, or with commands:
+
+| Command | Description |
+|---|---|
+| `/starboard channel <#channel>` | Where starred messages are reposted. |
+| `/starboard threshold <amount>` | How many stars a message needs (1–100, default 3). |
+| `/starboard emoji <emoji>` | The reaction that counts as a star (default ⭐). |
+| `/starboard selfstar <true/false>` | Whether starring your own message counts. |
+| `/starboard maxage <hours>` | Ignore messages older than this (0 = no limit). |
+| `/starboard nsfw <true/false>` | Repost from age-restricted channels into a non-restricted starboard. |
+| `/starboard ignore <#channel>` / `unignore` | Stars in an ignored channel never count. |
+| `/starboard toggle <true/false>` | Turn the starboard on or off. |
+| `/starboard top` | The most-starred messages. |
+
+<Note>
+  The starboard needs a channel before it can be turned on. The dashboard's setup status warns you if Percy can't post there.
+</Note>

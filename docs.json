@@ -73,7 +73,8 @@
               "community/giveaways",
               "community/highlights",
               "community/tags",
-              "community/rolemenu"
+              "community/rolemenu",
+              "community/starboard"
             ]
           },
           {

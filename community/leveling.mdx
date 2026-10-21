@@ -22,6 +22,7 @@ Both sources respect the same blacklists and multipliers you configure. XP multi
 | Command | Description |
 |---|---|
 | `/level rank [member]` | Display your rank card, or someone else's if you pass a member. |
+| `/level card` | Customize how your rank card looks, with a live preview. |
 | `/level leaderboard` | Show the top 10 members ranked by XP in the server. |
 | `/level set <target>` | **Administrator.** Manually set a member's XP or level with `--xp` / `--level` flags. |
 | `/level config` | View the current leveling configuration for your server. |
@@ -74,6 +75,18 @@ All `/level config` sub-commands require **Manage Guild**.
   </Step>
 </Steps>
 
+## Customizing Your Rank Card
+
+Run `/level card` to open the rank card editor. Pick a **background theme**, an **accent colour**, a **progress bar** style and the **font** for your name. The preview updates with every choice, but nothing is kept until you press **Save**. **Use server default** goes back to the server's look.
+
+Your style applies on every server that allows customizing. The same editor is on your profile page in the [dashboard](https://percy.klappstuhl.me/dashboard/).
+
+Server admins set the server's default card style on the dashboard's **Leveling** page. **Lock style for everyone** makes every card use that style and hides the `/level card` editor for members.
+
+<Note>
+  Rank cards use presets only. Custom background images are coming soon.
+</Note>
+
 ## Voice XP Details
 
 The voice XP loop runs every minute. Percy checks every populated voice channel on your server and awards `voice_xp` points to each qualifying member. A member is **skipped** if:
@@ -90,8 +103,15 @@ Customize what Percy says when a member levels up with `/level config message`. 
 
 | Placeholder | Replaced with |
 |---|---|
-| `{user}` | A mention of the member who leveled up. |
+| `{user}` | The member's username. |
+| `{user.mention}` | A mention that pings the member. |
+| `{user.display_name}` | The member's nickname on the server. |
 | `{level}` | The new level they just reached. |
+| `{server}` | The server's name. |
+
+Anything else in braces is left exactly as you typed it. To show a literal brace, double it: `{{level}}` shows `{level}`.
+
+On the dashboard's **Leveling** page you can click a placeholder to insert it, watch a live preview as you type, and press **Send test message** to see the saved message in Discord.
 
 **Example:**
 ```

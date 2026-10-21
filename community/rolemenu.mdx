@@ -67,6 +67,10 @@ This creates a color picker where a member can hold only one color role at a tim
 - **Remove a role:** Run `/rolemenu remove <menu_id> <@role>`. The button disappears from the panel instantly.
 - **Delete the whole menu:** Run `/rolemenu delete <menu_id>`. Percy removes both the database record and the message in the channel.
 
+### From the dashboard
+
+The dashboard's **Role Menus** page does all of the above without commands: post a new menu, add roles with an emoji and button text, switch single choice on or off, edit the title and description, and remove roles or whole menus. The posted message updates right away, and roles Percy can no longer give out are marked.
+
 <Warning>
   Percy needs the **Manage Roles** permission to assign and remove roles. Additionally, each role you add to a menu must be **below Percy's highest role** in the server's role hierarchy. Roles above Percy's top role, or roles managed by integrations, cannot be added to menus.
 </Warning>
