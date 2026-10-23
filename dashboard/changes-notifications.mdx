@@ -1,0 +1,43 @@
+---
+title: "Change log and notifications"
+description: "See who changed a setting on the dashboard, and what Percy wants your attention for."
+---
+
+Both live on the **Notifications** page of the dashboard. It has four tabs: **Feed**, **Requests**, **Change log** and **Settings**.
+
+## Notifications feed
+
+The **Feed** tab lists things worth knowing:
+
+- Percy can't do something because a permission is missing.
+- A webhook was disabled.
+- The outcome of a moderation [action request](/moderation/requests).
+- Notices from the Percy team, marked **global**.
+
+Unread entries have a dot, and the sidebar shows a badge. Click **Mark all read** to clear it. Entries are removed after 90 days.
+
+Below the feed, **Recent moderation** lists the last 7 days of cases.
+
+## Change log
+
+The **Change log** tab shows who changed what on the dashboard, and when.
+
+| Column | Meaning |
+|---|---|
+| When | Time of the change |
+| Who | The person, or `api:<token name>` for a change made with an [API token](/dashboard/developers) |
+| What | The action and the page |
+| Fields | The names of the settings that changed |
+
+<Note>
+  Percy keeps the **names** of changed settings, never their values. Entries are kept for 90 days. Changes you make with commands in Discord are not listed.
+</Note>
+
+## Action requests
+
+The **Requests** and **Settings** tabs are where moderators decide requests and where you choose the request channel and requester roles. See [Action requests](/moderation/requests).
+
+## Related
+
+- [Setup status](/dashboard/setup-status)
+- [Set up logging](/dashboard/logging)

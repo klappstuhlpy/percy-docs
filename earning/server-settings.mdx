@@ -1,0 +1,43 @@
+---
+title: "Server economy settings"
+description: "Admin commands and dashboard settings that tune your server's economy."
+---
+
+Members with the **Administrator** permission control how the economy behaves.
+
+## Settings
+
+Run `?economy-config` to see the current settings. Change them with these commands.
+
+| Command | What it sets | Range |
+|---|---|---|
+| `?economy-config multiplier <value>` | Scales every earning command | 0.1 to 10 |
+| `?economy-config daily-base <amount>` | Base `/daily` reward before streak bonuses | 10 to 100,000 |
+| `?economy-config max-bet <amount>` | Highest stake in casino games. `0` removes the cap | 0 to 100,000,000 |
+| `?economy-config rob <on\|off>` | Whether members can rob each other | on or off |
+
+The multiplier affects work, fishing, hunting, digging, begging, searching, and the daily, weekly and monthly rewards. It stacks with each member's [prestige bonus](/earning/overview#prestige).
+
+## Change balances
+
+These commands set or change a member's money directly.
+
+| Command | What it does |
+|---|---|
+| `/economy set-money @member <amount> <cash\|bank>` | Set a balance |
+| `/economy remove-money @member <amount> <cash\|bank>` | Take coins away |
+| `/economy add-money-role @role <amount> <cash\|bank>` | Give coins to everyone with a role |
+
+<Warning>
+  `set-money` replaces the old amount. Use `remove-money` to subtract.
+</Warning>
+
+## On the dashboard
+
+The **Economy** page of the [dashboard](https://percy.klappstuhl.me/dashboard/) edits the same settings, lists balances, and holds the [shop editor](/items/manage-shop#dashboard-editor) and the lottery.
+
+## Related
+
+- [Manage the shop](/items/manage-shop)
+- [My economy numbers look different](/help/economy-numbers)
+- [Change the economy from your own code](/api/introduction)

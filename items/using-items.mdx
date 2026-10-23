@@ -1,0 +1,59 @@
+---
+title: "Using items"
+description: "What each item effect does, how to use several at once, and how to see your active boosts."
+---
+
+Using an item takes it from your inventory and applies its effect right away.
+
+```text
+/use Lootbox
+/use Cash Voucher 5
+```
+
+You can also press **Use** on the item's page in `/inventory`.
+
+## Effects
+
+| Effect | What happens |
+|---|---|
+| `cash` | You get a fixed amount of cash |
+| `lootbox` | You get a random amount of cash around the item's value. It can be small, about the value, double, or a jackpot of up to 6x |
+| `role` | You get a Discord role and keep it |
+| `xp_boost` | More leveling XP for a set time |
+| `loot_boost` | More cash from `?fish`, `?hunt` and `?dig` for a set time |
+| `rob_shield` | Nobody can rob you for a set time |
+| none | A collectible. Nothing happens |
+
+## Use several at once
+
+Add a quantity, from 1 to 100. Only `cash` and `lootbox` items can be used in bulk. Every other item is used one at a time.
+
+```text
+/use Lootbox 10
+```
+
+## Roles, replies and removed roles
+
+An admin can set two extra things on any item:
+
+- **Remove role**: using the item takes that role away from you.
+- **Reply message**: Percy adds a custom line to the result.
+
+If Percy can't remove the role because of the role hierarchy, it tells you. See [Percy can't assign or remove a role](/help/role-hierarchy).
+
+<Note>
+  If you already have the role a `role` item grants, Percy keeps the item. If Percy can't give the role, you get the item back.
+</Note>
+
+## See your active boosts
+
+```text
+/perks
+/perks @member
+```
+
+Each boost shows its bonus and when it ends.
+
+<Tip>
+  Boosts are timed. Use a loot boost right before a run of `?fish`, `?hunt` and `?dig`.
+</Tip>

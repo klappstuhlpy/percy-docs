@@ -1,7 +1,6 @@
 ---
-title: "Automatic Moderation: Spam, Raids, and Mention Limits"
-sidebarTitle: "AutoMod"
-description: "Configure Percy's built-in spam detection, raid protection, and mention-spam auto-bans to keep your server protected around the clock."
+title: "AutoMod and raid protection"
+description: "Spam detection, raid protection and mention-spam bans."
 ---
 
 Percy's AutoMod system watches your server around the clock and takes action before a human moderator even has to notice. It covers three distinct threat categories: **message spam** (repeated content or rapid-fire posting), **raid protection** (accounts joining and spamming in quick succession), and **mention-spam auto-bans** (members pinging an excessive number of users in a short window). You configure all of this through the `/moderation` command group, and Percy gives you per-entity exemptions so legitimate bots, trusted channels, and staff roles are never accidentally caught in the net.
@@ -132,7 +131,7 @@ Any entity — a **text channel**, a **role**, or a **member** — can be added 
 If any of those three match an entry in the ignore list, Percy skips all AutoMod checks for that message entirely. Threads and forum posts inside an ignored channel are ignored too. This makes it straightforward to exempt `#bot-spam` channels, verified staff roles, or trusted bot accounts from automated action.
 
 <Note>
-  Members with the **Manage Guild**, **Manage Messages**, or **Administrator** permission automatically bypass all AutoMod checks regardless of the ignore list. A member who has **Manage Messages** only in some channels is exempt in those channels. You do not need to add your moderator role manually.
+  Members with the **Manage Server**, **Manage Messages**, or **Administrator** permission automatically bypass all AutoMod checks regardless of the ignore list. A member who has **Manage Messages** only in some channels is exempt in those channels. You do not need to add your moderator role manually.
 </Note>
 
 ## Frequently Asked Questions

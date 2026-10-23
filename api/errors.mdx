@@ -1,0 +1,61 @@
+---
+title: "Errors"
+description: "The error format and every error code the API returns."
+---
+
+Every error has the same shape, with the matching HTTP status.
+
+```json
+{
+  "error": {
+    "code": "item_not_found",
+    "message": "Item not found."
+  }
+}
+```
+
+Use `code` in your program. The `message` is for people and may change.
+
+## Codes
+
+| Status | Code | Meaning |
+|---|---|---|
+| 400 | `invalid_request` | A field has a bad value |
+| 400 | `invalid_body` | The body isn't valid JSON of the documented shape |
+| 400 | `invalid_id` | An ID in the URL isn't a valid snowflake or number |
+| 400 | `invalid_query` | A query parameter is wrong, for example `limit` outside 1 to 100 |
+| 400 | `unknown_field` | You sent a field the endpoint doesn't know |
+| 400 | `invalid_idempotency_key` | The key isn't 1 to 64 characters of `A-Za-z0-9-_.:` |
+| 400 | `insufficient_funds` | The change would take cash or bank below zero. Nothing changed |
+| 401 | `missing_token` | No `Authorization` header |
+| 401 | `invalid_token` | The token is wrong or revoked |
+| 403 | `guild_mismatch` | The token belongs to a different server |
+| 403 | `missing_scope` | The token lacks the needed scope |
+| 403 | `forbidden` | The token can't use this endpoint |
+| 404 | `item_not_found` | No such item on this server |
+| 404 | `guild_not_found` | Percy isn't in that server |
+| 404 | `not_found` | Nothing at that path |
+| 409 | `item_exists` | An item with that name already exists |
+| 409 | `item_limit_reached` | The member would hold more than the item's per-member limit |
+| 409 | `insufficient_items` | The member owns fewer than you tried to take |
+| 409 | `request_in_progress` | A request with the same Idempotency-Key is still running |
+| 409 | `conflict` | Another conflict. Read the message |
+| 422 | `idempotency_key_reuse` | The key was already used for a different request |
+| 429 | `rate_limited` | Too many requests. See `Retry-After` |
+| 500 | `internal_error` | Something went wrong on our side |
+| 502 | `upstream_unavailable` | Percy couldn't complete the request. Try again shortly |
+| 503 | `unavailable` | The API isn't connected to Percy right now |
+
+## Handle errors
+
+- `4xx` means fix the request. Retrying the same request won't help, except `429` and `request_in_progress`.
+- `5xx` means try again later, with the same Idempotency-Key.
+
+```python
+import requests
+
+r = requests.get(url, headers=headers)
+if not r.ok:
+    err = r.json()["error"]
+    print(r.status_code, err["code"], err["message"])
+```

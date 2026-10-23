@@ -1,0 +1,82 @@
+---
+title: "Manage the shop"
+description: "Add, edit and remove shop items with commands or the dashboard editor."
+---
+
+Members with the **Administrator** permission manage the shop. You can use commands or the [dashboard](https://percy.klappstuhl.me/dashboard/).
+
+## Add an item
+
+```text
+/shop add <name> <price> [effect] [value] [duration] [role] [emoji] [rarity] [stock] [limit] [required_role] [available_for] [remove_role] [reply_message] [description]
+```
+
+Only the name and price are required. Leave the effect empty for a plain collectible.
+
+<Steps>
+  <Step title="Name and price">
+    Quote the name if it has spaces in the prefix form. The price must be at least 1. Names can't match one of Percy's built-in items.
+  </Step>
+  <Step title="Pick an effect">
+    `none`, `cash`, `lootbox`, `role`, `xp_boost`, `loot_boost` or `rob_shield`.
+  </Step>
+  <Step title="Fill in the effect values">
+    - `cash` and `lootbox`: set `value` to the coin amount.
+    - `xp_boost` and `loot_boost`: set `value` to the bonus percent and `duration` to the minutes it lasts.
+    - `rob_shield`: set `duration` in minutes.
+    - `role`: set `role`. Percy's role must be above it. See [Permissions Percy needs](/getting-started/permissions#percys-role-position).
+  </Step>
+  <Step title="Optional listing options">
+    - `emoji`: shown before the name.
+    - `rarity`: `common` (the default), `uncommon`, `rare`, `epic` or `legendary`.
+    - `stock`: how many can be sold in total. Empty means unlimited.
+    - `limit`: the most one member may hold.
+    - `required_role`: only members with this role can buy.
+    - `available_for`: how long it stays on sale, for example `7d` or `2 weeks`.
+    - `remove_role`: a role taken away when the item is used.
+    - `reply_message`: an extra line shown on use, up to 500 characters.
+  </Step>
+</Steps>
+
+## Edit an item
+
+```text
+/shop edit <name> [new_name] [price] [emoji] [rarity] [stock] [limit] [required_role] [available_for] [remove_role] [reply_message] [description]
+```
+
+An edit changes the item in place, so copies members already own keep working. Pass only what you want to change.
+
+| Option | Special value |
+|---|---|
+| `stock` | `-1` is unlimited. `0` stops sales |
+| `limit` | `0` removes the limit |
+| `required_role`, `remove_role` | Pick `@everyone` to clear it |
+| `available_for` | `none` keeps it on sale forever |
+| `emoji`, `reply_message`, `description` | `none` clears it |
+
+<Note>
+  You can't change an item's effect, value, duration or granted role. Create a new item instead.
+</Note>
+
+## Remove an item
+
+```text
+/shop remove <name>
+```
+
+Removing an item deletes it from the shop **and deletes every copy members own**. Percy asks you to confirm first. You can't undo it.
+
+<Tip>
+  To stop selling an item without deleting anything, set its stock to 0: `/shop edit <name> stock:0`.
+</Tip>
+
+Percy's built-in items can't be edited or removed.
+
+## Dashboard editor
+
+Open **Economy** in the dashboard sidebar. The item editor there adds, edits and removes items. Percy checks them with the same rules as the commands, so an invalid effect or a reserved name is refused.
+
+## Related
+
+- [Items and shop overview](/items/overview)
+- [Create items from your own code](/api/examples#give-an-item)

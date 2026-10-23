@@ -1,0 +1,94 @@
+---
+title: "Earning money"
+sidebarTitle: "Overview"
+description: "How the Percy economy works: cash and bank, the commands that pay, the payout multiplier and prestige."
+---
+
+Every member has a wallet on each server. Your coins on one server are separate from your coins on any other.
+
+<Frame>
+  <img src="/images/home-4-economy-hub.webp" alt="The economy hub card showing balance, job, pet and quests" />
+</Frame>
+
+Run `/economy` to see your balance, job, pet, quests, badges and perks on one card. Use the menu to switch pages.
+
+## Cash and bank
+
+| Where | Use it for | Can be robbed? |
+|---|---|---|
+| **Cash** | Spending: the shop, games, transfers | Yes |
+| **Bank** | Safe storage | No |
+
+Move coins between them for free:
+
+```text
+/deposit 500
+/withdraw 500
+```
+
+Games and the shop always use **cash**. Withdraw first if your coins are in the bank.
+
+## The commands
+
+| Command | What it does |
+|---|---|
+| `/balance [@member]` | Cash, bank, the value of your items, net worth and server rank |
+| `/balance leaderboard` | The richest members |
+| `/transfer @member <amount>` | Send cash to another member |
+| `/daily`, `?weekly`, `?monthly` | Timed rewards. See [Daily, weekly and monthly](/earning/daily-rewards) |
+| `?work` | A shift at your job. See [Work and jobs](/earning/work-jobs) |
+| `?fish`, `?hunt`, `?dig` | Pay more with a tool. See [Fishing, hunting and digging](/earning/activities) |
+| `?beg`, `?search` | Quick, low-stakes cash |
+| `/pet` | A pet that earns for you. See [Pets](/earning/pets) |
+| `/quests`, `/achievements` | Daily goals and badges. See [Quests and achievements](/earning/quests-achievements) |
+| `/rob @member` | Steal cash from someone. See [Rob and shields](/earning/rob-shields) |
+
+<Note>
+  **Net worth** in `/balance` is cash plus bank plus what your items sell for. [Prestige](#prestige) checks only cash plus bank.
+</Note>
+
+## Payout multiplier
+
+Every earning command is scaled by two numbers multiplied together:
+
+- The **payout multiplier** your server sets, from 0.1 to 10. The default is 1.
+- Your **prestige bonus**.
+
+When a bonus applies, Percy adds a note such as `(x1.20 payout bonus)` to the result. If your numbers differ from a friend's on another server, read [My economy numbers look different](/help/economy-numbers).
+
+## Prestige
+
+When your cash plus bank reaches the requirement, you can prestige. Percy resets your **cash and bank to 0** and gives you a permanent **+10% payout bonus** for each prestige level.
+
+```text
+?prestige
+```
+
+Run it without the requirement to see your progress. Percy asks you to confirm before it resets anything.
+
+| Prestige level | Cash + bank needed | Bonus afterwards |
+|---|---|---|
+| 1 | 250,000 | +10% |
+| 2 | 500,000 | +20% |
+| 3 | 750,000 | +30% |
+| each level after | +250,000 more | +10% more |
+| 10 | 2,500,000 | +100% (the maximum) |
+
+<Note>
+  Prestige keeps your items, job, lifetime shifts, pet, quests and achievements. Only cash and bank reset.
+</Note>
+
+## For admins
+
+Set the multiplier, the base daily reward, robbing and the casino bet cap. See [Server economy settings](/earning/server-settings).
+
+## Next
+
+<CardGroup cols={2}>
+  <Card title="Items and shop" icon="store" href="/items/overview">
+    Spend your coins and use what you find.
+  </Card>
+  <Card title="Playing games" icon="dices" href="/games/overview">
+    Wager your cash in the casino.
+  </Card>
+</CardGroup>

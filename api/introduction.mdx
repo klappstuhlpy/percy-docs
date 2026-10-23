@@ -1,0 +1,76 @@
+---
+title: "Percy API"
+sidebarTitle: "Introduction"
+description: "Read and change a server's economy, items, inventories and levels from your own code."
+---
+
+The Percy API lets your own bot, website or script work with your server's economy. Server admins create the tokens, and each token is limited to one server and the scopes you tick.
+
+| | |
+|---|---|
+| **Base URL** | `https://percy.klappstuhl.me/api/v1` |
+| **Reference** | [percy.klappstuhl.me/api](https://percy.klappstuhl.me/api) |
+| **Format** | JSON over HTTPS |
+| **Auth** | `Authorization: Bearer pct_...` |
+
+The reference lists every endpoint, field and response. This guide covers what you need to get started.
+
+## What you can do
+
+| Area | Examples | Scope |
+|---|---|---|
+| Server | Read the server's name and economy settings | any token |
+| Balances | List the richest members, read, add to, subtract from or set a balance | `economy:read`, `economy:write` |
+| Items | List, read, create, edit and delete shop items | `items:read`, `items:write` |
+| Inventory | Read a member's items, give items, take items | `items:read`, `items:write` |
+| Leveling | Read the leaderboard and a member's level | `leveling:read` |
+| Bot | Public bot statistics, no token needed | none |
+
+## Quick start
+
+<Steps>
+  <Step title="Create a token">
+    On your server's **Developers** page, create a token with the scopes you need. See [Get a token](/api/tokens).
+  </Step>
+  <Step title="Send a request">
+    ```bash
+    curl https://percy.klappstuhl.me/api/v1/guilds/GUILD_ID \
+      -H "Authorization: Bearer pct_YOUR_TOKEN"
+    ```
+  </Step>
+  <Step title="Read the answer">
+    Percy returns the server's name and economy settings. Errors always use the same [error shape](/api/errors).
+  </Step>
+</Steps>
+
+## Good to know
+
+- A token works for one server. Using it on another server returns `403 guild_mismatch`.
+- Requests are limited to 60 per minute per token. See [Rate limits](/api/rate-limits).
+- Retry writes safely with an [Idempotency-Key](/api/idempotency).
+- Changes made through the API show up in the dashboard [change log](/dashboard/changes-notifications) as `api:<token name>`.
+
+## Pages in this section
+
+<CardGroup cols={2}>
+  <Card title="Get a token" icon="key" href="/api/tokens">
+    Create it, pick scopes, store it.
+  </Card>
+  <Card title="Authentication" icon="lock" href="/api/authentication">
+    How to send the token.
+  </Card>
+  <Card title="Rate limits" icon="gauge" href="/api/rate-limits">
+    60 per minute, burst 20.
+  </Card>
+  <Card title="Errors" icon="triangle-alert" href="/api/errors">
+    Error codes and what they mean.
+  </Card>
+  <Card title="Idempotency keys" icon="repeat" href="/api/idempotency">
+    Retry a write without doing it twice.
+  </Card>
+  <Card title="Examples" icon="terminal" href="/api/examples">
+    curl, JavaScript and Python.
+  </Card>
+</CardGroup>
+
+Looking for events pushed to your server? Use [outbound webhooks](/dashboard/webhooks).

@@ -1,0 +1,70 @@
+---
+title: "Dashboard and setup"
+sidebarTitle: "Overview"
+description: "Log in to the Percy dashboard, find your server and see what you can manage there."
+---
+
+The [dashboard](https://percy.klappstuhl.me/dashboard/) lets you manage Percy without typing commands. Everything you save there is applied by Percy right away.
+
+<Frame>
+  <img src="/images/home-11-dashboard-overview.webp" alt="The server overview page of the Percy dashboard" />
+</Frame>
+
+## Log in and open a server
+
+<Steps>
+  <Step title="Log in with Discord">
+    Click **Dashboard** and approve the Discord prompt. Percy asks to see who you are and which servers you are in. It can't read your messages or act as you.
+  </Step>
+  <Step title="Pick a server">
+    Your servers are listed in three groups:
+
+    - **Managed**: servers where Percy is present and you can manage it.
+    - **Servers you're in**: servers with Percy where you can't manage it. You can still open your own pages there.
+    - **Add Percy**: servers you manage that don't have Percy yet.
+  </Step>
+  <Step title="Use the sidebar">
+    The sidebar groups the pages: **Overview**, **Features**, **Community** and **Integrations**. Press `Ctrl+K` (or `Cmd+K`) to search for a page.
+  </Step>
+</Steps>
+
+## Who can manage a server
+
+You can manage a server in the dashboard if you own it or have the **Manage Server** permission. If a server you manage is missing or shows as not manageable, read [The dashboard says I can't manage my server](/help/dashboard-cant-manage).
+
+## Pages at a glance
+
+| Sidebar group | Pages |
+|---|---|
+| **Overview** | Notifications, Configuration, Members, AutoMod, Statistics, Analytics, Commands |
+| **Features** | Leveling, Economy, Music, Autoresponders, Comics, Temp Channels |
+| **Community** | Polls, Image Gallery, Giveaways, Tags, Role Menus, Starboard, Highlights, Emoji Stats |
+| **Integrations** | Webhooks, Backup & Templates, Developers |
+| **Personal** | My Profile |
+
+<Note>
+  Settings cards have no Save button. When you change something, a banner appears at the bottom. Save or discard all your changes at once.
+</Note>
+
+## Where to go next
+
+<CardGroup cols={2}>
+  <Card title="Setup status" icon="stethoscope" href="/dashboard/setup-status">
+    Check that Percy can post and assign roles where you configured it.
+  </Card>
+  <Card title="Set up logging" icon="clipboard-list" href="/dashboard/logging">
+    Send logs and alerts to one channel.
+  </Card>
+  <Card title="Command permissions" icon="toggle-right" href="/dashboard/command-permissions">
+    Turn commands on and off, per channel or server-wide.
+  </Card>
+  <Card title="Change log and notifications" icon="bell" href="/dashboard/changes-notifications">
+    See who changed what, and what needs attention.
+  </Card>
+  <Card title="Backup and templates" icon="archive" href="/dashboard/backup-templates">
+    Export your setup or start from a template.
+  </Card>
+  <Card title="Developers" icon="code" href="/dashboard/developers">
+    Create API tokens for your own bots and sites.
+  </Card>
+</CardGroup>

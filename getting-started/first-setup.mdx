@@ -1,0 +1,60 @@
+---
+title: "First setup"
+description: "Set up logging, protection and the features you want in about five minutes, using the dashboard."
+---
+
+Percy works the moment you invite it. These steps make it safe and useful. Do them in the [dashboard](https://percy.klappstuhl.me/dashboard/), where Percy checks your work as you go.
+
+<Steps>
+  <Step title="Open your server">
+    Log in with Discord and click your server under **Managed**. You need the **Manage Server** permission. See [Log in to the dashboard](/dashboard/overview).
+  </Step>
+  <Step title="Read the setup status">
+    The **Configuration** page opens with **Setup status**. It lists every feature you use and whether Percy can really post and assign roles. Fix anything marked **Needs attention** with the **Fix** link. See [Setup status](/dashboard/setup-status).
+  </Step>
+  <Step title="Send logs to one channel">
+    On the **Moderation** tab, open **Quick setup: logging**. Tick the logs you want, then let Percy create a private `#percy-logs` channel or pick one. See [Set up logging](/dashboard/logging).
+  </Step>
+  <Step title="Protect new members">
+    Turn on **Raid Protection** under **Feature Flags**. For captcha verification, use the quick setup on the **Sentinel** tab. See [Sentinel](/moderation/sentinel) and [AutoMod](/moderation/automod).
+  </Step>
+  <Step title="Turn on what you want">
+    Each feature is independent. Pick the ones your server needs:
+
+    - XP and rank cards: the **Leveling** page has a one-step setup. See [Leveling](/community/leveling).
+    - A music panel: run `/music setup` in your music channel. See [Music](/music/overview).
+    - An economy: it is on by default. See [Earning money](/earning/overview).
+  </Step>
+</Steps>
+
+## Change the prefix
+
+Percy answers to `?` and to `@Percy`. A server can have up to 25 prefixes.
+
+| Command | What it does |
+|---|---|
+| `?prefix` | Show the active prefixes |
+| `?prefix add <prefix>` | Add a prefix. Quote it if it has spaces |
+| `?prefix remove <prefix>` | Remove one, even the default `?` |
+| `?prefix reset` | Remove all of them. Only `@Percy` works afterwards |
+
+```text
+?prefix add !
+```
+
+You can also edit **Prefixes** on the **General** tab of the dashboard. The `@Percy` mention always works, so you can't lock yourself out.
+
+<Tip>
+  Prefer commands? Everything above has a command too. The dashboard just adds live checks and pickers.
+</Tip>
+
+## Next
+
+<CardGroup cols={2}>
+  <Card title="Command permissions" icon="toggle-right" href="/dashboard/command-permissions">
+    Turn commands off per channel or for the whole server.
+  </Card>
+  <Card title="Common questions" icon="circle-help" href="/help/overview">
+    Fixes for the problems new servers hit most.
+  </Card>
+</CardGroup>

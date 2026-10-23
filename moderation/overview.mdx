@@ -1,22 +1,22 @@
 ---
-title: "Percy Moderation Commands: Ban, Kick, Mute and More"
+title: "Moderation"
 sidebarTitle: "Overview"
 description: "A full reference to Percy's moderation commands — ban, kick, mute, purge, and more — with required permissions and usage examples."
 ---
 
-Percy's moderation suite gives your team the tools to keep your server safe and well-managed. Every command in this section is a **hybrid command**, meaning you can run it as a slash command (e.g. `/ban`) or as a text prefix command (e.g. `?ban`) — both forms behave identically. Most actions require the invoking member to hold a moderator-level permission such as **Kick Members**, **Ban Members**, **Manage Messages**, or **Manage Roles**, and Percy itself needs the same permission in order to carry out the action.
-
-## Command Reference
+Percy's moderation commands cover bans, kicks, mutes, warnings and purges. Most need a moderator-level Discord permission, and Percy needs the same permission to carry the action out.
 
 <Note>
-  All commands below work as both slash commands (`/command`) and prefix commands (`?command`). Slash command syntax is used throughout this page.
+  Most of these commands also work as slash commands. `?ban` and `?multiban` are prefix-only, so use `?ban`.
 </Note>
+
+## Commands
 
 | Command | Description | Required Permission |
 |---------|-------------|---------------------|
 | `/kick` | Kicks a member from the server. Refuses someone who is not in the server. | Kick Members |
-| `/ban` | Permanently bans a member or user ID from the server. | Ban Members |
-| `/multiban` | Bans multiple members at once, accepting a list of IDs. | Ban Members + Kick Members |
+| `?ban` | Permanently bans a member or user ID from the server. | Ban Members |
+| `?multiban` | Bans multiple members at once, accepting a list of IDs. | Ban Members + Kick Members |
 | `/softban` | Bans then immediately unbans a member, removing their recent messages without a lasting ban. Refuses someone who is not in the server. If the unban step fails, Percy says the member is still banned and records the ban. | Kick Members |
 | `/unban` | Revokes an existing ban by username or user ID. | Ban Members |
 | `/tempban` | Temporarily bans a member for a specified duration; automatically lifts when time is up. | Ban Members |
@@ -32,12 +32,12 @@ Every moderation action follows one rule: you cannot act on yourself, Percy or t
 
 The dashboard applies the same rules: each action needs the same permission as the matching command (Ban Members to ban, Manage Roles to mute or change roles) and the same hierarchy, and you can only give or take roles below your own top role. `@everyone` and integration-managed roles are refused.
 
-## Usage Examples
+## Examples
 
 ### Banning a member
 
 ```
-/ban @User#1234 Spamming in general
+?ban @User#1234 Spamming in general
 ```
 
 Permanently bans the mentioned user and records the reason in the audit log.
@@ -65,7 +65,7 @@ Deletes up to 50 messages sent by bots in the current channel. You can combine m
 ```
 
 <Note>
-  `/mute` needs your top role above the mute role and says why when it is not (the server owner can always mute). A mute role level with Percy's own top role is refused, and if the mute role was deleted, the mute commands tell you to set up a new one with `/muterole`. Unbinding the mute role leaves muted members with the role.
+  `/mute` needs your top role above the mute role and says why when it is not (the server owner can always mute). A mute role level with Percy's own top role is refused, and if the mute role was deleted, the mute commands tell you to set up a new one with `?muterole`. Unbinding the mute role leaves muted members with the role.
 </Note>
 
 <Note>
@@ -99,13 +99,19 @@ A `/purge` with no filters asks for confirmation. If a purge runs out of time, P
 
 Banning, unbanning, muting or unmuting, by command or from the dashboard, cancels the member's old tempban or tempmute timer, so an old timer cannot undo a newer action. A timed action that cannot end on time (a Discord outage, a missing permission) is retried for about a day, and Percy tells your alert channel when a permission is missing. Pending mutes are saved before Percy restarts.
 
-## Mod cases
+## Cases
 
-Percy records a case for every moderation action, including automatic ones: `/multiban` and the **Ban All Raiders** button, raid and mention-spam bans, kicks and bans for bypassing Sentinel, and tempbans and tempmutes ending on their own. Automatic cases are filed under Percy's name with the reason Percy acted on. Use `/cases <user>` to list a member's cases and `/case <number>` to see one. A reason longer than about 1,000 characters is shortened in the case card. Case numbers are never reused: deleting the newest case does not hand its number to the next one, so old modlog posts never point at the wrong case.
+Percy records a case for every moderation action, including automatic ones. See [Cases and the moderation log](/moderation/cases).
 
-## More in This Section
+## More in this section
 
-<CardGroup cols={3}>
+<CardGroup cols={2}>
+  <Card title="Cases" icon="folder" href="/moderation/cases">
+    List, edit and delete cases, and post them to a log channel.
+  </Card>
+  <Card title="Action requests" icon="hand" href="/moderation/requests">
+    Let trusted members ask a moderator to approve an action.
+  </Card>
   <Card title="AutoMod" icon="shield-halved" href="/moderation/automod">
     Configure spam detection, raid protection, and mention-spam auto-bans.
   </Card>

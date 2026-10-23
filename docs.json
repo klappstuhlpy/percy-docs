@@ -31,30 +31,81 @@
         "tab": "Guide",
         "groups": [
           {
-            "group": "Getting Started",
+            "group": "Getting started",
             "pages": [
-              "introduction",
-              "quickstart",
-              "permissions"
+              "index",
+              "getting-started/invite",
+              "getting-started/first-setup",
+              "getting-started/permissions"
+            ]
+          },
+          {
+            "group": "Dashboard and setup",
+            "pages": [
+              "dashboard/overview",
+              "dashboard/setup-status",
+              "dashboard/logging",
+              "dashboard/command-permissions",
+              "dashboard/changes-notifications",
+              "dashboard/backup-templates",
+              "dashboard/analytics",
+              "dashboard/webhooks",
+              "dashboard/developers"
+            ]
+          },
+          {
+            "group": "Earning money",
+            "pages": [
+              "earning/overview",
+              "earning/daily-rewards",
+              "earning/work-jobs",
+              "earning/activities",
+              "earning/pets",
+              "earning/quests-achievements",
+              "earning/rob-shields",
+              "earning/server-settings"
+            ]
+          },
+          {
+            "group": "Items and shop",
+            "pages": [
+              "items/overview",
+              "items/buying",
+              "items/using-items",
+              "items/selling-gifting",
+              "items/trading",
+              "items/manage-shop"
+            ]
+          },
+          {
+            "group": "Playing games",
+            "pages": [
+              "games/overview",
+              "games/lottery"
+            ]
+          },
+          {
+            "group": "Leveling and community",
+            "pages": [
+              "community/overview",
+              "community/leveling",
+              "community/polls",
+              "community/giveaways",
+              "community/highlights",
+              "community/tags",
+              "community/rolemenu",
+              "community/starboard"
             ]
           },
           {
             "group": "Moderation",
             "pages": [
               "moderation/overview",
+              "moderation/cases",
               "moderation/automod",
               "moderation/sentinel",
-              "moderation/lockdown"
-            ]
-          },
-          {
-            "group": "Economy",
-            "pages": [
-              "economy/overview",
-              "economy/progression",
-              "economy/shop",
-              "economy/games",
-              "economy/lottery"
+              "moderation/lockdown",
+              "moderation/requests"
             ]
           },
           {
@@ -66,36 +117,16 @@
             ]
           },
           {
-            "group": "Community",
-            "pages": [
-              "community/leveling",
-              "community/polls",
-              "community/giveaways",
-              "community/highlights",
-              "community/tags",
-              "community/rolemenu",
-              "community/starboard"
-            ]
-          },
-          {
             "group": "Utility",
             "pages": [
+              "utility/overview",
               "utility/reminders",
+              "utility/subscriptions",
+              "utility/catalogue",
               "utility/autoresponder",
               "utility/temp-channels",
               "utility/tools",
               "utility/user-settings"
-            ]
-          },
-          {
-            "group": "Configuration",
-            "pages": [
-              "configuration/server-setup",
-              "configuration/command-permissions",
-              "configuration/audit-log",
-              "configuration/analytics",
-              "configuration/webhooks",
-              "configuration/backup-templates"
             ]
           },
           {
@@ -107,6 +138,20 @@
               "ai/moderation",
               "ai/self-hosting"
             ]
+          },
+          {
+            "group": "Common questions",
+            "pages": [
+              "help/overview",
+              "help/commands-not-working",
+              "help/role-hierarchy",
+              "help/slash-commands-missing",
+              "help/dashboard-cant-manage",
+              "help/economy-numbers",
+              "help/feed-stopped-posting",
+              "help/reset",
+              "help/data-privacy"
+            ]
           }
         ]
       },
@@ -114,9 +159,15 @@
         "tab": "API",
         "groups": [
           {
-            "group": "API",
+            "group": "Public API",
             "pages": [
-              "api-reference/introduction"
+              "api/introduction",
+              "api/tokens",
+              "api/authentication",
+              "api/rate-limits",
+              "api/errors",
+              "api/idempotency",
+              "api/examples"
             ]
           }
         ]
@@ -135,5 +186,67 @@
       }
     ]
   },
-  "description": "The Documentation for my personal multipurpose Discord Bot Percy."
+  "description": "The Documentation for my personal multipurpose Discord Bot Percy.",
+  "redirects": [
+    {
+      "source": "/introduction",
+      "destination": "/"
+    },
+    {
+      "source": "/quickstart",
+      "destination": "/getting-started/invite"
+    },
+    {
+      "source": "/permissions",
+      "destination": "/getting-started/permissions"
+    },
+    {
+      "source": "/configuration/server-setup",
+      "destination": "/getting-started/first-setup"
+    },
+    {
+      "source": "/configuration/command-permissions",
+      "destination": "/dashboard/command-permissions"
+    },
+    {
+      "source": "/configuration/audit-log",
+      "destination": "/dashboard/logging"
+    },
+    {
+      "source": "/configuration/analytics",
+      "destination": "/dashboard/analytics"
+    },
+    {
+      "source": "/configuration/webhooks",
+      "destination": "/dashboard/webhooks"
+    },
+    {
+      "source": "/configuration/backup-templates",
+      "destination": "/dashboard/backup-templates"
+    },
+    {
+      "source": "/economy/overview",
+      "destination": "/earning/overview"
+    },
+    {
+      "source": "/economy/progression",
+      "destination": "/earning/overview"
+    },
+    {
+      "source": "/economy/shop",
+      "destination": "/items/overview"
+    },
+    {
+      "source": "/economy/games",
+      "destination": "/games/overview"
+    },
+    {
+      "source": "/economy/lottery",
+      "destination": "/games/lottery"
+    },
+    {
+      "source": "/api-reference/introduction",
+      "destination": "/api/introduction"
+    }
+  ]
 }

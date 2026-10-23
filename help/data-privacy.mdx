@@ -1,0 +1,40 @@
+---
+title: "Data and privacy"
+description: "What Percy stores about you, and how to export or delete it."
+---
+
+## Tracking is off by default
+
+Percy records your presence and your name, nickname and avatar history only if you turn it on. Run `/settings` to see and change both switches.
+
+| Data | Kept for |
+|---|---|
+| Presence history (opt-in) | 30 days, then deleted automatically |
+| Name, nickname and avatar history (opt-in) | Until you delete it |
+| Content you create (reminders, tags, playlists) | Until you delete it |
+| Server settings and moderation records | While Percy is in the server |
+
+Turning a switch off stops **new** data. It doesn't delete what is already stored.
+
+## Export your data
+
+```text
+/settings request-data
+```
+
+Percy sends a JSON file to your direct messages. It holds everything stored about you, including settings, history, leveling, economy, game stats, content you created and moderation cases that name you. Open your DMs from server members first, or Percy can't deliver it.
+
+## Delete your data
+
+```text
+/settings remove-personal-data
+```
+
+Percy deletes your stored presence, name, nickname and avatar history after you confirm. This can't be undone.
+
+Delete things you created with their own commands, for example `/tag delete`, `/reminder purge` or `/playlist delete`.
+
+## Read more
+
+- [Personal settings](/utility/user-settings)
+- [Privacy policy](/legal/privacy-policy)

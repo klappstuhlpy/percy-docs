@@ -1,0 +1,64 @@
+---
+title: "Buying items"
+description: "Buy items from the shop, use daily deals, and understand stock, limits and role-gated items."
+---
+
+## Buy an item
+
+<Steps>
+  <Step title="Have the cash">
+    Purchases use **cash**. Withdraw from your bank first if you need to:
+
+    ```text
+    /withdraw 1000
+    ```
+  </Step>
+  <Step title="Buy it">
+    Use the command, or press **Buy 1** or **Buy...** on the item in `/shop`:
+
+    ```text
+    /buy Lucky Charm 2
+    ```
+
+    The total is the price times the quantity.
+  </Step>
+</Steps>
+
+<Tip>
+  Autocomplete suggests item names as you type.
+</Tip>
+
+## Daily deals
+
+Each day, up to **two** items in your server's shop are **10% to 40% off**. The deals change at midnight UTC and are the same for everyone on the server. They show at the top of `/shop`, and Percy adds the discount to your receipt, for example `(-25% today)`.
+
+## Why a purchase can fail
+
+| Message | What it means |
+|---|---|
+| You need X cash but only have Y | Withdraw more or buy fewer |
+| Sold out, or only N left | The item has limited stock |
+| You can hold at most N | The item has a per-member limit. It counts what you already own |
+| Reserved for members with a role | You need the required role |
+| No longer on sale | The item's sale period ended |
+| Not sold in the shop | It is a drop. You can only find it |
+
+## Limits an admin can set
+
+- **Stock**: how many can be sold in total.
+- **Per-member limit**: the most one person may hold.
+- **Required role**: only members with that role can buy it.
+- **End date**: the item stops being sold after a set time.
+
+Two people buying the last copy at once can't oversell it. One of them gets the "sold out" message.
+
+## Next
+
+<CardGroup cols={2}>
+  <Card title="Using items" icon="sparkles" href="/items/using-items">
+    What happens when you use what you bought.
+  </Card>
+  <Card title="Selling and gifting" icon="gift" href="/items/selling-gifting">
+    Turn items back into cash or give them away.
+  </Card>
+</CardGroup>

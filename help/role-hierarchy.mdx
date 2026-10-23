@@ -1,0 +1,47 @@
+---
+title: "Percy can't assign or remove a role"
+description: "Fix role problems with level rewards, role menus, shop items, Sentinel and moderation."
+---
+
+Discord lets a bot manage only roles that sit **below its own highest role**. This is the cause of almost every "can't assign role" problem.
+
+## Fix it
+
+<Steps>
+  <Step title="Open the role list">
+    Go to **Server Settings → Roles**.
+  </Step>
+  <Step title="Move Percy's role up">
+    Drag Percy's role above the role it must give or take. Roles that Percy must manage are level rewards, role menu roles, shop role items, the Sentinel role and the mute role.
+  </Step>
+  <Step title="Check Manage Roles">
+    Percy's role also needs the **Manage Roles** permission.
+  </Step>
+  <Step title="Check the dashboard">
+    [Setup status](/dashboard/setup-status) lists every configured role Percy can't assign.
+  </Step>
+</Steps>
+
+## Roles Percy can never manage
+
+- `@everyone`.
+- Roles created by an integration or another bot (managed roles).
+- Anything above Percy's own role.
+
+## Members Percy can't act on
+
+Percy also can't moderate or change the roles of members whose top role is at or above Percy's. Nobody can ban or kick the server owner. Discord doesn't allow timing out members who have the **Administrator** permission.
+
+<Tip>
+  Keep Percy's role above your reward and menu roles but below your staff roles.
+</Tip>
+
+## What you'll see
+
+- A shop **role item** that Percy can't grant is not used up. You get it back.
+- A shop item's **remove role** that fails shows a warning in the reply.
+- Background jobs, like ending a timed lockdown, post a missing-permission alert. See [A log or feed channel stopped posting](/help/feed-stopped-posting).
+
+## Related
+
+- [Permissions Percy needs](/getting-started/permissions#percys-role-position)

@@ -1,0 +1,75 @@
+---
+title: "Action requests"
+description: "Let trusted members request a moderation action, and have a moderator with the right permission approve or deny it from Discord or the dashboard."
+---
+
+An action request lets someone who cannot run a moderation action themselves ask for it. Percy posts the request with **Approve** and **Deny** buttons in a channel you choose, and the action runs only when a moderator with the matching permission approves it. The same requests, plus warnings about problems Percy runs into, appear in the dashboard's **Notifications** page.
+
+<Frame>
+  <img src="/images/home-9-request.webp" alt="An action request with Approve and Deny buttons" />
+</Frame>
+
+## Who can request and approve
+
+You can request an action if you hold a role your server has marked as a requester role, or you have **Manage Messages**.
+
+To approve or deny, you need the permission the action itself requires (or **Administrator**). You must also outrank the member the action targets, the same rule the moderation commands apply, and you cannot decide your own request. If you can't approve because of rank, the request stays pending for someone who can.
+
+If you already hold the permission for an action, Percy tells you to run it yourself instead of filing a request.
+
+| Action | Permission needed to approve |
+|--------|------------------------------|
+| `kick`, `warn` | Kick Members |
+| `ban`, `softban` | Ban Members |
+| `mute`, `unmute` | Manage Roles |
+| `timeout`, `untimeout` | Moderate Members |
+
+<Note>
+  `purge` cannot be requested. It reads live channel history and has no single target. `unban` cannot be requested either, because the target is no longer a member of the server.
+</Note>
+
+## Commands
+
+### `/request create <action> <member> <reason> [duration]` — Ask for an action
+
+```
+/request create timeout @member 1h spamming links
+/request create ban @member repeated harassment
+```
+
+The slash command takes its options in the order action, member, reason, duration. The text command is `request create <action> <member> [duration] <reason…>`, so a duration goes before the reason there. `duration` applies to timeouts and mutes. A reason is required. You can file one request every 30 seconds. Percy posts the request in the request channel with the Approve and Deny buttons.
+
+### `/request list` — See your requests
+
+Shows your last 10 requests and their status.
+
+### `/request cancel <id>` — Withdraw a pending request
+
+You can cancel only your own requests, and only while they are still pending.
+
+## Set up the request channel and roles
+
+<Steps>
+  <Step title="Open the Notifications page">
+    In the dashboard, open your server and go to **Notifications**.
+  </Step>
+  <Step title="Choose the request channel">
+    Pick the text channel where requests are posted. Percy needs permission to send messages there.
+  </Step>
+  <Step title="Choose requester roles">
+    Select the roles whose members may request actions. Members with **Manage Messages** can always request.
+  </Step>
+</Steps>
+
+## Deciding a request
+
+Approve or deny from the buttons in Discord, or from the **Requests** list on the dashboard's Notifications page. Either way, the first decision wins: if two moderators click at once, only one takes effect and the other is told the request was already decided. Approving runs the action exactly as if the moderator had run it, and the requester is notified of the outcome.
+
+## Expiry and retention
+
+- A pending request expires after **24 hours**. Percy checks every 30 minutes and marks it expired.
+- Notifications and finished requests are removed after **90 days**.
+
+## Notification feed
+
+The **Notifications** page also lists problems Percy hit, such as a missing permission in a log channel or a disabled webhook, and notices from the Percy team. A badge in the sidebar shows unread items and pending requests. It also lists recent moderation cases.

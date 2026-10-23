@@ -1,0 +1,101 @@
+---
+title: "Command permissions"
+description: "Enable or disable commands per channel or server-wide, and make Percy ignore channels or members."
+---
+
+Turn commands off, silence Percy in a channel, or block one member. You can do all of it with commands or on the **Commands** page of the [dashboard](https://percy.klappstuhl.me/dashboard/).
+
+All `?config` commands require the **Manage Server** or **Manage Messages** permission.
+
+## On the dashboard
+
+Open **Commands** in the sidebar. Per command you can switch it on or off (everywhere or per channel), choose who may run it with a **custom access** override, and manage the **plonk list** of channels and members Percy ignores. Server administrators always bypass disables, access overrides and plonks.
+
+## Ignoring channels and members
+
+"Ignoring" a channel or member tells Percy to silently refuse all commands from that source. It is the bluntest tool — use it when you want Percy completely quiet in a channel, or when a member is misusing the bot.
+
+| Command | What it does |
+|---|---|
+| `?config ignore <channel_or_member>` | Prevent a channel or member from using Percy |
+| `?config ignore` *(no argument)* | Ignore the current channel |
+| `?config ignore list` | List every currently ignored channel and member |
+| `?config ignore all` | Ignore every text channel in the server at once |
+| `?config ignore clear` | Remove all ignores in one go |
+| `?config unignore <channel_or_member>` | Re-enable Percy access for a channel or member |
+| `?config unignore` *(no argument)* | Unignore the current channel |
+| `?config unignore all` | Remove all ignores in one go (alias for `ignore clear`) |
+
+<Note>
+  Members with the **Administrator** permission can always use Percy, even if their account or channel has been ignored.
+</Note>
+
+## Disabling commands per channel
+
+Use these commands when you want a command off by default server-wide but available in one specific channel — or vice versa.
+
+| Command | What it does |
+|---|---|
+| `?config channel disable <command>` | Disable a command in the current channel |
+| `?config channel enable <command>` | Re-enable a command in the current channel |
+| `?config server disable <command>` | Disable a command across the entire server |
+| `?config server enable <command>` | Re-enable a command server-wide |
+| `?config disable [#channel] <command>` | Disable a command in a specific channel (or server-wide if no channel is given) |
+| `?config enable [#channel] <command>` | Enable a command in a specific channel (or server-wide if no channel is given) |
+| `?config disabled [#channel]` | List all disabled commands for a channel (defaults to the current channel) |
+
+## How precedence works
+
+When Percy decides whether to run a command, it checks permissions in this order:
+
+1. **Manage Server bypass** — members with Manage Server always bypass all restrictions.
+2. **Channel-level rules** — a per-channel `enable` or `disable` overrides the server-wide setting.
+3. **Server-level rules** — a server-wide `disable` blocks the command everywhere except channels that explicitly re-enable it.
+
+So you can disable a command globally and then carve out individual channels where it's still allowed.
+
+## Examples
+
+**Disable gambling server-wide, then re-enable it in one channel:**
+
+```
+?config server disable slots
+?config channel enable slots      ← run this inside #casino
+```
+
+**Block Percy from responding in #general:**
+
+```
+?config ignore #general
+```
+
+**Check what's currently disabled in #bot-commands:**
+
+```
+?config disabled #bot-commands
+```
+
+**Re-enable a command you disabled by mistake:**
+
+```
+?config server enable slots
+```
+
+<Note>
+  Configuration and admin commands cannot be disabled through this system. Percy always responds to `?config`, `?prefix`, and related admin commands so you can never lock yourself out of the bot's settings.
+</Note>
+
+<Tip>
+  Use `?config ignore all` followed by `?config unignore #bot-commands` to funnel all bot usage into a single channel quickly, then open up individual channels as needed.
+</Tip>
+
+## Next
+
+<CardGroup cols={2}>
+  <Card title="Set up logging" icon="clipboard-list" href="/dashboard/logging">
+    Log moderation actions and server events to a channel.
+  </Card>
+  <Card title="Commands not working" icon="circle-help" href="/help/commands-not-working">
+    Check disables, plonks and permissions in one place.
+  </Card>
+</CardGroup>

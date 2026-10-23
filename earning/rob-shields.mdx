@@ -1,0 +1,43 @@
+---
+title: "Rob and shields"
+description: "Steal cash from another member, and protect yours with a rob shield."
+---
+
+## Rob a member
+
+```text
+/rob @member
+```
+
+You can steal part of another member's **cash**. Their bank is safe. You can rob once a day.
+
+- Your chance of failing is your cash plus bank, divided by (their cash plus your cash plus bank). Percy keeps it between 20% and 80%. The richer you are compared to your target, the riskier it gets.
+- If you succeed, you take your success chance times their cash.
+- If you fail, you lose coins as a fine.
+
+Percy doesn't let you rob a bot, yourself, or someone with no cash.
+
+<Tip>
+  Keep your coins in the bank. A robber can only take cash.
+</Tip>
+
+## Protect yourself
+
+A **rob shield** is a shop item. When you use it, nobody can rob you until it expires. A blocked attempt still costs the robber their cooldown.
+
+```text
+/buy Rob Shield
+/use Rob Shield
+```
+
+The item name depends on your server's shop. See [Using items](/items/using-items) for how timed effects work and `/perks` to see what is active.
+
+## For admins
+
+Turn robbing off for the whole server:
+
+```text
+?economy-config rob off
+```
+
+See [Server economy settings](/earning/server-settings).

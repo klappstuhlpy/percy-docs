@@ -1,0 +1,162 @@
+---
+title: "Examples"
+description: "Get a balance, add money and give an item with curl, JavaScript and Python."
+---
+
+Replace `GUILD_ID`, `USER_ID`, `ITEM_ID` and the token with your own values. Read the token from an environment variable, never from your source code.
+
+<Note>
+  Balance and inventory changes need a token with the right scope: `economy:read`, `economy:write` or `items:write`. See [Get a token](/api/tokens#scopes).
+</Note>
+
+## Get a balance
+
+`GET /guilds/{guild_id}/users/{user_id}` needs `economy:read`. A member with no wallet has a balance of 0.
+
+<CodeGroup>
+
+```bash curl
+curl https://percy.klappstuhl.me/api/v1/guilds/GUILD_ID/users/USER_ID \
+  -H "Authorization: Bearer $PERCY_TOKEN"
+```
+
+```javascript JavaScript
+const base = "https://percy.klappstuhl.me/api/v1";
+const res = await fetch(`${base}/guilds/GUILD_ID/users/USER_ID`, {
+  headers: { Authorization: `Bearer ${process.env.PERCY_TOKEN}` },
+});
+if (!res.ok) throw new Error((await res.json()).error.code);
+console.log(await res.json());
+```
+
+```python Python
+import os
+import requests
+
+base = "https://percy.klappstuhl.me/api/v1"
+headers = {"Authorization": f"Bearer {os.environ['PERCY_TOKEN']}"}
+
+r = requests.get(f"{base}/guilds/GUILD_ID/users/USER_ID", headers=headers)
+r.raise_for_status()
+print(r.json())
+```
+
+</CodeGroup>
+
+Response:
+
+```json
+{ "user_id": "123456789012345678", "cash": 1200, "bank": 5000, "total": 6200 }
+```
+
+## Add money
+
+`PATCH /guilds/{guild_id}/users/{user_id}` needs `economy:write`. Send signed amounts for `cash`, `bank` or both. Use a negative number to subtract. If either balance would drop below zero, nothing changes and you get `400 insufficient_funds`.
+
+Send an [Idempotency-Key](/api/idempotency) so a retry can't pay twice.
+
+<CodeGroup>
+
+```bash curl
+curl -X PATCH https://percy.klappstuhl.me/api/v1/guilds/GUILD_ID/users/USER_ID \
+  -H "Authorization: Bearer $PERCY_TOKEN" \
+  -H "Idempotency-Key: reward-1042" \
+  -H "Content-Type: application/json" \
+  -d '{"cash": 500}'
+```
+
+```javascript JavaScript
+const res = await fetch(`${base}/guilds/GUILD_ID/users/USER_ID`, {
+  method: "PATCH",
+  headers: {
+    Authorization: `Bearer ${process.env.PERCY_TOKEN}`,
+    "Idempotency-Key": "reward-1042",
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({ cash: 500 }),
+});
+console.log(await res.json());
+```
+
+```python Python
+r = requests.patch(
+    f"{base}/guilds/GUILD_ID/users/USER_ID",
+    headers={**headers, "Idempotency-Key": "reward-1042"},
+    json={"cash": 500},
+)
+r.raise_for_status()
+print(r.json())
+```
+
+</CodeGroup>
+
+Response: the new balance.
+
+```json
+{ "user_id": "123456789012345678", "cash": 1700, "bank": 5000, "total": 6700 }
+```
+
+To set exact values instead, use `PUT` on the same path with absolute, non-negative amounts.
+
+## Give an item
+
+`POST /guilds/{guild_id}/users/{user_id}/inventory` needs `items:write`. The item is free and stock isn't reduced. `quantity` defaults to 1 and can be up to 10,000. Find `item_id` with `GET /guilds/{guild_id}/items`.
+
+<CodeGroup>
+
+```bash curl
+curl -X POST https://percy.klappstuhl.me/api/v1/guilds/GUILD_ID/users/USER_ID/inventory \
+  -H "Authorization: Bearer $PERCY_TOKEN" \
+  -H "Idempotency-Key: gift-1042" \
+  -H "Content-Type: application/json" \
+  -d '{"item_id": ITEM_ID, "quantity": 2}'
+```
+
+```javascript JavaScript
+const res = await fetch(`${base}/guilds/GUILD_ID/users/USER_ID/inventory`, {
+  method: "POST",
+  headers: {
+    Authorization: `Bearer ${process.env.PERCY_TOKEN}`,
+    "Idempotency-Key": "gift-1042",
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({ item_id: 7, quantity: 2 }),
+});
+console.log(await res.json());
+```
+
+```python Python
+r = requests.post(
+    f"{base}/guilds/GUILD_ID/users/USER_ID/inventory",
+    headers={**headers, "Idempotency-Key": "gift-1042"},
+    json={"item_id": 7, "quantity": 2},
+)
+r.raise_for_status()
+print(r.json())
+```
+
+</CodeGroup>
+
+Response: how many the member now owns.
+
+```json
+{ "item_id": 7, "quantity": 2 }
+```
+
+If the member would go over the item's per-member limit, you get `409 item_limit_reached`.
+
+## Handle a rate limit
+
+```python
+import time
+
+def call(method, url, **kwargs):
+    for _ in range(3):
+        r = requests.request(method, url, headers=headers, **kwargs)
+        if r.status_code != 429:
+            return r
+        time.sleep(int(r.headers.get("Retry-After", "1")))
+    return r
+```
+
+See [Rate limits](/api/rate-limits) and [Errors](/api/errors).

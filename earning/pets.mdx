@@ -1,0 +1,37 @@
+---
+title: "Pets"
+description: "Adopt a pet that earns coins while you're away, and keep it fed."
+---
+
+A pet earns coins for you, even when you are offline. You can have one pet per server.
+
+## Commands
+
+| Command | What it does |
+|---|---|
+| `/pet` | Your pet: hunger, unclaimed earnings and feeding cost |
+| `/pet shop` | The species you can adopt, with prices |
+| `/pet adopt <species> [name]` | Adopt a pet |
+| `/pet feed` | Feed your pet so it earns at full rate |
+| `/pet claim` | Collect what it earned |
+| `/pet rename <name>` | Give it a new name |
+| `/pet abandon` | Release it. You get no refund |
+
+## Species
+
+| Species | Cost | Earns | Stores up to | Feeding |
+|---|---|---|---|---|
+| Hamster | 500 | 8 per hour | 12 hours | 25 |
+| Cat | 2,500 | 20 per hour | 18 hours | 60 |
+| Dog | 3,000 | 26 per hour | 14 hours | 80 |
+| Parrot | 6,000 | 45 per hour | 20 hours | 120 |
+| Fox | 12,000 | 80 per hour | 24 hours | 200 |
+| Dragon | 50,000 | 250 per hour | 36 hours | 600 |
+
+Earnings stop adding up once your pet has stored its maximum hours. Claim before that.
+
+<Warning>
+  Hunger lowers earnings. A pet that wasn't fed for 18 hours earns at half rate. After 36 hours it earns nothing.
+</Warning>
+
+You can also feed and collect from the **Pet** page of `/economy`.

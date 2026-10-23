@@ -1,0 +1,46 @@
+---
+title: "Developers and API tokens"
+description: "Create, scope and revoke API tokens on the Developers page."
+---
+
+The **Developers** page creates API tokens. A token lets your own bot or site read and change one server's economy, items, inventories and levels. It needs the **Manage Server** permission.
+
+## Create a token
+
+<Steps>
+  <Step title="Open Developers">
+    In the dashboard sidebar, under **Integrations**, click **Developers**.
+  </Step>
+  <Step title="Click Create token">
+    Give the token a name you will recognise, for example `shop bot`.
+  </Step>
+  <Step title="Tick the scopes">
+    Give the token only the scopes it needs. Nothing is allowed by default. See [Scopes](/api/tokens#scopes).
+  </Step>
+  <Step title="Copy the token">
+    Percy shows the token once, starting with `pct_`. Copy it into your app's secrets now. Percy keeps only a hash and can't show it again.
+  </Step>
+</Steps>
+
+## Things to know
+
+- A token works for **one server** only.
+- You can have up to 10 active tokens per server.
+- **Revoke** stops a token immediately.
+- The table shows when each token was created and last used.
+- Changes made with a token appear in the [change log](/dashboard/changes-notifications) as `api:<token name>`.
+
+<Warning>
+  Treat a token like a password. Anyone who has it can do what its scopes allow. If it leaks, revoke it and create a new one.
+</Warning>
+
+## Next
+
+<CardGroup cols={2}>
+  <Card title="API introduction" icon="code" href="/api/introduction">
+    Base URL, reference and what you can do.
+  </Card>
+  <Card title="Examples" icon="terminal" href="/api/examples">
+    Get a balance, add money and give an item.
+  </Card>
+</CardGroup>

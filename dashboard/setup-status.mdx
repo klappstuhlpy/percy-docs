@@ -1,0 +1,53 @@
+---
+title: "Check your setup status"
+description: "See which features Percy can really use, and fix the ones that are blocked."
+---
+
+A setting can be saved and still not work. Percy may not be allowed to post in the channel, or its role may sit below a role it should give out. **Setup status** checks this live against Discord.
+
+## Where to find it
+
+Open your server's **Configuration** page. **Setup status** is at the top. It opens by itself when something needs attention.
+
+## What it checks
+
+For every feature you use, Percy checks the channels and roles you picked:
+
+| Feature | Checked |
+|---|---|
+| Audit log, Moderation log, Message log, Voice log, Alerts | Percy can see and post in the channel |
+| Polls | Percy can post in the poll channel |
+| Mute role | The role exists and sits below Percy's role |
+| Leveling | The level-up channel and every level reward role |
+| Music panel | The panel channel |
+| Sentinel verification | The verification channel and the verified role |
+
+Each problem names the channel or role and the exact permission that is missing.
+
+## Fix a problem
+
+<Steps>
+  <Step title="Read the problem">
+    A line such as "Percy can't post in #logs" tells you what is wrong and where.
+  </Step>
+  <Step title="Click Fix">
+    **Fix** opens the page for that feature.
+  </Step>
+  <Step title="Change it in Discord">
+    Give Percy the permission on the channel, or move Percy's role above the role. See [Permissions Percy needs](/getting-started/permissions).
+  </Step>
+  <Step title="Reload">
+    The check runs again every time you load the page. It is never cached.
+  </Step>
+</Steps>
+
+Features you don't use appear under **Not in use**, with a **Set up** button.
+
+<Tip>
+  Channel and role pickers across the dashboard also mark channels Percy can't post in and roles it can't give out, before you save.
+</Tip>
+
+## Related
+
+- [Percy can't assign or remove a role](/help/role-hierarchy)
+- [A log or feed channel stopped posting](/help/feed-stopped-posting)

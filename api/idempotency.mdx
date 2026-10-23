@@ -1,0 +1,36 @@
+---
+title: "Idempotency keys"
+description: "Retry balance and inventory changes without applying them twice."
+---
+
+A network error can leave you not knowing whether a write went through. Send an `Idempotency-Key` header, and Percy applies the change only once.
+
+## Where it works
+
+| Request | Idempotency-Key |
+|---|---|
+| `PATCH /guilds/{guild_id}/users/{user_id}` (add to or subtract from a balance) | Supported |
+| `POST /guilds/{guild_id}/users/{user_id}/inventory` (give items) | Supported |
+| `DELETE /guilds/{guild_id}/users/{user_id}/inventory/{item_id}` (take items) | Supported |
+
+## How it works
+
+```bash
+curl -X PATCH https://percy.klappstuhl.me/api/v1/guilds/GUILD_ID/users/USER_ID \
+  -H "Authorization: Bearer pct_YOUR_TOKEN" \
+  -H "Idempotency-Key: reward-9f2c1b" \
+  -H "Content-Type: application/json" \
+  -d '{"cash": 500}'
+```
+
+- The key is 1 to 64 characters from `A-Za-z0-9-_.:`.
+- Repeat the **same request** with the **same key** within **24 hours** and Percy returns the first answer. The response carries `Idempotent-Replayed: true`. The balance changes once.
+- Reuse a key for a **different** request and you get `422 idempotency_key_reuse`.
+- Send the same key while the first request is still running and you get `409 request_in_progress`. Wait a moment and retry.
+- Keys belong to a token. Two tokens can use the same key.
+
+<Tip>
+  Make the key from your own record of the event, for example `order-1042-refund`. A random key per attempt doesn't protect you from retries.
+</Tip>
+
+Without the header, nothing changes: every request is applied.

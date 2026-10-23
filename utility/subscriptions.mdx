@@ -1,0 +1,90 @@
+---
+title: "Release subscriptions"
+description: "Follow comics, films, shows and people. Percy DMs you a digest when something new lands."
+---
+
+A subscription is a standing interest. You tell Percy what you care about — a comic series, the artist drawing it, a film universe, the actor you follow across everything — and Percy sends you a direct message when something you follow lands. Subscriptions belong to you, not to a server: they follow you everywhere Percy is, and no one else sees what you follow.
+
+Subscriptions are entirely opt-in. Percy never DMs you until you follow your first thing.
+
+## Commands
+
+| Command | Description |
+|---|---|
+| `/subscribe <subject> [streams]` | Follow something. Pick the subject from the suggestions. |
+| `/subscriptions` | See everything you follow, and change or remove any of it. |
+| `/unsubscribe <subject>` | Stop following one thing. |
+
+All three reply privately, so running them in a busy channel does not tell everyone what you read.
+
+## What you can follow
+
+Percy suggests subjects from its own catalogue as you type, across two media:
+
+| Comics | Film & TV |
+|---|---|
+| A **publisher** — Marvel, DC or Manga (every release) | A **universe** — a whole watch order |
+| A **series** | A **franchise** within a universe |
+| A **creator** — writer, artist, anyone credited | A **person** — actor, director or writer |
+| A **character** | A **character** |
+
+<Warning>
+  You have to pick one of the suggestions. Percy matches new releases against the exact key behind each suggestion, so a name typed freehand would create a subscription that never matches anything — Percy rejects it rather than let that happen silently.
+</Warning>
+
+Following a person works the same way on both sides: one subscription covers everything they are credited on, whether they acted in it, directed it or wrote it.
+
+## Choosing which updates you get
+
+Every subscription carries a **streams** setting:
+
+| Value | You get |
+|---|---|
+| `releases` | New releases only. This is the default. |
+| `news` | News and articles only. |
+| `both` | Both. |
+
+Releases is the default because news is far more frequent: a busy franchise can produce a dozen stories in the time it produces one release. Switch a row to `both` when you want the conversation as well as the shipping date.
+
+<Note>
+  News is delivered in the same digest as releases, never as extra messages, and the two are capped separately — a busy news week can never crowd out the release you actually subscribed for.
+</Note>
+
+## What the DM looks like
+
+Percy checks for new items every hour and sends you **one digest per check**, never one message per item:
+
+- Items are grouped by medium and release date, with anything announced but undated listed first.
+- Up to a dozen releases are shown; anything beyond that is summarised as "…and N more".
+- Up to five news stories ride along in the same message, each with the name of the outlet that published it and a link to the original. Percy never reproduces the article — you get the headline and a teaser, and you read the rest at the source.
+- Anything that does not fit either cap is not lost: it leads your next digest.
+- A comic appears when Percy first learns about it; a film or show appears on the day it is released. Film and TV dates are re-checked against TMDB nightly, so a date that moves moves your digest with it.
+- You are told about an item **once**, no matter how many of your subscriptions match it.
+- Following something today never dumps its backlog — only items Percy learned about after you subscribed reach you.
+
+## Managing what you follow
+
+Run `/subscriptions` for a list grouped by medium, with two controls underneath:
+
+<Steps>
+  <Step title="Remove a subscription">
+    Pick a row from the first menu to unfollow it immediately. `/unsubscribe` does the same thing in one step.
+  </Step>
+  <Step title="Change which updates a row sends">
+    Pick a row from the second menu to cycle its streams: releases → both → news → releases.
+  </Step>
+</Steps>
+
+The same list lives on the web at [percy.klappstuhl.me/account/subscriptions](https://percy.klappstuhl.me/account/subscriptions), where you can also search the whole catalogue for something to follow and mute a subscription without removing it.
+
+Everything you can follow is also browsable without signing in — see [Releases & news](/utility/catalogue), which is also where you mark what you have already read or watched. Following and marking are separate: a subscription decides what Percy tells you about, a mark records what you got to.
+
+## If your DMs are closed
+
+Percy cannot tell when a closed DM opens again, so it never retries forever. The first time a digest cannot be delivered, every one of your subscriptions is **muted** — nothing is deleted, and the list is exactly as you left it.
+
+To start receiving digests again, open your DMs for the server you share with Percy, then either un-mute the subscription on the [website](https://percy.klappstuhl.me/account/subscriptions) or run `/subscribe` on it again.
+
+<Tip>
+  Following a whole publisher is a firehose. If Marvel's full weekly list is too much, follow the two or three series you actually read instead — or follow the creator, which follows them onto whatever they work on next.
+</Tip>

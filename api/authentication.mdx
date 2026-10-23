@@ -1,0 +1,38 @@
+---
+title: "Authentication"
+description: "Send your token as a Bearer header on every server request."
+---
+
+Every request under `/guilds/{guild_id}/...` needs a token.
+
+```http
+Authorization: Bearer pct_YOUR_TOKEN
+```
+
+```bash
+curl https://percy.klappstuhl.me/api/v1/guilds/123456789012345678 \
+  -H "Authorization: Bearer pct_YOUR_TOKEN"
+```
+
+## Rules
+
+- The `guild_id` in the URL must be the server the token belongs to.
+- IDs are Discord snowflakes. Send them as strings of digits in the URL.
+- The token must have the scope the endpoint needs. Each endpoint lists its scope in the [reference](https://percy.klappstuhl.me/api).
+- `GET /guilds/{guild_id}` needs no particular scope. Any valid token for the server works.
+- `GET /bot/stats` needs no token. It is limited per IP address.
+
+## What can go wrong
+
+| Status | Code | Meaning |
+|---|---|---|
+| 401 | `missing_token` | No `Authorization` header |
+| 401 | `invalid_token` | The token is wrong or was revoked |
+| 403 | `guild_mismatch` | The token belongs to a different server |
+| 403 | `missing_scope` | The token lacks the scope this endpoint needs |
+
+See [Errors](/api/errors) for the full list.
+
+<Tip>
+  Test a new token with `GET /guilds/{guild_id}`. If that works, the token and server are right.
+</Tip>

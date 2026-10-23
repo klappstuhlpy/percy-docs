@@ -1,0 +1,35 @@
+---
+title: "Slash commands are missing"
+description: "Why a command doesn't show up when you type a slash, and what to try."
+---
+
+## Not every command is a slash command
+
+All Percy commands work with the prefix. Many also work as slash commands, but some are prefix-only. Prefix-only commands include `?ban`, `?fish`, `?hunt`, `?dig`, `?work`, `?weekly` and `?prestige`.
+
+If a command isn't in the `/` menu, run it with `?` or `@Percy`. `?help <command>` shows how.
+
+## You can only see commands you may use
+
+Percy hides admin and moderation slash commands from members who lack the matching permission. If a moderator can't see `/lockdown`, check that their role has the permission the command needs.
+
+## Other things to check
+
+<Steps>
+  <Step title="Percy was invited without slash commands">
+    The invite needs the `applications.commands` scope. [Invite Percy again](https://discord.com/oauth2/authorize?client_id=1070054930125176923&scope=bot+applications.commands&permissions=8) to the same server. You won't lose any settings.
+  </Step>
+  <Step title="Use Application Commands is denied">
+    In **Server Settings → Integrations → Percy**, check that your role may use commands in that channel. Also check the channel's permissions for **Use Application Commands**.
+  </Step>
+  <Step title="Refresh Discord">
+    Restart your Discord app, or press `Ctrl+R` on desktop. Discord caches the command list.
+  </Step>
+  <Step title="Check the command isn't turned off">
+    A moderator may have disabled it. See [Commands not working](/help/commands-not-working).
+  </Step>
+</Steps>
+
+<Note>
+  Discord limits a bot to 100 slash commands, so Percy can't offer every command as one.
+</Note>
