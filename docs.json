@@ -49,6 +49,7 @@
               "dashboard/changes-notifications",
               "dashboard/backup-templates",
               "dashboard/analytics",
+              "dashboard/music",
               "dashboard/webhooks",
               "dashboard/developers"
             ]
