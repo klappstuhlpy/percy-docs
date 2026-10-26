@@ -56,10 +56,12 @@ Pass the flag inline or select the platform from the slash-command dropdown:
 | `/shuffle` | Randomly reorder the queue |
 | `/seek <timestamp>` | Jump to a position in the current track |
 | `/volume <0–100>` | Set the playback volume |
-| `/queue` | View all tracks currently in the queue |
+| `/queue show` | View the queue and what played before, with buttons to queue tracks again |
 | `/forceskip` | Skip the current track immediately, bypassing DJ votes |
 | `/back` | Go back to the previous track |
-| `/jump-to <position>` | Jump to a specific position in the queue |
+| `/queue jump <position>` | Jump to a specific position in the queue |
+| `/queue move <position> <to>` | Move a queued track to another spot (DJs and members with Manage Server) |
+| `/queue remove <position>` | Remove a track from the queue (your own tracks, or any track as a DJ) |
 | `?cleanupleft` | Remove tracks added by members who have since left the voice channel |
 
 ### Examples
@@ -76,6 +78,31 @@ You can also use relative volume adjustments with a `+` or `-` prefix:
 /volume +10
 /volume -15
 ```
+
+<Tip>
+  The queue card from `/queue show` also has a **Remove a track** menu and a **Move a track** button, so you can tidy the queue without typing positions.
+</Tip>
+
+## Discover music
+
+Find something to play without knowing what to search for. Every discover card has a button on each track to add it to the queue, and **Play all** to queue the whole list. If Percy isn't playing yet, it joins your voice channel.
+
+| Command | Description |
+|---------|-------------|
+| `/discover history` | What this server played lately, and who queued it |
+| `/discover foryou` | Songs by the artists you play most, skipping ones you already play |
+| `/discover artist <name>` | An artist's top tracks |
+| `/discover album <link>` | Every track of an album, single or playlist link |
+
+```
+/discover foryou
+/discover artist Daft Punk
+/discover album https://open.spotify.com/album/...
+```
+
+<Note>
+  `/discover foryou` learns from what you queue with Percy. Play a few songs first and your picks show up.
+</Note>
 
 ## Audio filters
 

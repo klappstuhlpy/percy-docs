@@ -19,6 +19,8 @@ Each account gets up to **three** personal playlists. On top of that, every acco
 | `/playlist remove <playlist> <track-id>` | Remove a specific track from a playlist |
 | `/playlist clear <playlist>` | Remove all tracks from a playlist |
 | `/playlist play <playlist>` | Add all playlist tracks to the queue and start playing |
+| `/playlist rename <playlist> <new-name>` | Give a playlist a new name |
+| `/playlist cover <playlist> [link]` | Set a cover from an image link, or leave out the link to use the first song's cover |
 | `/playlist delete <playlist>` | Permanently delete a playlist and all its tracks |
 
 You can refer to a playlist by **name** or by its numeric **ID** — both work in every command that asks for a playlist.
@@ -56,6 +58,25 @@ You can refer to a playlist by **name** or by its numeric **ID** — both work i
     ```
   </Step>
 </Steps>
+
+## Names and covers
+
+Rename a playlist at any time. Liked Songs keeps its name.
+
+```
+/playlist rename Chill Vibes Late Night
+```
+
+Every playlist shows a cover in `/playlist show`. By default it's the cover of the first song. Set your own with an image link, or reset it:
+
+```
+/playlist cover Late Night https://example.com/cover.jpg
+/playlist cover Late Night
+```
+
+<Tip>
+  To upload an image instead of linking one, open the playlist in the web player and use **Change cover** on the cover. Covers, names and songs are shared between Discord and the web player.
+</Tip>
 
 ## Managing tracks
 
