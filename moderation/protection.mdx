@@ -1,0 +1,42 @@
+---
+title: "Protection"
+description: "AutoMod, raid protection, Sentinel verification and lockdown."
+---
+
+## AutoMod and raid protection
+
+`/moderation` shows the current configuration. Alerts and logs use webhooks, so Percy needs **Manage Webhooks** in the channel.
+
+| Command | What it does |
+|---|---|
+| `/moderation auditlog <channel>` | Audit log channel. `/moderation auditlog alter <flag> <true\|false>` picks events |
+| `/moderation alerts <channel>` | Channel for automatic action alerts |
+| `/moderation disable <auditlog\|alerts>` | Turn one off |
+| `/moderation raid [true\|false]` | Toggle raid protection |
+| `/moderation mentions <threshold>` | Ban members mentioning more than the threshold (3 to 100) |
+| `/moderation ignore <entity>`, `unignore` | Channels, roles or members skipped by automatic checks |
+
+Raid protection acts on a user sending 10 or more messages in 12 seconds, or the same message 5 or more times in 15 seconds. Heavy bursts from new accounts only flag a possible raid; Percy bans the members who sent several of those messages themselves.
+
+## Sentinel
+
+Sentinel holds new members in a verification channel until they solve an image captcha.
+
+1. A new member receives the lockdown role and sees only the verification channel.
+2. They press **Begin Verification** and enter the 6-character code within five minutes.
+3. On success Percy removes the lockdown role and optionally grants a post-verification role.
+4. Speaking elsewhere or joining voice before verifying triggers the bypass action (kick or ban).
+
+Set it up with `/moderation sentinel`: choose the verification channel, the lockdown role (below Percy's role; Percy can create "Unverified"), an optional post-verification role, deploy the captcha message, set the bypass action and an optional auto-trigger join rate, then **Activate**. **Sync Permissions** hides all other channels from the lockdown role. Percy needs Manage Roles, Ban Members, Kick Members and Manage Permissions in the verification channel. Deleting the channel or message deactivates Sentinel and posts an alert.
+
+## Lockdown
+
+Denies `@everyone` sending messages, reactions, slash commands and thread creation (voice channels also deny connecting). Requires **Ban Members** and **Manage Messages**; Percy needs Manage Roles.
+
+| Command | What it does |
+|---|---|
+| `/lockdown [channels]` | Lock channels now |
+| `/lockdown for <duration> [channels]` | Lock, then lift automatically |
+| `/lockdown end` | Restore all locked channels |
+
+Percy saves each channel's original `@everyone` overwrite and restores it. A channel that fails to unlock stays listed and is retried.

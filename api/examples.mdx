@@ -6,7 +6,7 @@ description: "Get a balance, add money and give an item with curl, JavaScript an
 Replace `GUILD_ID`, `USER_ID`, `ITEM_ID` and the token with your own values. Read the token from an environment variable, never from your source code.
 
 <Note>
-  Balance and inventory changes need a token with the right scope: `economy:read`, `economy:write` or `items:write`. See [Get a token](/api/tokens#scopes).
+  Balance and inventory changes need a token with the right scope: `economy:read`, `economy:write` or `items:write`. See [Get a token](/api/introduction#tokens).
 </Note>
 
 ## Get a balance
@@ -53,7 +53,7 @@ Response:
 
 `PATCH /guilds/{guild_id}/users/{user_id}` needs `economy:write`. Send signed amounts for `cash`, `bank` or both. Use a negative number to subtract. If either balance would drop below zero, nothing changes and you get `400 insufficient_funds`.
 
-Send an [Idempotency-Key](/api/idempotency) so a retry can't pay twice.
+Send an [Idempotency-Key](/api/introduction#idempotency) so a retry can't pay twice.
 
 <CodeGroup>
 
@@ -159,4 +159,4 @@ def call(method, url, **kwargs):
     return r
 ```
 
-See [Rate limits](/api/rate-limits) and [Errors](/api/errors).
+See [Rate limits](/api/introduction#rate-limits) and [Errors](/api/introduction#errors).

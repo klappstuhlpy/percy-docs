@@ -1,0 +1,37 @@
+---
+title: "Set up Percy"
+description: "Invite Percy, give it permissions and configure the basics."
+---
+
+<Steps>
+  <Step title="Invite Percy">
+    Open the [invite link](https://discord.com/oauth2/authorize?client_id=1070054930125176923&scope=bot+applications.commands&permissions=8) and pick your server. You need **Manage Server** there.
+  </Step>
+  <Step title="Move Percy's role up">
+    In **Server Settings, Roles**, place Percy's role above every role it should give or take away (level rewards, mute role, role menus, Sentinel).
+  </Step>
+  <Step title="Open the dashboard">
+    Go to the [dashboard](https://percy.klappstuhl.me/dashboard), pick your server and check **Setup status** on the **Configuration** page.
+  </Step>
+  <Step title="Enable features">
+    Logging, leveling, the economy and the music panel are configured from the dashboard.
+  </Step>
+</Steps>
+
+## Commands and prefix
+
+Commands work as slash commands and with the prefix `?`. Some are prefix-only; these docs write them with `?`. Change the prefix with `?prefix add` and `?prefix remove`.
+
+## Permissions
+
+The invite requests **Administrator**. With fewer permissions, grant at least:
+
+| Feature | Permissions |
+|---|---|
+| All features | View Channels, Send Messages, Embed Links, Attach Files, Read Message History, Add Reactions, Use External Emojis |
+| Moderation | Ban Members, Kick Members, Moderate Members, Manage Messages, Manage Channels, View Audit Log |
+| Roles (levels, mute, role menus, Sentinel) | Manage Roles, with Percy's role above those roles |
+| Music | Connect, Speak |
+| Logs | Manage Webhooks |
+
+Percy cannot assign or remove `@everyone`, integration-managed roles, or any role above its own. **Setup status** names the exact channel, role and permission when something is missing.

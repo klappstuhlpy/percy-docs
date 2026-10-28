@@ -1,124 +1,64 @@
 ---
 title: "Moderation"
-sidebarTitle: "Overview"
-description: "A full reference to Percy's moderation commands — ban, kick, mute, purge, and more — with required permissions and usage examples."
+description: "Moderation commands, cases and action requests."
 ---
 
-Percy's moderation commands cover bans, kicks, mutes, warnings and purges. Most need a moderator-level Discord permission, and Percy needs the same permission to carry the action out.
-
-<Note>
-  Most of these commands also work as slash commands. `?ban` and `?multiban` are prefix-only, so use `?ban`.
-</Note>
+AutoMod, Sentinel and lockdown are on [Protection](/moderation/protection).
 
 ## Commands
 
-| Command | Description | Required Permission |
-|---------|-------------|---------------------|
-| `/kick` | Kicks a member from the server. Refuses someone who is not in the server. | Kick Members |
-| `?ban` | Permanently bans a member or user ID from the server. | Ban Members |
-| `?multiban` | Bans multiple members at once, accepting a list of IDs. | Ban Members + Kick Members |
-| `/softban` | Bans then immediately unbans a member, removing their recent messages without a lasting ban. Refuses someone who is not in the server. If the unban step fails, Percy says the member is still banned and records the ban. | Kick Members |
-| `/unban` | Revokes an existing ban by username or user ID. | Ban Members |
-| `/tempban` | Temporarily bans a member for a specified duration; automatically lifts when time is up. | Ban Members |
-| `/mute` | Applies the configured mute role to one or more members indefinitely. | Manage Roles |
-| `/unmute` | Removes the mute role from one or more members, cancelling any pending expiry timer. | Manage Roles |
-| `/tempmute` | Temporarily mutes a member for a specified duration; automatically unmutes when time is up. | Manage Roles |
-| `/slowmode` | Sets the slowmode delay for the current channel, or pass `0s` to disable it. | Manage Channels |
-| `/purge` | Bulk-deletes messages that match the supplied filter flags. | Manage Messages |
+Percy needs the same permission as the moderator to carry out an action.
 
-## Who can act on whom
+| Command | What it does | Permission |
+|---|---|---|
+| `/kick` | Kick a member | Kick Members |
+| `?ban` | Ban a member or user ID | Ban Members |
+| `?multiban` | Ban several IDs | Ban Members, Kick Members |
+| `/softban` | Ban and unban to remove recent messages | Kick Members |
+| `/unban` | Revoke a ban | Ban Members |
+| `/tempban` | Ban for a duration (`30m`, `2h`, `3d`) | Ban Members |
+| `/mute`, `/unmute` | Add or remove the mute role (`?muterole` sets it) | Manage Roles |
+| `/tempmute` | Timed mute | Manage Roles |
+| `/warn <member> [reason]` | Warn and record | Kick Members |
+| `/slowmode` | Channel slowmode (`0s` disables) | Manage Channels |
+| `/purge` | Bulk delete with filters | Manage Messages |
 
-Every moderation action follows one rule: you cannot act on yourself, Percy or the server owner, and your top role must be strictly higher than the member's (the server owner is exempt). Bans and kicks also need Percy's top role above the member's. Mutes only need the mute role to sit below Percy's top role, so a low-ranked Percy can still mute. Warnings do not require Percy to outrank the member. Members you cannot act on are listed as skipped, and long skipped lists are cut off with an "and N more" count. A muted moderator cannot unmute themselves.
+You cannot act on yourself, Percy or the owner, and your top role must be above the target's (the owner is exempt). Bans and kicks also need Percy's top role above the target's. The dashboard applies the same rules. Banning, unbanning, muting or unmuting cancels the member's earlier timed action.
 
-The dashboard applies the same rules: each action needs the same permission as the matching command (Ban Members to ban, Manage Roles to mute or change roles) and the same hierarchy, and you can only give or take roles below your own top role. `@everyone` and integration-managed roles are refused.
+### Purge flags
 
-## Examples
-
-### Banning a member
-
-```
-?ban @User#1234 Spamming in general
-```
-
-Permanently bans the mentioned user and records the reason in the audit log.
-
-### Temporary ban
-
-```
-/tempban @User#1234 3d Breaking server rules
-```
-
-Bans the member for **3 days**, then automatically unbans them. Duration accepts short forms such as `30m`, `2h`, `3d`.
-
-### Bulk-purging messages
-
-```
-/purge 50 --bot
-```
-
-Deletes up to 50 messages sent by bots in the current channel. You can combine multiple flags — see the full flag list below.
-
-### Timed mute
-
-```
-/tempmute 10m @User#1234 Cooldown
-```
-
-<Note>
-  `/mute` needs your top role above the mute role and says why when it is not (the server owner can always mute). A mute role level with Percy's own top role is refused, and if the mute role was deleted, the mute commands tell you to set up a new one with `?muterole`. Unbinding the mute role leaves muted members with the role.
-</Note>
-
-<Note>
-  Use `/tempmute` for a mute that automatically expires. `/mute` applies the mute role indefinitely until you manually run `/unmute`.
-</Note>
-
-## Purge Flags
-
-The `/purge` command accepts optional flags to narrow which messages are deleted:
-
-| Flag | Description |
-|------|-------------|
-| `--user @User` | Only remove messages from a specific user |
-| `--contains <text>` | Only remove messages containing this string (case-sensitive) |
-| `--prefix <text>` | Only remove messages starting with this string |
-| `--suffix <text>` | Only remove messages ending with this string |
-| `--after <message ID>` | Only search messages after a specific message ID |
-| `--before <message ID>` | Only search messages before a specific message ID |
-| `--delete-pinned` | Also delete pinned messages (skipped by default) |
-| `--bot` | Only remove messages from bots (excludes webhooks) |
-| `--webhooks` | Only remove messages from webhooks |
-| `--embeds` | Only remove messages that contain embeds |
-| `--files` | Only remove messages that contain file attachments |
-| `--emoji` | Only remove messages that contain custom emoji |
-| `--reactions` | Only remove messages that have reactions |
-| `--require any\|all` | Whether **any** or **all** flags must match before deleting (default: `all`). With `any`, only messages matching one of your filters are deleted |
-
-A `/purge` with no filters asks for confirmation. If a purge runs out of time, Percy says so. You can purge messages of someone who has left the server.
-
-## Timed bans and mutes
-
-Banning, unbanning, muting or unmuting, by command or from the dashboard, cancels the member's old tempban or tempmute timer, so an old timer cannot undo a newer action. A timed action that cannot end on time (a Discord outage, a missing permission) is retried for about a day, and Percy tells your alert channel when a permission is missing. Pending mutes are saved before Percy restarts.
+`--user`, `--contains`, `--prefix`, `--suffix`, `--after <id>`, `--before <id>`, `--bot`, `--webhooks`, `--embeds`, `--files`, `--emoji`, `--reactions`, `--delete-pinned`, and `--require any|all` (default `all`). A purge with no filters asks for confirmation.
 
 ## Cases
 
-Percy records a case for every moderation action, including automatic ones. See [Cases and the moderation log](/moderation/cases).
+<Frame>
+  <img src="/images/home-8-modlog.webp" alt="A moderation case in the moderation log" />
+</Frame>
 
-## More in this section
+Every moderation action, manual or automatic, creates a numbered case. Numbers are never reused.
 
-<CardGroup cols={2}>
-  <Card title="Cases" icon="folder" href="/moderation/cases">
-    List, edit and delete cases, and post them to a log channel.
-  </Card>
-  <Card title="Action requests" icon="hand" href="/moderation/requests">
-    Let trusted members ask a moderator to approve an action.
-  </Card>
-  <Card title="AutoMod" icon="shield-halved" href="/moderation/automod">
-    Configure spam detection, raid protection, and mention-spam auto-bans.
-  </Card>
-  <Card title="Sentinel" icon="lock" href="/moderation/sentinel">
-    Set up captcha verification to gate new members joining your server.
-  </Card>
-  <Card title="Lockdown" icon="door-closed" href="/moderation/lockdown">
-    Instantly pause channel activity during raids or emergencies.
-  </Card>
-</CardGroup>
+| Command | What it does |
+|---|---|
+| `?cases <user>` | List a member's cases (aliases `warnings`, `history`, `modlogs`) |
+| `?case <number>` | Show one case |
+| `?reason <number> <text>` | Change a reason; the log post updates |
+| `?delcase <number>` | Delete a case and its log post |
+| `?modlog set <channel>`, `?modlog disable` | Post cases to a channel, or stop |
+
+The dashboard **Members** page shows case history and can export cases as CSV.
+
+## Action requests
+
+<Frame>
+  <img src="/images/home-9-request.webp" alt="An action request with Approve and Deny buttons" />
+</Frame>
+
+A member with a requester role (or **Manage Messages**) can request an action they cannot run themselves. Percy posts it with Approve and Deny buttons in the request channel; the action runs only if a moderator with the matching permission approves. The first decision wins, and nobody can decide their own request.
+
+| Command | What it does |
+|---|---|
+| `/request create <action> <member> <reason> [duration]` | File a request |
+| `/request list` | Your last 10 requests |
+| `/request cancel <id>` | Withdraw a pending request |
+
+Requestable actions: `kick`, `warn`, `ban`, `softban`, `mute`, `unmute`, `timeout`, `untimeout`. Not requestable: `purge`, `unban`. Pending requests expire after 24 hours; finished requests and notifications are removed after 90 days. Set the request channel and requester roles on the dashboard **Notifications** page.

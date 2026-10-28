@@ -1,54 +1,68 @@
 ---
-title: "Leveling and community"
-sidebarTitle: "Overview"
-description: "Reward activity with XP and rank cards, and run polls, giveaways, tags, role menus and a starboard."
+title: "Community"
+description: "Polls, giveaways, tags, starboard, role menus and highlights."
 ---
 
-These features turn a server into a community. Each one is separate, and each stays off until you set it up.
+Leveling has its own page: [Leveling](/community/leveling).
 
-<Frame>
-  <img src="/images/home-5-rank-card.webp" alt="A Percy rank card showing level, XP and rank" />
-</Frame>
+## Polls
 
-<CardGroup cols={2}>
-  <Card title="Leveling and rank cards" icon="chart-line" href="/community/leveling">
-    XP for messages and voice, rank cards, level-up roles and a leaderboard.
-  </Card>
-  <Card title="Polls" icon="chart-bar" href="/community/polls">
-    Timed polls with up to 8 options and a vote history.
-  </Card>
-  <Card title="Giveaways" icon="gift" href="/community/giveaways">
-    Timed giveaways with automatic winners.
-  </Card>
-  <Card title="Highlights" icon="highlighter" href="/community/highlights">
-    Get a DM when your keywords come up.
-  </Card>
-  <Card title="Tags" icon="tag" href="/community/tags">
-    Reusable text snippets, shared by the server.
-  </Card>
-  <Card title="Role menus" icon="mouse-pointer-click" href="/community/rolemenu">
-    Let members pick their own roles.
-  </Card>
-  <Card title="Starboard" icon="star" href="/community/starboard">
-    Repost the messages members love.
-  </Card>
-</CardGroup>
-
-## Quick starts
-
-| I want to | Do this |
+| Command | What it does |
 |---|---|
-| Start XP and level-up announcements | Open **Leveling** on the dashboard and use the one-step setup, or run `/level config toggle` |
-| See my rank | `/level` |
-| Change my rank card | `/level card` |
-| Run a poll | `/polls create` |
-| Start a giveaway | `/giveaway create` |
+| `/polls create` | Create a poll (options, duration, optional banner) |
+| `/polls edit`, `/polls end`, `/polls delete` | Change, close or remove a poll |
+| `/polls search`, `/polls history` | Find past polls |
+| `/polls config` | Server poll settings |
+| `/polls ask <description>` | AI: build a poll from a description. See [AI](/ai/overview) |
 
-## On the dashboard
+## Giveaways
 
-Under **Features** and **Community** in the sidebar you can set up leveling, polls, giveaways, tags, role menus and the starboard without commands. See [Dashboard and setup](/dashboard/overview).
+| Command | What it does |
+|---|---|
+| `/giveaway create` | Start a giveaway (prize, duration, winners) |
+| `/giveaway end` | End one early and draw winners |
+| `/giveaway quick <description>` | AI: build one from a description |
 
-## Need help?
+## Tags
 
-- [Percy can't assign or remove a role](/help/role-hierarchy)
-- [A log or feed channel stopped posting](/help/feed-stopped-posting)
+Saved text snippets, called with `/tag <name>`.
+
+| Command | What it does |
+|---|---|
+| `/tag create`, `/tag make` | Create a tag |
+| `/tag edit`, `/tag delete`, `/tag alias` | Change, remove or alias a tag |
+| `/tag info`, `/tag raw`, `/tag list`, `/tag stats` | Inspect tags |
+| `/tag search <query>` | Search by name |
+| `/tag find <question>` | AI: find a tag by meaning |
+| `/tag claim`, `/tag transfer` | Take ownership of an orphaned tag; give one away |
+| `/tag export`, `/tag purge` | Export all tags; remove a member's tags |
+
+## Starboard
+
+Messages that reach a reaction threshold are reposted to a channel.
+
+| Command | What it does |
+|---|---|
+| `/starboard channel`, `emoji`, `threshold` | Where, which emoji, how many reactions |
+| `/starboard toggle`, `selfstar`, `nsfw`, `maxage` | Enable; allow self-stars; allow NSFW; maximum message age |
+| `/starboard ignore`, `/starboard top` | Exclude channels; top messages |
+
+## Role menus
+
+| Command | What it does |
+|---|---|
+| `/rolemenu create`, `/rolemenu delete` | Create or delete a menu |
+| `/rolemenu add`, `/rolemenu remove` | Add or remove a role entry |
+| `/rolemenu unique` | Allow only one role from the menu |
+
+Percy's role must be above the roles in the menu.
+
+## Highlights
+
+Get a DM when a keyword appears in a channel you can see.
+
+| Command | What it does |
+|---|---|
+| `?highlight add <trigger>`, `remove`, `list` | Manage your keywords |
+| `?highlight block <user_or_channel>`, `unblock`, `blocked` | Silence sources |
+| `?highlight import <server>` | Copy keywords from another server |

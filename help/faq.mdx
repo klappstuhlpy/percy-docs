@@ -1,0 +1,33 @@
+---
+title: "FAQ"
+description: "Common problems and fixes."
+---
+
+<AccordionGroup>
+  <Accordion title="Percy does not answer or refuses a command">
+    Check that Percy can view and send messages in the channel, that the command is not disabled or restricted on the dashboard **Commands** page, and that you have the permission it needs. If you changed the prefix, use the new one.
+  </Accordion>
+  <Accordion title="Slash commands are missing">
+    Re-invite Percy with the `applications.commands` scope using the [invite link](https://discord.com/oauth2/authorize?client_id=1070054930125176923&scope=bot+applications.commands&permissions=8), check **Server Settings, Integrations** for command restrictions, and restart Discord to refresh its command cache.
+  </Accordion>
+  <Accordion title="Percy cannot assign or remove a role">
+    Percy's role must be above the role, and the role must not be `@everyone` or integration-managed. Percy also needs Manage Roles. See [Set up Percy](/getting-started/setup#permissions).
+  </Accordion>
+  <Accordion title="The dashboard says I cannot manage my server">
+    You need to own the server or have **Manage Server**, and be logged in to the right Discord account. If Percy is not in the server yet, the dashboard shows an **Add Percy** button.
+  </Accordion>
+  <Accordion title="A log or feed channel stopped posting">
+    The channel may have been deleted, the log type switched off, or Percy may have lost a permission such as Manage Webhooks. Percy reports these in your alerts channel and on the dashboard **Notifications** page.
+  </Accordion>
+  <Accordion title="My economy numbers differ from the docs">
+    `?economy-config` shows the server's payout multiplier. Without the matching tool, `?fish`, `?hunt` and `?dig` pay 60%. A loot boost raises them; `/perks` shows active boosts.
+  </Accordion>
+  <Accordion title="How do I reset something?">
+    `?prefix reset` resets prefixes, `/filter reset` music filters, `/reminder purge` reminders, `/settings timezone reset` your timezone, `/playlist clear` or `/playlist delete` a playlist, `/pet abandon` your pet, `/job quit` your job. `/settings remove-personal-data` erases your stored personal data.
+  </Accordion>
+  <Accordion title="What data does Percy store?">
+    See the [Privacy Policy](/legal/privacy-policy). Export your data with `/settings request-data`.
+  </Accordion>
+</AccordionGroup>
+
+Still stuck: ask in the [support server](https://discord.gg/3jSYQ9VNbA) and include the command and Percy's answer.

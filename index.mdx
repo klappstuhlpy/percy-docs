@@ -1,63 +1,39 @@
 ---
-title: "Percy guide"
-sidebarTitle: "Welcome"
-description: "Percy is a multipurpose Discord bot: moderation, economy, music, leveling and community tools. Find the section you need and get answers fast."
+title: "Percy"
+description: "A Discord bot with an economy, games, leveling, moderation, music and a web dashboard."
 ---
 
-Percy is a Discord bot for moderation, a per-server economy, music, leveling and community tools. You run it with commands in Discord and manage it from a [web dashboard](https://percy.klappstuhl.me/dashboard/).
-
-This guide is task-based. Each section starts with an overview, then short articles that tell you how to do one thing.
-
-<Note>
-  Not every command is a slash command. All commands work with the prefix (`?` by default, or `@Percy`). Many also work as slash commands. Type `/` in Discord to see which ones you get.
-</Note>
-
-## Start here
+Percy is a Discord bot with an economy, games, leveling, moderation, a music player and a web dashboard. Every command works as a slash command (`/daily`) and with the prefix `?` (`?daily`).
 
 <CardGroup cols={2}>
-  <Card title="Getting started" icon="rocket" href="/getting-started/invite">
-    Invite Percy, run the first setup and check its permissions.
+  <Card title="Add Percy" icon="plus" href="https://discord.com/oauth2/authorize?client_id=1070054930125176923&scope=bot+applications.commands&permissions=8">
+    Invite Percy to your server.
   </Card>
-  <Card title="Dashboard and setup" icon="gauge" href="/dashboard/overview">
-    Log in, check what works, set up logging and manage commands.
+  <Card title="Set up" icon="rocket" href="/getting-started/setup">
+    Permissions and first configuration.
   </Card>
-  <Card title="Common questions" icon="circle-help" href="/help/overview">
-    Commands not working? Percy can't assign a role? Start here.
+  <Card title="Dashboard" icon="gauge" href="/dashboard/overview">
+    Manage settings on the web.
   </Card>
-  <Card title="API" icon="code" href="/api/introduction">
-    Read and change your server's economy from your own code.
+  <Card title="FAQ" icon="circle-help" href="/help/faq">
+    Fixes for common problems.
   </Card>
 </CardGroup>
 
 ## Features
 
-<CardGroup cols={2}>
-  <Card title="Earning money" icon="coins" href="/earning/overview">
-    Daily rewards, jobs, fishing, hunting, pets, quests and prestige.
-  </Card>
-  <Card title="Items and shop" icon="store" href="/items/overview">
-    Buy, use, sell, gift and trade items. Build your own shop.
-  </Card>
-  <Card title="Playing games" icon="dices" href="/games/overview">
-    Casino games, duels, puzzles and the server lottery.
-  </Card>
-  <Card title="Leveling and community" icon="users" href="/community/overview">
-    XP and rank cards, polls, giveaways, tags, role menus and the starboard.
-  </Card>
-  <Card title="Moderation" icon="gavel" href="/moderation/overview">
-    Cases, AutoMod, Sentinel, lockdowns and action requests.
-  </Card>
-  <Card title="Music" icon="music" href="/music/overview">
-    Play music, save playlists and keep Percy in voice 24/7.
-  </Card>
-  <Card title="Utility" icon="wrench" href="/utility/overview">
-    Reminders, release subscriptions, autoresponders and tools.
-  </Card>
-  <Card title="AI (optional)" icon="sparkles" href="/ai/overview">
-    An optional, off-by-default assistant for servers that turn it on.
-  </Card>
-</CardGroup>
+| Area | Page |
+|---|---|
+| Economy, jobs, pets, shop and items | [Economy](/earning/overview) |
+| Casino and party games, lottery | [Games](/games/overview) |
+| XP, rank cards, reward roles | [Leveling](/community/leveling) |
+| Polls, giveaways, tags, starboard, role menus, highlights | [Community](/community/overview) |
+| Bans, mutes, cases, request approvals | [Moderation](/moderation/overview) |
+| AutoMod, Sentinel, lockdown | [Protection](/moderation/protection) |
+| Voice playback, playlists, web player | [Music](/music/overview) |
+| Reminders, settings, tools, autoresponders, temporary channels | [Utility](/utility/overview) |
+| Comic and film/TV release subscriptions, news | [Releases and news](/utility/releases) |
+| Optional self-hosted AI layer | [AI](/ai/overview) |
+| Token-based HTTP API for the economy | [API](/api/introduction) |
 
-## Need help?
-
-Join the [Percy Support Server](https://discord.gg/3jSYQ9VNbA) and ask. Include the command you ran and what Percy answered.
+Support: [Discord server](https://discord.gg/3jSYQ9VNbA).

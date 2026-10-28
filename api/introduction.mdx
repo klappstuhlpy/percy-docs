@@ -1,76 +1,61 @@
 ---
-title: "Percy API"
-sidebarTitle: "Introduction"
-description: "Read and change a server's economy, items, inventories and levels from your own code."
+title: "API"
+description: "Token-based HTTP API for a server's economy, items and leveling."
 ---
-
-The Percy API lets your own bot, website or script work with your server's economy. Server admins create the tokens, and each token is limited to one server and the scopes you tick.
 
 | | |
 |---|---|
-| **Base URL** | `https://percy.klappstuhl.me/api/v1` |
-| **Reference** | [percy.klappstuhl.me/api](https://percy.klappstuhl.me/api) |
-| **Format** | JSON over HTTPS |
-| **Auth** | `Authorization: Bearer pct_...` |
+| Base URL | `https://percy.klappstuhl.me/api/v1` |
+| Reference | [percy.klappstuhl.me/api](https://percy.klappstuhl.me/api) |
+| Format | JSON over HTTPS |
+| Auth | `Authorization: Bearer pct_...` |
 
-The reference lists every endpoint, field and response. This guide covers what you need to get started.
+The reference lists every endpoint, field and response.
 
-## What you can do
+## Tokens
 
-| Area | Examples | Scope |
-|---|---|---|
-| Server | Read the server's name and economy settings | any token |
-| Balances | List the richest members, read, add to, subtract from or set a balance | `economy:read`, `economy:write` |
-| Items | List, read, create, edit and delete shop items | `items:read`, `items:write` |
-| Inventory | Read a member's items, give items, take items | `items:read`, `items:write` |
-| Leveling | Read the leaderboard and a member's level | `leveling:read` |
-| Bot | Public bot statistics, no token needed | none |
+Create tokens on the dashboard **Developers** page (Manage Server required). A token starts with `pct_`, is shown once, belongs to one server, and a server can hold 10 active tokens. Revoking takes effect immediately. Changes made with a token appear in the change log as `api:<token name>`.
 
-## Quick start
+| Scope | Allows |
+|---|---|
+| `economy:read` | Balances, richest members |
+| `economy:write` | Change balances |
+| `items:read` | Shop, member inventories |
+| `items:write` | Create, edit, delete items; give and take inventory |
+| `leveling:read` | Levels and leaderboard |
 
-<Steps>
-  <Step title="Create a token">
-    On your server's **Developers** page, create a token with the scopes you need. See [Get a token](/api/tokens).
-  </Step>
-  <Step title="Send a request">
-    ```bash
-    curl https://percy.klappstuhl.me/api/v1/guilds/GUILD_ID \
-      -H "Authorization: Bearer pct_YOUR_TOKEN"
-    ```
-  </Step>
-  <Step title="Read the answer">
-    Percy returns the server's name and economy settings. Errors always use the same [error shape](/api/errors).
-  </Step>
-</Steps>
+`GET /guilds/{guild_id}` needs only a valid token for that server. `GET /bot/stats` needs no token.
 
-## Good to know
+```bash
+curl https://percy.klappstuhl.me/api/v1/guilds/GUILD_ID \
+  -H "Authorization: Bearer pct_YOUR_TOKEN"
+```
 
-- A token works for one server. Using it on another server returns `403 guild_mismatch`.
-- Requests are limited to 60 per minute per token. See [Rate limits](/api/rate-limits).
-- Retry writes safely with an [Idempotency-Key](/api/idempotency).
-- Changes made through the API show up in the dashboard [change log](/dashboard/changes-notifications) as `api:<token name>`.
+## Rate limits
 
-## Pages in this section
+60 requests per minute per token, burst 20 (unauthenticated: 30 per minute per IP). Responses carry `X-RateLimit-Limit`, `X-RateLimit-Remaining` and `X-RateLimit-Reset`. Over the limit returns `429 rate_limited` with `Retry-After` in seconds.
 
-<CardGroup cols={2}>
-  <Card title="Get a token" icon="key" href="/api/tokens">
-    Create it, pick scopes, store it.
-  </Card>
-  <Card title="Authentication" icon="lock" href="/api/authentication">
-    How to send the token.
-  </Card>
-  <Card title="Rate limits" icon="gauge" href="/api/rate-limits">
-    60 per minute, burst 20.
-  </Card>
-  <Card title="Errors" icon="triangle-alert" href="/api/errors">
-    Error codes and what they mean.
-  </Card>
-  <Card title="Idempotency keys" icon="repeat" href="/api/idempotency">
-    Retry a write without doing it twice.
-  </Card>
-  <Card title="Examples" icon="terminal" href="/api/examples">
-    curl, JavaScript and Python.
-  </Card>
-</CardGroup>
+## Idempotency
 
-Looking for events pushed to your server? Use [outbound webhooks](/dashboard/webhooks).
+Send `Idempotency-Key` (1 to 64 characters of `A-Za-z0-9-_.:`) on balance `PATCH`, inventory `POST` and inventory `DELETE`. The same key and request within 24 hours returns the first response with `Idempotent-Replayed: true`. A different request with the same key returns `422 idempotency_key_reuse`; one still running returns `409 request_in_progress`.
+
+## Errors
+
+```json
+{ "error": { "code": "item_not_found", "message": "Item not found." } }
+```
+
+| Status | Codes |
+|---|---|
+| 400 | `invalid_request`, `invalid_body`, `invalid_id`, `invalid_query`, `unknown_field`, `invalid_idempotency_key`, `insufficient_funds` |
+| 401 | `missing_token`, `invalid_token` |
+| 403 | `guild_mismatch`, `missing_scope`, `forbidden` |
+| 404 | `item_not_found`, `guild_not_found`, `not_found` |
+| 409 | `item_exists`, `item_limit_reached`, `insufficient_items`, `request_in_progress`, `conflict` |
+| 422 | `idempotency_key_reuse` |
+| 429 | `rate_limited` |
+| 500, 502, 503 | `internal_error`, `upstream_unavailable`, `unavailable` |
+
+Use `code` in programs; `message` may change. Retry `5xx` and `429`, not other `4xx`.
+
+Examples: [curl, JavaScript and Python](/api/examples). For events pushed to you, use outbound webhooks on the [dashboard](/dashboard/overview).

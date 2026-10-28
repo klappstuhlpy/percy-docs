@@ -1,70 +1,42 @@
 ---
-title: "Dashboard and setup"
-sidebarTitle: "Overview"
-description: "Log in to the Percy dashboard, find your server and see what you can manage there."
+title: "Dashboard"
+description: "Manage Percy for your server on the web."
 ---
 
-The [dashboard](https://percy.klappstuhl.me/dashboard/) lets you manage Percy without typing commands. Everything you save there is applied by Percy right away.
+Log in at [percy.klappstuhl.me/dashboard](https://percy.klappstuhl.me/dashboard) with Discord. You can manage a server if you own it or have **Manage Server**. Changes apply immediately.
 
 <Frame>
-  <img src="/images/home-11-dashboard-overview.webp" alt="The server overview page of the Percy dashboard" />
+  <img src="/images/home-11-dashboard-overview.webp" alt="The server configuration page" />
 </Frame>
 
-## Log in and open a server
+Settings have no Save buttons. A banner at the bottom saves or discards all pending changes at once. `Ctrl+K` opens a page switcher.
 
-<Steps>
-  <Step title="Log in with Discord">
-    Click **Dashboard** and approve the Discord prompt. Percy asks to see who you are and which servers you are in. It can't read your messages or act as you.
-  </Step>
-  <Step title="Pick a server">
-    Your servers are listed in three groups:
+## Pages
 
-    - **Managed**: servers where Percy is present and you can manage it.
-    - **Servers you're in**: servers with Percy where you can't manage it. You can still open your own pages there.
-    - **Add Percy**: servers you manage that don't have Percy yet.
-  </Step>
-  <Step title="Use the sidebar">
-    The sidebar groups the pages: **Overview**, **Features**, **Community** and **Integrations**. Press `Ctrl+K` (or `Cmd+K`) to search for a page.
-  </Step>
-</Steps>
-
-## Who can manage a server
-
-You can manage a server in the dashboard if you own it or have the **Manage Server** permission. If a server you manage is missing or shows as not manageable, read [The dashboard says I can't manage my server](/help/dashboard-cant-manage).
-
-## Pages at a glance
-
-| Sidebar group | Pages |
+| Page | Contents |
 |---|---|
-| **Overview** | Notifications, Configuration, Members, AutoMod, Statistics, Analytics, Commands |
-| **Features** | Leveling, Economy, Music, Autoresponders, Comics, Temp Channels |
-| **Community** | Polls, Image Gallery, Giveaways, Tags, Role Menus, Starboard, Highlights, Emoji Stats |
-| **Integrations** | Webhooks, Backup & Templates, Developers |
-| **Personal** | My Profile |
+| Configuration | Server settings, logging, moderation, **Setup status** (checks that Percy can post and assign roles where configured) |
+| Notifications | Problems needing attention, [action requests](/moderation/overview#action-requests), and a change log (setting names only, kept 90 days) |
+| Members | Search, history, moderation actions |
+| Commands | Enable or disable commands per server or channel, set who may use them, ignore channels or members |
+| Analytics | Commands, failures, XP and new members over 24 hours to 1 year |
+| Leveling, Economy, Music, Polls, Giveaways, Tags | One page per feature, same settings as the commands |
+| Backup and Templates | Export and restore settings, autoresponders and tags (no channel or role IDs), or apply a shared template |
+| Webhooks | Signed JSON to your own URL on events such as `member.join`, `level.up`, `moderation.case` |
+| Developers | Create [API tokens](/api/introduction) (up to 10 per server) |
 
-<Note>
-  Settings cards have no Save button. When you change something, a banner appears at the bottom. Save or discard all your changes at once.
-</Note>
+Every member can open **My Profile** on shared servers: level, rank card, economy, command history and data settings.
 
-## Where to go next
+## Logging
 
-<CardGroup cols={2}>
-  <Card title="Setup status" icon="stethoscope" href="/dashboard/setup-status">
-    Check that Percy can post and assign roles where you configured it.
-  </Card>
-  <Card title="Set up logging" icon="clipboard-list" href="/dashboard/logging">
-    Send logs and alerts to one channel.
-  </Card>
-  <Card title="Command permissions" icon="toggle-right" href="/dashboard/command-permissions">
-    Turn commands on and off, per channel or server-wide.
-  </Card>
-  <Card title="Change log and notifications" icon="bell" href="/dashboard/changes-notifications">
-    See who changed what, and what needs attention.
-  </Card>
-  <Card title="Backup and templates" icon="archive" href="/dashboard/backup-templates">
-    Export your setup or start from a template.
-  </Card>
-  <Card title="Developers" icon="code" href="/dashboard/developers">
-    Create API tokens for your own bots and sites.
-  </Card>
-</CardGroup>
+**Configuration, Moderation, Quick setup: logging** sends the audit, moderation, message and voice logs and alerts to one channel; Percy can create a private `#percy-logs`. **Send test** posts a test message.
+
+| Command | What it does |
+|---|---|
+| `/moderation auditlog <channel>` | Set the audit log channel |
+| `/moderation auditlog alter <flag> <value>` | Choose which events are logged |
+| `/modlog set <channel>` | Post moderation cases to a channel |
+
+## Web music player
+
+Open [percy.klappstuhl.me/dashboard/music](https://percy.klappstuhl.me/dashboard/music) and pick a server. See [Music](/music/overview#web-player).

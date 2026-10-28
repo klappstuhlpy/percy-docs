@@ -1,164 +1,48 @@
 ---
 title: "Music"
-sidebarTitle: "Overview"
-description: "Play music from YouTube, Spotify, Apple Music, and SoundCloud — control playback, shape your sound with filters, and sync with friends."
+description: "Voice playback, queue, playlists and the web player."
 ---
 
-Percy's music player lets you stream tracks and playlists from the biggest music platforms directly into any voice or stage channel. Search by name or paste a URL, manage a live queue, shape your sound with audio filters, and even sync playback with what a friend is listening to on Spotify — all without leaving Discord.
-
 <Frame>
-  <img src="/images/home-7-music.webp" alt="The Percy music panel with now playing and queue" />
+  <img src="/images/home-7-music.webp" alt="The music player panel" />
 </Frame>
 
-## Quick start
+Join a voice channel and run `/play`. Percy needs Connect and Speak.
 
-Join a voice channel, then ask Percy to play something. Percy will join your channel automatically and start playing.
+## Playback
 
-```
-/play Never Gonna Give You Up
-/play https://open.spotify.com/track/... --source sp
-/play lofi beats --source yt
-```
+| Command | What it does |
+|---|---|
+| `/play <query or link>`, `/playsearch` | Queue a track, or pick from search results |
+| `/toggle`, `/pause`, `/resume` | Pause or resume |
+| `/forceskip`, `/back`, `/seek`, `/stop` | Skip, previous, jump to a position, stop |
+| `/loop`, `/shuffle`, `/volume` | Loop mode, shuffle, volume |
+| `/connect`, `/leave` | Join or leave voice |
+| `/queue show`, `jump`, `move`, `remove` | View and edit the queue |
+| `/filter bassboost`, `nightcore`, `lowpass`, `equalizer`, `reset` | Audio filters |
+| `/discover foryou`, `history`, `artist <name>`, `album <link>` | Recommendations and history |
+| `/music setup` | Create the player panel channel |
+| `/music radios`, `/music 247 <mode>` | Radio stations; 24/7 mode (`radio`, `playlist`, `autoplay`, `off`) |
+| `/vibe <description>` | AI: query and filter from a description |
 
-<Tip>
-  Use `/playsearch` instead of `/play` to browse a list of results and choose the exact track you want before it's added to the queue.
-</Tip>
+Queue editing and filters require DJ mode permissions where DJ mode is on. 24/7 mode stops if an admin disconnects Percy manually.
 
-## Source flags
+## Playlists
 
-By default, Percy searches YouTube Music. Use the `--source` flag to search a different platform.
+| Command | What it does |
+|---|---|
+| `/playlist create`, `rename`, `delete`, `show` | Manage playlists |
+| `/playlist add`, `remove`, `clear` | Edit tracks |
+| `/playlist play`, `/playlist cover` | Queue a playlist; set cover image |
 
-| Flag | Platform |
-|------|----------|
-| `yt` | YouTube / YouTube Music (default) |
-| `sp` | Spotify |
-| `sc` | SoundCloud |
-| `am` | Apple Music |
+## Web player
 
-Pass the flag inline or select the platform from the slash-command dropdown:
+[percy.klappstuhl.me/dashboard/music](https://percy.klappstuhl.me/dashboard/music); a green dot marks servers where Percy is playing.
 
-```
-/play synthwave mix --source sc
-/play dark academia playlist --source am
-```
+- **Home:** recently played, trending, picks from your top artists.
+- **Player:** queue, lyrics, volume, loop, shuffle. Controls unlock once you are in Percy's voice channel.
+- **Library:** liked songs and playlists, shared with the `/playlist` commands. Add songs from the **...** menu, the heart button, or by dragging onto a playlist.
+- **Queue editing and sound** (equalizer, filters): DJs and members with Manage Server.
+- **Session settings** (Manage Server): DJ mode and 24/7 mode.
 
-## Playback commands
-
-| Command | Description |
-|---------|-------------|
-| `/play <query>` | Search for a track or playlist and add it to the queue |
-| `/playsearch <query>` | Search and pick from a list of results |
-| `/connect [channel]` | Join a voice or stage channel |
-| `/leave` | Disconnect Percy from the voice channel |
-| `/stop` | Stop playback and clear the queue |
-| `/toggle` | Toggle between paused and playing (aliases: `/pause`, `/resume`) |
-| `/loop <mode>` | Loop the current `track`, the whole `queue`, or turn looping `off` |
-| `/shuffle` | Randomly reorder the queue |
-| `/seek <timestamp>` | Jump to a position in the current track |
-| `/volume <0–100>` | Set the playback volume |
-| `/queue show` | View the queue and what played before, with buttons to queue tracks again |
-| `/forceskip` | Skip the current track immediately, bypassing DJ votes |
-| `/back` | Go back to the previous track |
-| `/queue jump <position>` | Jump to a specific position in the queue |
-| `/queue move <position> <to>` | Move a queued track to another spot (DJs and members with Manage Server) |
-| `/queue remove <position>` | Remove a track from the queue (your own tracks, or any track as a DJ) |
-| `?cleanupleft` | Remove tracks added by members who have since left the voice channel |
-
-### Examples
-
-```
-/seek 1:30
-/volume 80
-/loop track
-```
-
-You can also use relative volume adjustments with a `+` or `-` prefix:
-
-```
-/volume +10
-/volume -15
-```
-
-<Tip>
-  The queue card from `/queue show` also has a **Remove a track** menu and a **Move a track** button, so you can tidy the queue without typing positions.
-</Tip>
-
-## Discover music
-
-Find something to play without knowing what to search for. Every discover card has a button on each track to add it to the queue, and **Play all** to queue the whole list. If Percy isn't playing yet, it joins your voice channel.
-
-| Command | Description |
-|---------|-------------|
-| `/discover history` | What this server played lately, and who queued it |
-| `/discover foryou` | Songs by the artists you play most, skipping ones you already play |
-| `/discover artist <name>` | An artist's top tracks |
-| `/discover album <link>` | Every track of an album, single or playlist link |
-
-```
-/discover foryou
-/discover artist Daft Punk
-/discover album https://open.spotify.com/album/...
-```
-
-<Note>
-  `/discover foryou` learns from what you queue with Percy. Play a few songs first and your picks show up.
-</Note>
-
-## Audio filters
-
-Filters shape the tone and texture of your audio in real time. Apply one or combine several to dial in your sound.
-
-| Filter | Effect |
-|--------|--------|
-| `/filter equalizer` | Manually adjust individual frequency bands |
-| `/filter bassboost` | Boost low-end frequencies |
-| `/filter nightcore` | Speed up and pitch-shift for a nightcore effect |
-| `/filter 8d` | Rotating 8D spatial audio effect |
-| `/filter lowpass` | Roll off high frequencies for a warmer sound |
-
-Use `/filter` on its own to see which filters are currently active, and `/filter reset` to clear all of them at once.
-
-```
-/filter bassboost
-/filter
-/filter reset
-```
-
-<Note>
-  Filters apply to everyone listening in the voice channel — not just you. Coordinate with your server before stacking multiple filters.
-</Note>
-
-## Listen together
-
-Sync Percy's playback with whatever a member is currently listening to on Spotify. Percy joins your voice channel, plays the same track, and seeks to the exact position they're at — then follows along as the song changes.
-
-```
-/listen-together start @Member
-/listen-together stop
-```
-
-Percy tracks the member's Spotify presence in real time. If they pause, skip, or switch tracks, Percy mirrors those changes automatically. Listen together stops if the member leaves Spotify or closes the session.
-
-## DJ system
-
-Server admins can grant trusted members a DJ role that gives them elevated control over the queue — including the ability to skip, stop, and adjust volume regardless of standard voting rules.
-
-```
-/dj add @Member
-/dj remove @Member
-```
-
-Grant the DJ role to members you trust to manage the music. Remove it the same way if they no longer need elevated control.
-
-## Lyrics
-
-Pull up lyrics for the current track — or any song — with a single command. Percy fetches synced, time-stamped lyrics when available and falls back to plain text automatically.
-
-```
-/lyrics
-/lyrics Never Gonna Give You Up
-```
-
-<Note>
-  Percy needs to be in a voice channel before most playback commands will work. If Percy isn't connected yet, run `/connect` to bring it into your channel first.
-</Note>
+Keys: `Space` play/pause, left/right seek, `M` mute, `/` search.

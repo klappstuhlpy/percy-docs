@@ -1,54 +1,36 @@
 ---
-title: "AI features"
-sidebarTitle: "Overview"
-description: "An optional, self-hosted AI layer. Every AI feature is off by default and opt-in per server."
+title: "AI"
+description: "Optional AI features running on a self-hosted Ollama model."
 ---
 
-Percy has an optional **AI layer** powered by a self-hosted [Ollama](https://ollama.com) model. It adds a conversational assistant, lets members phrase commands in plain language, and gives moderators an extra review signal — without changing how any existing command works.
+The AI layer is optional, off by default and enabled per server on the dashboard **AI** tab, with per-channel overrides. If the model is disabled, unreachable or unsure, Percy uses the normal command instead. The model runs on Percy's own server; message text is not sent to a third-party AI provider or stored for training.
 
-<Note>
-  Every AI feature is **off by default**. A server owner opts in per feature (and can scope each feature to specific channels) from the **AI** tab of the [dashboard](https://percy.klappstuhl.me/dashboard). With everything off, Percy behaves exactly as it always has.
-</Note>
+## Features
 
-## What the AI layer adds
+| Feature | Command | Fallback |
+|---|---|---|
+| Assistant | `?ask <question>`; replies thread into a conversation and may offer a button to run the recommended command | None |
+| Command router | Natural-language messages mapped to a command, run only after confirmation | Normal commands |
+| Polls | `/polls ask <description>` | `/polls create` |
+| Giveaways | `/giveaway quick <description>` | `/giveaway create` |
+| Music | `/vibe <description>` | `/play` |
+| Tags | `/tag find <question>` | `/tag search` |
+| Moderation flags | Posts an alert for review; never acts on its own | None |
 
-<CardGroup cols={2}>
-  <Card title="Assistant" icon="comments" href="/ai/assistant">
-    Ask Percy questions with `?ask`. Replies thread into a conversation, and Percy can hand you a button to run the real command it recommends.
-  </Card>
-  <Card title="Smart commands" icon="wand-magic-sparkles" href="/ai/smart-commands">
-    Phrase polls, giveaways, music, and tag lookups in plain language — Percy fills in the structured details for you.
-  </Card>
-  <Card title="Moderation signal" icon="shield-halved" href="/ai/moderation">
-    An opt-in review signal that flags potentially harmful messages for a human. It never punishes anyone on its own.
-  </Card>
-  <Card title="Self-hosting" icon="server" href="/ai/self-hosting">
-    Run the model yourself. Nothing is sent to a third-party AI provider.
-  </Card>
-</CardGroup>
+## Moderation flags
 
-## How it behaves
+A message is flagged only if the feature is on for the channel, the model is available, the author is not a bot, the owner or staff with Manage Messages, the author and channel are not on the AutoMod ignore list, the message is at least 16 characters, the verdict is harmful with confidence of at least 0.7, and the author has not triggered an alert in the last 15 seconds. Alerts go to the channel set with `/moderation alerts` or `/moderation auditlog`; a moderator can warn or kick from the alert (Kick Members required, recorded as a normal case).
 
-Three principles govern every AI feature:
+## Self-hosting
 
-- **Off by default, opt-in per server.** Each feature has its own toggle, plus optional per-channel overrides. You turn on only what you want, only where you want it.
-- **Graceful fallback.** If the model is disabled, unreachable, slow, or unsure, Percy silently falls back to its normal behavior. An AI hiccup never breaks a command or shows an error.
-- **AI suggests, it never acts irreversibly.** The AI extracts structured details, answers questions, and flags messages for review. Bans, kicks, and deletions always stay behind the existing commands and human review.
+| Variable | Purpose |
+|---|---|
+| `OLLAMA_ENABLED` | Master switch |
+| `OLLAMA_HOST` | Ollama URL |
+| `OLLAMA_FAST_MODEL` | Routing, tag find |
+| `OLLAMA_BALANCED_MODEL` | Moderation, polls, giveaways, music |
+| `OLLAMA_SMART_MODEL` | Assistant |
+| `OLLAMA_TIMEOUT` | Per-call timeout (seconds) |
+| `OLLAMA_MAX_CONCURRENCY` | Concurrent model calls |
 
-## Privacy
-
-The model runs on Percy's **own server** — message text is processed locally and is **not** sent to any third-party AI provider, and **not** stored for training. See the [Privacy Policy](/legal/privacy-policy) and the [self-hosting guide](/ai/self-hosting) for details.
-
-## Enabling AI
-
-<Steps>
-  <Step title="Open the dashboard">
-    Go to [percy.klappstuhl.me/dashboard](https://percy.klappstuhl.me/dashboard), pick your server, and open the **AI** tab.
-  </Step>
-  <Step title="Toggle the features you want">
-    Enable any of: assistant, smart commands (router, music, polls, giveaways, tags), and the moderation signal. Each is independent.
-  </Step>
-  <Step title="Scope to channels (optional)">
-    Add per-channel overrides if you want a feature only in certain channels — for example, the assistant only in `#ask-percy`.
-  </Step>
-</Steps>
+User text is treated as data and cannot change the system instructions; the assistant does not reveal them.

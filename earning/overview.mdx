@@ -1,94 +1,65 @@
 ---
-title: "Earning money"
-sidebarTitle: "Overview"
-description: "How the Percy economy works: cash and bank, the commands that pay, the payout multiplier and prestige."
+title: "Economy"
+description: "Coins, jobs, pets, items and the shop."
 ---
 
-Every member has a wallet on each server. Your coins on one server are separate from your coins on any other.
+Each server has its own economy. Coins are held as **cash** (spendable, robbable) or in the **bank** (safe).
 
 <Frame>
-  <img src="/images/home-4-economy-hub.webp" alt="The economy hub card showing balance, job, pet and quests" />
+  <img src="/images/home-4-economy-hub.webp" alt="The economy hub card" />
 </Frame>
 
-Run `/economy` to see your balance, job, pet, quests, badges and perks on one card. Use the menu to switch pages.
-
-## Cash and bank
-
-| Where | Use it for | Can be robbed? |
-|---|---|---|
-| **Cash** | Spending: the shop, games, transfers | Yes |
-| **Bank** | Safe storage | No |
-
-Move coins between them for free:
-
-```text
-/deposit 500
-/withdraw 500
-```
-
-Games and the shop always use **cash**. Withdraw first if your coins are in the bank.
-
-## The commands
+## Earn
 
 | Command | What it does |
 |---|---|
-| `/balance [@member]` | Cash, bank, the value of your items, net worth and server rank |
-| `/balance leaderboard` | The richest members |
-| `/transfer @member <amount>` | Send cash to another member |
-| `/daily`, `?weekly`, `?monthly` | Timed rewards. See [Daily, weekly and monthly](/earning/daily-rewards) |
-| `?work` | A shift at your job. See [Work and jobs](/earning/work-jobs) |
-| `?fish`, `?hunt`, `?dig` | Pay more with a tool. See [Fishing, hunting and digging](/earning/activities) |
-| `?beg`, `?search` | Quick, low-stakes cash |
-| `/pet` | A pet that earns for you. See [Pets](/earning/pets) |
-| `/quests`, `/achievements` | Daily goals and badges. See [Quests and achievements](/earning/quests-achievements) |
-| `/rob @member` | Steal cash from someone. See [Rob and shields](/earning/rob-shields) |
+| `/daily`, `?weekly`, `?monthly` | Timed rewards; daily builds a streak |
+| `?work` | Work a shift. `/job list`, `/job apply <name>`, `/job quit` |
+| `?beg`, `?search`, `?fish`, `?hunt`, `?dig`, `?postmemes` | Activities with random rewards and item drops. `?fish`, `?hunt` and `?dig` pay 60% and find no items without the matching tool |
+| `?crime` | Higher risk and reward |
+| `/quests` | Daily quests |
+| `?voteclaim` | Coins for voting on a bot list (`?vote`) |
+| `?cooldowns`, `?multipliers` | Ready activities; active boosts |
 
-<Note>
-  **Net worth** in `/balance` is cash plus bank plus what your items sell for. [Prestige](#prestige) checks only cash plus bank.
-</Note>
+## Manage money
 
-## Payout multiplier
+| Command | What it does |
+|---|---|
+| `/economy` | Standing summary card |
+| `/balance [member]`, `/balance leaderboard` | Cash and bank; server ranking |
+| `/deposit <amount>`, `/withdraw <amount>` | Move coins (`all` and `half` accepted) |
+| `/transfer <member> <amount>` | Send coins |
+| `/rob <member>`, `/heist <member>` | Steal cash, alone or with a crew. `/passive` opts out both ways |
+| `?prestige` | Reset wealth for a permanent payout bonus |
+| `/pet adopt <species>`, `/pet feed`, `/pet claim` | A pet that earns while you are away |
+| `/achievements`, `?collection`, `?profile [member]` | Badges, item drops, profile card |
 
-Every earning command is scaled by two numbers multiplied together:
+## Items and shop
 
-- The **payout multiplier** your server sets, from 0.1 to 10. The default is 1.
-- Your **prestige bonus**.
+Items are bought, found, used, sold, gifted or traded. The shop and inventory are interactive cards. Rarity (Common to Legendary) is cosmetic. Percy's built-in items (tools and drops) cannot be edited; server items are managed by admins.
 
-When a bonus applies, Percy adds a note such as `(x1.20 payout bonus)` to the result. If your numbers differ from a friend's on another server, read [My economy numbers look different](/help/economy-numbers).
+| Command | What it does |
+|---|---|
+| `/shop`, `/inventory [member]` | Open the shop or an inventory |
+| `/item <name>` | Price, effect, stock |
+| `/buy <item> [quantity]`, `/sell <item> [quantity]` | Buy; sell back for half the price |
+| `/use <item> [quantity]` | Use an item |
+| `/gift <member> <item> [quantity]`, `/trade <member>` | Give items; swap items and cash |
+| `/perks [member]` | Active boosts |
+| `/shop edit` | Admins: edit server items |
 
-## Prestige
+Editing an item changes it in place. Removing an item deletes every copy members own and asks for confirmation. The dashboard **Economy** page has the same item editor.
 
-When your cash plus bank reaches the requirement, you can prestige. Percy resets your **cash and bank to 0** and gives you a permanent **+10% payout bonus** for each prestige level.
+## Server settings
 
-```text
-?prestige
-```
+Admins use the dashboard **Economy** page or `?economy-config`:
 
-Run it without the requirement to see your progress. Percy asks you to confirm before it resets anything.
-
-| Prestige level | Cash + bank needed | Bonus afterwards |
-|---|---|---|
-| 1 | 250,000 | +10% |
-| 2 | 500,000 | +20% |
-| 3 | 750,000 | +30% |
-| each level after | +250,000 more | +10% more |
-| 10 | 2,500,000 | +100% (the maximum) |
-
-<Note>
-  Prestige keeps your items, job, lifetime shifts, pet, quests and achievements. Only cash and bank reset.
-</Note>
-
-## For admins
-
-Set the multiplier, the base daily reward, robbing and the casino bet cap. See [Server economy settings](/earning/server-settings).
-
-## Next
-
-<CardGroup cols={2}>
-  <Card title="Items and shop" icon="store" href="/items/overview">
-    Spend your coins and use what you find.
-  </Card>
-  <Card title="Playing games" icon="dices" href="/games/overview">
-    Wager your cash in the casino.
-  </Card>
-</CardGroup>
+| Command | What it does |
+|---|---|
+| `?economy-config multiplier <value>` | Payout multiplier |
+| `?economy-config daily-base <amount>` | Base daily reward |
+| `?economy-config rob <on/off>` | Allow robbing |
+| `?economy-config max-bet <amount>` | Cap casino bets (`0` = no cap) |
+| `?economy-config bank-cap <on/off>` | Limit bank size |
+| `?economy-config drops <on/off>` | Random chat drops |
+| `/economy set-money`, `/economy remove-money`, `/economy add-money-role` | Edit balances |

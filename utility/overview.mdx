@@ -1,44 +1,54 @@
 ---
 title: "Utility"
-sidebarTitle: "Overview"
-description: "Reminders, release subscriptions, the catalogue, autoresponders, temporary voice channels, tools and your own settings."
+description: "Reminders, personal settings, tools, autoresponders and temporary channels."
 ---
 
-Utility covers everyday helpers for members and a few server automations.
+## Reminders
 
-<CardGroup cols={2}>
-  <Card title="Reminders" icon="alarm-clock" href="/utility/reminders">
-    Set one-off or repeating reminders in plain English.
-  </Card>
-  <Card title="Release subscriptions" icon="bell" href="/utility/subscriptions">
-    Follow comics, films, shows and people. Percy DMs you a digest.
-  </Card>
-  <Card title="Releases, news and the catalogue" icon="newspaper" href="/utility/catalogue">
-    Browse what just landed on the web, signed in or not.
-  </Card>
-  <Card title="Autoresponders" icon="reply" href="/utility/autoresponder">
-    Reply automatically to a keyword, phrase or regex.
-  </Card>
-  <Card title="Temporary voice channels" icon="mic" href="/utility/temp-channels">
-    A personal voice room for every member who joins a hub.
-  </Card>
-  <Card title="Tools" icon="wrench" href="/utility/tools">
-    Short links, pastes, QR codes and image tools.
-  </Card>
-  <Card title="Your settings" icon="settings" href="/utility/user-settings">
-    Timezone, tracking, and your data.
-  </Card>
-</CardGroup>
+Times are read in UTC unless you set a timezone.
 
-## Quick starts
-
-| I want to | Do this |
+| Command | What it does |
 |---|---|
-| Be reminded of something | `/remind in 2h to submit the report` |
-| Follow a series or a person | `/subscribe`. See [Release subscriptions](/utility/subscriptions) |
-| Set my timezone | `/settings timezone set Europe/Berlin` |
-| Export my data | `/settings request-data` |
+| `/reminder create <prompt> [flags]` | Create a reminder from natural language, e.g. `/reminder create submit the report in 2h`. Aliases: `/remindme`, `/remind`, `/timer`, `?remind` |
+| `/reminder list` | Active reminders with IDs |
+| `/reminder delete <id>` | Delete one |
+| `/reminder purge` | Delete all |
 
-<Tip>
-  Percy reads reminders in your own timezone. Set it once with `/settings timezone set`.
-</Tip>
+## Personal settings
+
+| Command | What it does |
+|---|---|
+| `/settings`, `/settings show` | Settings card: timezone and tracking toggles |
+| `/settings timezone set <timezone>`, `show`, `info <timezone>`, `reset` | Timezone |
+| `/settings request-data` | Export your data |
+| `/settings remove-personal-data` | Erase your stored personal data |
+
+Disabling a tracking toggle stops new collection; it does not delete existing data. See the [Privacy Policy](/legal/privacy-policy).
+
+## Tools
+
+| Command | What it does |
+|---|---|
+| `?shorten <url> [alias]` | Short link on `r.klappstuhl.me` |
+| `?paste <content>` | Hosted snippet with a highlighted link |
+| `?qr <data>`, `?preview <url>` | QR code; link preview metadata |
+| `?image blur\|pixelate\|deepfry\|invert\|grayscale\|convert\|info\|palette` | Image tools |
+| `?scan` | Scan an attachment for malware |
+| `?screenshot <url>` | Render a public page to PNG |
+
+## Autoresponders
+
+Reply automatically when a message matches a trigger.
+
+| Command | What it does |
+|---|---|
+| `/autoresponder add`, `remove`, `list`, `toggle` | Manage autoresponders (alias `/ar`) |
+
+## Temporary voice channels
+
+Joining a hub channel creates a personal voice channel for the member.
+
+| Command | What it does |
+|---|---|
+| `/temp set <channel> [format]` | Make a channel a hub. Format placeholders: `%name`, `%display_name`, `%channel`, `%guild` |
+| `/temp list`, `/temp remove <channel>`, `/temp purge` | List, remove one, remove all hubs |
