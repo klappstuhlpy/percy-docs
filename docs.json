@@ -7,10 +7,10 @@
     "light": "#9469f2",
     "dark": "#6e41cc"
   },
-  "favicon": "/images/percy_pfp_rounded_corners.png",
+  "favicon": "/images/favicon.ico",
   "logo": {
-    "light": "/images/percy_thumbnail.png",
-    "dark": "/images/percy_thumbnail.png",
+    "light": "/images/logo.jpg",
+    "dark": "/images/logo.jpg",
     "href": "https://percy.klappstuhl.me/"
   },
   "navbar": {
