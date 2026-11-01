@@ -186,7 +186,7 @@
     },
     {
       "source": "/community/highlights",
-      "destination": "/community/overview#highlights"
+      "destination": "/community/overview"
     },
     {
       "source": "/community/polls",
@@ -374,7 +374,7 @@
     },
     {
       "source": "/utility/autoresponder",
-      "destination": "/utility/overview#autoresponders"
+      "destination": "/utility/overview"
     },
     {
       "source": "/utility/catalogue",
