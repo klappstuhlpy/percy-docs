@@ -19,7 +19,12 @@ Percy needs the same permission as the moderator to carry out an action.
 | `/tempban` | Ban for a duration (`30m`, `2h`, `3d`) | Ban Members |
 | `/mute`, `/unmute` | Add or remove the mute role (`?muterole` sets it) | Manage Roles |
 | `/tempmute` | Timed mute | Manage Roles |
-| `/warn <member> [reason]` | Warn and record | Kick Members |
+| `/warn <member> [reason] [--points N]` | Warn and record; points weigh the warn toward the warn policy | Kick Members |
+| `?voicekick`, `?voiceban`, `?voiceunban` | Disconnect a member from voice; block or allow voice access | Move Members |
+| `?nick`, `?nickfreeze`, `?nickunfreeze` | Set a nickname; freeze or unfreeze it | Manage Nicknames |
+| `?channelmute`, `?channelunmute` | Mute a member in one channel | Manage Channels |
+| `?stickyrole add|remove|list` | Roles Percy restores when a member rejoins | Manage Roles |
+| `/report <member> <reason>` | Privately report a member; also **Report Message** in the message context menu | None |
 | `/slowmode` | Channel slowmode (`0s` disables) | Manage Channels |
 | `/purge` | Bulk delete with filters | Manage Messages |
 
@@ -28,6 +33,10 @@ You cannot act on yourself, Percy or the owner, and your top role must be above 
 ### Purge flags
 
 `--user`, `--contains`, `--prefix`, `--suffix`, `--after <id>`, `--before <id>`, `--bot`, `--webhooks`, `--embeds`, `--files`, `--emoji`, `--reactions`, `--delete-pinned`, and `--require any|all` (default `all`). A purge with no filters asks for confirmation.
+
+### Moderation settings and reports
+
+Under `?moderation settings` you can turn on DMing the member about an action, requiring a reason, re-inviting a member on unban, and the default number of days of messages a ban deletes. Reports need a report channel; Percy posts each report there with moderator action buttons, and refuses a report until a usable channel is set.
 
 ## Cases
 

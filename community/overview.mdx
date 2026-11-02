@@ -37,6 +37,18 @@ Saved text snippets, called with `/tag <name>`.
 | `/tag claim`, `/tag transfer` | Take ownership of an orphaned tag; give one away |
 | `/tag export`, `/tag purge` | Export all tags; remove a member's tags |
 
+## Custom commands and aliases
+
+Percy runs your own commands with typed arguments, flags, permissions, cooldowns and random responses. A bare `?cc` opens an interactive manager; the dashboard **Rules & Custom** page does the same.
+
+| Command | What it does |
+|---|---|
+| `?cc create`, `edit`, `rename`, `delete` | Manage a custom command |
+| `?cc addresponse`, `removeresponse` | Add or remove a random response |
+| `?cc list`, `info`, `raw` | Inspect custom commands |
+| `?alias add`, `remove`, `list` | Short names for existing commands |
+| `?config rule allow|deny|remove|list` | Per-role, channel or member command permissions; `?config explain` shows which rule decided |
+
 ## Starboard
 
 Messages that reach a reaction threshold are reposted to a channel.
