@@ -33,7 +33,7 @@ This site documents **Percy**, a multipurpose Discord bot, and the **Klappstuhl.
 
 ## Content boundaries
 
-- **Document:** every user-facing feature and command, the optional AI layer, and the **public Percy API** (economy, items, inventories, leveling) under the API tab. The API facts come from `percy-dashboard/static/api/openapi.yaml` and `percy-dashboard/src/api/`; its live reference is `https://percy.klappstuhl.me/api`.
+- **Document:** every user-facing feature and command, the optional AI layer, and the **public Percy API** (economy, items, inventories, leveling) under the API tab. The API facts come from `Percy-v2/dashboard/static/api/openapi.yaml` and `Percy-v2/dashboard/src/api/` (the dashboard lives in the Percy repo); its live reference is `https://percy.klappstuhl.me/api`.
 - The **Percy internal API** is **not documented here** — it's private infrastructure (localhost, shared bearer token). Contributors use the bot's self-hosted Scalar reference at `http://127.0.0.1:8090/docs`.
 - **Never document secrets:** tokens, `.env` values, internal hostnames/ports, or anything that would help bypass auth.
 - Don't invent commands or endpoints — mirror what the code actually exposes.
