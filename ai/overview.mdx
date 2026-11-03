@@ -10,7 +10,6 @@ The AI layer is optional, off by default and enabled per server on the dashboard
 | Feature | Command | Fallback |
 |---|---|---|
 | Assistant | `?ask <question>`; replies thread into a conversation and may offer a button to run the recommended command | None |
-| Command router | Natural-language messages mapped to a command, run only after confirmation | Normal commands |
 | Polls | `/polls ask <description>` | `/polls create` |
 | Giveaways | `/giveaway quick <description>` | `/giveaway create` |
 | Music | `/vibe <description>` | `/play` |
@@ -27,7 +26,7 @@ A message is flagged only if the feature is on for the channel, the model is ava
 |---|---|
 | `OLLAMA_ENABLED` | Master switch |
 | `OLLAMA_HOST` | Ollama URL |
-| `OLLAMA_FAST_MODEL` | Routing, tag find |
+| `OLLAMA_FAST_MODEL` | Tag find |
 | `OLLAMA_BALANCED_MODEL` | Moderation, polls, giveaways, music |
 | `OLLAMA_SMART_MODEL` | Assistant |
 | `OLLAMA_TIMEOUT` | Per-call timeout (seconds) |
